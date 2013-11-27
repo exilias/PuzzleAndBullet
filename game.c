@@ -1,8 +1,6 @@
-#include <amlib.h>
-#include <agdraw.h>
-#include <vdpreg.h>
-#include <math.h>
+#include "game.h"
 
+#include <math.h>
 #include "pad.h"
 
 
