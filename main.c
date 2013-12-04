@@ -20,7 +20,6 @@ void _rtl_exit(void)
 
 static u32 DrawBuffer[ 4096*10 ];
 
-
 void  main( void )  
 {
 	AGDrawBuffer DBuf;
