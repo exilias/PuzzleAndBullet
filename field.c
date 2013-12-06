@@ -19,3 +19,8 @@ void fieldInit()
 		}
 	}
 }
+
+void fieldFunc()
+{
+	
+}
