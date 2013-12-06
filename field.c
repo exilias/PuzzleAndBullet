@@ -2,7 +2,7 @@
 
 #define FPS					60
 #define UPDATE_INTERVAL		40
-#define ADD_BLOCK_INTERVAL	180
+#define ADD_BLOCK_INTERVAL	300
 
 int field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];	
 

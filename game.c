@@ -4,11 +4,13 @@
 #include <ax51401.h>
 #include "pad.h"
 #include "field.h"
+#include "player.h"
 
 #define BS(a) ((a) << 2)
 
 
-extern int field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];	
+extern int field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
+extern PlayerData playerData;
 
 // 乱数の初期化
 void setSrand()
@@ -22,12 +24,14 @@ void gameInit(void)
 	setSrand();
 
 	fieldInit();
+	playerInit();
 }
 
 
 void gameFunc(void)
 {
 	fieldFunc();
+	playerFunc();
 }
 
 

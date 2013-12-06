@@ -12,7 +12,7 @@ CGROMDIR = .
 CGROM = $(CGROMDIR)/export_0.bin
 
 # モジュール群
-C_SRC = main.c pad.c game.c field.c export.c
+C_SRC = main.c pad.c game.c field.c export.c player.c
 
 include $(ROOTDIR)/include/makefile.def
 
