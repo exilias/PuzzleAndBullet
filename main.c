@@ -69,6 +69,7 @@ void  main( void )
 	while( 1 ) {
 
 		gameFunc();
+		fieldFunc();
 
 		// ディスプレイリストの作成
 		agDrawBufferInit( &DBuf , DrawBuffer );
