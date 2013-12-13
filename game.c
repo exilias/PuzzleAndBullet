@@ -2,9 +2,9 @@
 
 #include <math.h>
 #include <ax51401.h>
-#include "pad.h"
 #include "field.h"
 #include "player.h"
+
 
 #define BS(a) ((a) << 2)
 

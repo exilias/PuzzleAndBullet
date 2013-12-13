@@ -1,4 +1,10 @@
+
+#include <amlib.h>
+
 #include "player.h"
+
+#include "pad.h"
+
 
 PlayerData playerData;
 
