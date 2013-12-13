@@ -9,10 +9,14 @@
 #define PLAYER_MODE_FALL		(7)
 #define PLAYER_MODE_ATTACK		(8)
 
-#define PLAYER_RUN_SPEED		(8)
+#define PLAYER_RUN_SPEED		(2)
+
+#define PLAYER_WIDTH	40
+#define PLAYER_HEIGHT	40
 
 
 typedef struct playerData {
+	int x, y;
 	int direction;
 	int count;
 	int mode;

@@ -39,6 +39,7 @@ void gameDraw(AGDrawBuffer *DBuf)
 {
 	int i, j;
 
+	// フィールドの描画
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 		for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
 			switch (field[i][j]) {
@@ -64,4 +65,9 @@ void gameDraw(AGDrawBuffer *DBuf)
 			agDrawSPRITE( DBuf, FALSE, BS(FIELD_ORIGIN_X + i * FIELD_BLOCK_SIZE), BS(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE), BS(FIELD_ORIGIN_X + i * FIELD_BLOCK_SIZE) + BS(FIELD_BLOCK_SIZE), BS(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE) + BS(FIELD_BLOCK_SIZE) );
 		}
 	}
+
+	// キャラクターの描画
+	agDrawSETFCOLOR(DBuf, ARGB(255, 255, 255, 40));
+	agDrawSETDBMODE( DBuf, 0xff, 0, 0, 1 );
+	agDrawSPRITE(DBuf, FALSE, BS(playerData.x), BS(playerData.y), BS(playerData.x + PLAYER_WIDTH), BS(playerData.y + PLAYER_HEIGHT));
 }
