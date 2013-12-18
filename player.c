@@ -98,6 +98,11 @@ int calcPlayer(int flag)
 				playerData.count = 0;
 				// ジャンプの効果音
 			}
+			else if (PadTrg()&PAD_A) {
+				playerData.mode = PLAYER_MODE_ATTACK;
+				playerData.count = 0;
+				addWeapon(&playerData);
+			}
 			else if (PadLvl()&PAD_RIGHT || PadLvl()&PAD_LEFT) {
 				if (PadLvl()&PAD_RIGHT) {
 					playerData.direction = 0;
@@ -246,11 +251,21 @@ int calcPlayer(int flag)
 			}
 			break;
 
+		case PLAYER_MODE_ATTACK:
+			playerData.count++;
+
+			if (playerData.count > 1) {
+				playerData.count = 0;
+				playerData.mode = PLAYER_MODE_WAIT;
+			}
+			break;
+
+
 		default:
 			break;
 	}
 
-	_dprintf("mode %d\n", playerData.mode);
+	//_dprintf("mode %d %d\n", playerData.x, playerData.y);
 
 	return 0;
 }

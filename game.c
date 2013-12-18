@@ -4,6 +4,7 @@
 #include <ax51401.h>
 #include "field.h"
 #include "player.h"
+#include "weapon.h"
 
 
 #define BS(a) ((a) << 2)
@@ -11,6 +12,7 @@
 
 extern FieldData field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 extern PlayerData playerData;
+extern WeaponData weapon[WEAPON_MAX_COUNT];
 
 // 乱数の初期化
 void setSrand()
@@ -25,6 +27,7 @@ void gameInit(void)
 
 	fieldInit();
 	playerInit();
+	weaponInit();
 }
 
 
@@ -32,6 +35,7 @@ void gameFunc(void)
 {
 	fieldFunc();
 	playerFunc();
+	weaponFunc();
 }
 
 
@@ -70,4 +74,14 @@ void gameDraw(AGDrawBuffer *DBuf)
 	agDrawSETFCOLOR(DBuf, ARGB(255, 255, 255, 40));
 	agDrawSETDBMODE( DBuf, 0xff, 0, 0, 1 );
 	agDrawSPRITE(DBuf, FALSE, BS(playerData.x), BS(playerData.y), BS(playerData.x + PLAYER_WIDTH), BS(playerData.y + PLAYER_HEIGHT));
+
+	// 武器の描画
+	for (i = 0; i < WEAPON_MAX_COUNT; i++) {
+		if (weapon[i].isActive) {
+			agDrawSETFCOLOR(DBuf, ARGB(255, 255, 255, 255));
+			agDrawSETDBMODE( DBuf, 0xff, 0, 0, 1 );
+			agDrawSPRITE(DBuf, FALSE, BS(weapon[i].x), BS(weapon[i].y), BS(weapon[i].x + WEAPON_BLOCK_SIZE), BS(weapon[i].y + WEAPON_BLOCK_SIZE));
+		}
+	}
+	
 }
