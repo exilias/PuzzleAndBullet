@@ -11,6 +11,8 @@
 WeaponData weapon[WEAPON_MAX_COUNT];
 extern FieldData field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
+void blockDestroy(int x, int y);
+
 void weaponInit()
 {
 	int i;
@@ -58,8 +60,10 @@ void weaponFunc()
 								weapon[k].isActive = FALSE;
 								//　ダメージ処理
 								field[i][j].hp -= weapon[k].attackPoint;
+								_dprintf("attack %d %d\n", field[i][j].hp, weapon[k].attackPoint);
 								if (field[i][j].hp <= 0) {
-									field[i][j].kind = FIELD_KIND_NONE;
+									_dprintf("delete\n");
+									blockDestroy(i, j);
 								} 
 							}
 						}
@@ -69,6 +73,31 @@ void weaponFunc()
 			}
 		}
 	}
+}
+
+void blockDestroy(int x, int y)
+{
+	int fieldKind = field[x][y].kind;
+	if (field[x][y].kind == FIELD_KIND_NONE) {
+		return;
+	}
+
+	field[x][y].kind = FIELD_KIND_NONE;
+
+	if (x-1 >= 0 && field[x-1][y].kind == fieldKind) {
+		blockDestroy(x-1, y);
+	}
+	if (x+1 < FIELD_SIZE_WIDTH && field[x+1][y].kind == fieldKind) {
+		blockDestroy(x+1, y);
+	}
+	if (y-1 >= 0 && field[x][y-1].kind == fieldKind) {
+		blockDestroy(x, y-1);
+	}
+	if (y+1 < FIELD_SIZE_HEIGHT && field[x][y+1].kind == fieldKind) {
+		blockDestroy(x, y+1);
+	}
+
+	return;
 }
 
 void addWeapon(void* playerData)
