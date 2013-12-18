@@ -7,9 +7,12 @@
 FieldData field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];	
 
 
-int getRandomBlock()
+void createRandomBlock(int x, int y)
 {
-	return rand() % 3 + 1;
+	field[x][y].kind = rand() % 3 + 1;
+	field[x][y].hp = 5;
+
+	return;
 }
 
 void fieldInit()
@@ -25,7 +28,7 @@ void fieldInit()
 
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 		for (j = FIELD_SIZE_HEIGHT - 2; j < FIELD_SIZE_HEIGHT; j++) {
-			field[i][j].kind = getRandomBlock();
+			createRandomBlock(i, j);
 		}
 	}
 }
@@ -43,6 +46,7 @@ void fieldFunc()
 				if (field[i][j].kind != FIELD_KIND_NONE) {
 					if (field[i][j+1].kind == FIELD_KIND_NONE) {
 						field[i][j+1].kind = field[i][j].kind;
+						field[i][j+1].hp = field[i][j].hp;
 						field[i][j].kind = FIELD_KIND_NONE;
 					}
 				}
@@ -52,7 +56,7 @@ void fieldFunc()
 
 	if (count % ADD_BLOCK_INTERVAL == 0) {
 		// 新たにブロックを生成する
-		field[rand()%FIELD_SIZE_WIDTH][0].kind = getRandomBlock();
+		createRandomBlock(rand()%FIELD_SIZE_WIDTH, 0);
 	}
 
 	count++;
