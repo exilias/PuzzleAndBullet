@@ -13,5 +13,11 @@
 #define FIELD_KIND_GREEN	2
 #define FIELD_KIND_BLUE		3
 
+typedef struct fieldData
+{
+	int kind;
+	int hp;
+}FieldData;
+
 void fieldInit();
 void fieldFunc();

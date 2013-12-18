@@ -9,7 +9,7 @@
 #define BS(a) ((a) << 2)
 
 
-extern int field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
+extern FieldData field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 extern PlayerData playerData;
 
 // 乱数の初期化
@@ -42,7 +42,7 @@ void gameDraw(AGDrawBuffer *DBuf)
 	// フィールドの描画
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 		for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
-			switch (field[i][j]) {
+			switch (field[i][j].kind) {
 				case FIELD_KIND_NONE:
 				default:
 					agDrawSETFCOLOR(DBuf, ARGB(255, 40, 40, 40));

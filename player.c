@@ -6,7 +6,7 @@
 
 
 PlayerData playerData;
-extern int field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
+extern FieldData field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
 int movePlayer(int dx, int dy, int moveFlag);
 int calcPlayer(int flag);
@@ -49,7 +49,7 @@ int movePlayer(int dx, int dy, int moveFlag)
 			fieldX = FIELD_ORIGIN_X + i * FIELD_BLOCK_SIZE;
 			fieldY = FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE;
 
-			switch (field[i][j]) {
+			switch (field[i][j].kind) {
 				case FIELD_KIND_NONE:
 				default:
 					break;
@@ -62,7 +62,7 @@ int movePlayer(int dx, int dy, int moveFlag)
 					    ( nextY < fieldY + FIELD_BLOCK_SIZE ) &&
 					    ( fieldY < nextY + PLAYER_HEIGHT ) ) {
 						isHit = TRUE;
-						_dprintf("hit\n");
+						//_dprintf("hit\n");
 					}
 					break;
 			}
