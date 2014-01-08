@@ -9,7 +9,7 @@ FieldData field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
 void createRandomBlock(int x, int y)
 {
-	field[x][y].kind = rand() % 3 + 1;
+	field[x][y].kind = rand() % 4 + 1;
 	field[x][y].hp = 5;
 
 	return;

@@ -68,6 +68,7 @@ int movePlayer(int dx, int dy, int moveFlag)
 				case FIELD_KIND_RED:
 				case FIELD_KIND_GREEN:
 				case FIELD_KIND_BLUE:
+				case FIELD_KIND_NEEDLE:
 					if( ( nextX < fieldX + FIELD_BLOCK_SIZE ) &&
 					    ( fieldX < nextX + PLAYER_WIDTH ) &&
 					    ( nextY < fieldY + FIELD_BLOCK_SIZE ) &&
@@ -93,6 +94,8 @@ int isGameOver()
 	int isGameOver;
 
 	isGameOver = FALSE;
+
+	// 潰され判定
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 		for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
 			int fieldX, fieldY;
@@ -107,6 +110,7 @@ int isGameOver()
 				case FIELD_KIND_RED:
 				case FIELD_KIND_GREEN:
 				case FIELD_KIND_BLUE:
+				case FIELD_KIND_NEEDLE:
 					if( ( playerData.x < fieldX + FIELD_BLOCK_SIZE ) &&
 					    ( fieldX < playerData.x + PLAYER_WIDTH ) &&
 					    ( playerData.y < fieldY + FIELD_BLOCK_SIZE ) &&
@@ -115,6 +119,13 @@ int isGameOver()
 					}
 					break;
 			}
+
+			// switch (field[i][j].kind) {
+			// 	case FIELD_KIND_NEEDLE:
+			// 		if ((fieldX > playerData.x + PLAYER_WIDTH) && 
+			// 			(fieldX + FIELD_BLOCK_SIZE < playerData.x) && 
+			// 			(fieldY)
+			// }
 		}
 	}
 
@@ -210,7 +221,7 @@ int calcPlayer(int flag)
 			if (PadLvl()&PAD_B) {	// ボタンが押されている場合
 				playerData.count++;
 
-				if (playerData.count > 5) {
+				if (playerData.count > 0) {
 					playerData.count = 0;
 					playerData.mode = PLAYER_MODE_JUMP;
 					playerData.jumpCount = 0;

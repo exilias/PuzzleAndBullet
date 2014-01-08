@@ -73,6 +73,10 @@ void gameDraw(AGDrawBuffer *DBuf)
 				case FIELD_KIND_BLUE:
 					agDrawSETFCOLOR(DBuf, ARGB(255, 40, 40, 255));
 					break;
+
+				case FIELD_KIND_NEEDLE:
+					agDrawSETFCOLOR(DBuf, ARGB(255, 255, 255, 255));
+					break;
 			}
 
 			agDrawSETDBMODE( DBuf, 0xff, 0, 0, 1 );
