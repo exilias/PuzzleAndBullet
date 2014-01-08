@@ -88,7 +88,7 @@ void  main( void )
 
 		// GUIの描画
 		// FPS
-		// drawNumberGraph(aglGetReg(AG_REG_SYSMNTR) /*表示させたい数字(int)*/, 10<<2 表示させたいX座標, 10<<2 /*表示させたいY座標*/, 10<<2/*1つの文字の幅*/, 10<<2/*1つの文字の高さ*/, 10/*桁数*/, &DBuf);
+		//drawNumberGraph(aglGetReg(AG_REG_SYSMNTR) /*表示させたい数字(int)*/, 10<<2 /*表示させたいX座標*/, 10<<2 /*表示させたいY座標*/, 10<<2/*1つの文字の幅*/, 10<<2/*1つの文字の高さ*/, 10/*桁数*/, &DBuf);
 
 		// ディスプレイリスト生成終了
 		agDrawEODL( &DBuf );
