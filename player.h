@@ -21,6 +21,7 @@ typedef struct playerData {
 	int count;
 	int mode;
 	int jumpCount;
+	int isDead;
 }PlayerData;
 
 void playerInit();

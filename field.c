@@ -1,8 +1,8 @@
 #include "field.h"
 
 #define FPS					60
-#define UPDATE_INTERVAL		40
-#define ADD_BLOCK_INTERVAL	300
+#define UPDATE_INTERVAL		100
+#define ADD_BLOCK_INTERVAL	100
 
 FieldData field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];	
 

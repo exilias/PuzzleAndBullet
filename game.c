@@ -5,6 +5,8 @@
 #include "field.h"
 #include "player.h"
 #include "weapon.h"
+#include "pad.h"
+
 
 
 #define BS(a) ((a) << 2)
@@ -36,12 +38,20 @@ void gameFunc(void)
 	fieldFunc();
 	playerFunc();
 	weaponFunc();
+
+	if (PadTrg()&PAD_X) {
+		gameInit();
+	}
 }
 
 
 void gameDraw(AGDrawBuffer *DBuf)
 {
 	int i, j;
+
+	if (playerData.isDead) { 
+		return;
+	}
 
 	// フィールドの描画
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {

@@ -10,6 +10,9 @@ extern FieldData field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
 int movePlayer(int dx, int dy, int moveFlag);
 int calcPlayer(int flag);
+int isGameOver();
+
+
 
 void playerInit()
 {
@@ -19,6 +22,7 @@ void playerInit()
 	playerData.count = 0;
 	playerData.mode = PLAYER_MODE_WAIT;
 	playerData.jumpCount = 0;
+	playerData.isDead = FALSE;
 	playerData.x = FIELD_ORIGIN_X;
 	playerData.y = FIELD_ORIGIN_Y;
 }
@@ -28,6 +32,9 @@ void playerFunc()
 {
 	PadRun();
 	calcPlayer(1);
+	if (!playerData.isDead) {
+		playerData.isDead = isGameOver();
+	}
 }
 
 
@@ -40,6 +47,10 @@ int movePlayer(int dx, int dy, int moveFlag)
 	int isHit;
 	int nextX = playerData.x + dx;
 	int nextY = playerData.y + dy;
+
+	if (playerData.isDead == TRUE) {
+		return FALSE;
+	}
 
 	// ここで当たり判定
 	isHit = FALSE;
@@ -62,7 +73,6 @@ int movePlayer(int dx, int dy, int moveFlag)
 					    ( nextY < fieldY + FIELD_BLOCK_SIZE ) &&
 					    ( fieldY < nextY + PLAYER_HEIGHT ) ) {
 						isHit = TRUE;
-						//_dprintf("hit\n");
 					}
 					break;
 			}
@@ -75,6 +85,40 @@ int movePlayer(int dx, int dy, int moveFlag)
 	}
 
 	return isHit;
+}
+
+int isGameOver()
+{
+	int i, j;
+	int isGameOver;
+
+	isGameOver = FALSE;
+	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
+		for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
+			int fieldX, fieldY;
+			fieldX = FIELD_ORIGIN_X + i * FIELD_BLOCK_SIZE;
+			fieldY = FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE;
+
+			switch (field[i][j].kind) {
+				case FIELD_KIND_NONE:
+				default:
+					break;
+
+				case FIELD_KIND_RED:
+				case FIELD_KIND_GREEN:
+				case FIELD_KIND_BLUE:
+					if( ( playerData.x < fieldX + FIELD_BLOCK_SIZE ) &&
+					    ( fieldX < playerData.x + PLAYER_WIDTH ) &&
+					    ( playerData.y < fieldY + FIELD_BLOCK_SIZE ) &&
+					    ( fieldY < playerData.y + PLAYER_HEIGHT ) ) {
+						isGameOver = TRUE;
+					}
+					break;
+			}
+		}
+	}
+
+	return isGameOver;
 }
 
 const static s16 JumpPattern[] = {
@@ -224,6 +268,7 @@ int calcPlayer(int flag)
 				playerData.y = (FIELD_ORIGIN_Y + FIELD_BLOCK_SIZE * FIELD_SIZE_HEIGHT);
 				playerData.mode = PLAYER_MODE_JUMPEND;
 				playerData.count = 0;
+				playerData.isDead = TRUE;
 			}
 			else {
 				playerData.count++;
