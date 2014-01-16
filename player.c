@@ -8,7 +8,7 @@
 
 
 PlayerData playerData;
-extern FieldData field[FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
+extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
 int movePlayer(int dx, int dy, int moveFlag);
 int calcPlayer(int flag);
@@ -62,7 +62,7 @@ int movePlayer(int dx, int dy, int moveFlag)
 			fieldX = FIELD_ORIGIN_X + i * FIELD_BLOCK_SIZE;
 			fieldY = FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE;
 
-			switch (field[i][j].kind) {
+			switch (field[0][i][j].kind) {
 				case FIELD_KIND_NONE:
 				default:
 					break;
@@ -104,7 +104,7 @@ int isGameOver()
 			fieldX = FIELD_ORIGIN_X + i * FIELD_BLOCK_SIZE;
 			fieldY = FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE;
 
-			switch (field[i][j].kind) {
+			switch (field[0][i][j].kind) {
 				case FIELD_KIND_NONE:
 				default:
 					break;

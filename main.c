@@ -79,9 +79,7 @@ void  main( void )
 	while( 1 ) {
 
 		agGamePadSync();
-
-		_dprintf( "%d\n", _SystemVSyncCount );
-
+		
 		gameFunc();
 		fieldFunc();
 
