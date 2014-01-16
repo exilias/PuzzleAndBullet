@@ -41,6 +41,10 @@ extern "C" {
 #define AG_CG_BLOCK_GREEN	(11)
 #define AG_CG_BLOCK_NEEDLE	(12)
 #define AG_CG_BLOCK_RED	(13)
+#define AG_CG_MAKO_LEFT	(14)
+#define AG_CG_MAKO_RIGHT	(15)
+#define AG_CG_MAKO_BULLET_LEFT	(16)
+#define AG_CG_MAKO_BULLET_RIGHT	(17)
 
 /***************************************************************/
 /*                     RM3 Member Symbol                       */
@@ -53,7 +57,7 @@ extern "C" {
 /***************************************************************/
 /*                          Data Member                        */
 /***************************************************************/
-extern const AGERomMember ageRM[14];
+extern const AGERomMember ageRM[18];
 extern const AGERM3Member ageRM3[1];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];

@@ -19,6 +19,10 @@ const AGERomMember ageRM[] = {
 	{     328930,          0,   50,   50,   50,  0,      10000, NULL },		/* AG_CG_BLOCK_GREEN */
 	{     330180,          0,   50,   50,   50,  0,      10000, NULL },		/* AG_CG_BLOCK_NEEDLE */
 	{     331430,          0,   50,   50,   50,  0,      10000, NULL },		/* AG_CG_BLOCK_RED */
+	{     332680,          0,   40,   40,   40,  0,       6400, NULL },		/* AG_CG_MAKO_LEFT */
+	{     333480,          0,   40,   40,   40,  0,       6400, NULL },		/* AG_CG_MAKO_RIGHT */
+	{     334280,          0,   12,   12,   12,  0,        576, NULL },		/* AG_CG_MAKO_BULLET_LEFT */
+	{     334352,          0,   12,   12,   12,  0,        576, NULL },		/* AG_CG_MAKO_BULLET_RIGHT */
 };
 
 /***************************************************************/

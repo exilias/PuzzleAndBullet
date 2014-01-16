@@ -100,9 +100,14 @@ void gameDraw(AGDrawBuffer *DBuf)
 	}
 
 	// キャラクターの描画
-	agDrawSETFCOLOR(DBuf, ARGB(255, 255, 255, 40));
-	agDrawSETDBMODE( DBuf, 0xff, 0, 0, 1 );
-	agDrawSPRITE(DBuf, FALSE, BS(playerData.x), BS(playerData.y), BS(playerData.x + PLAYER_WIDTH), BS(playerData.y + PLAYER_HEIGHT));
+	agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
+	if (playerData.direction) {
+		ageTransferAAC( DBuf, AG_CG_MAKO_LEFT, 0, NULL, NULL );
+	} else {
+		ageTransferAAC( DBuf, AG_CG_MAKO_RIGHT, 0, NULL, NULL );
+	}
+	agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
+		agDrawSPRITE(DBuf, TRUE, BS(playerData.x), BS(playerData.y), BS(playerData.x + PLAYER_WIDTH), BS(playerData.y + PLAYER_HEIGHT));
 
 	// 武器の描画
 	for (i = 0; i < WEAPON_MAX_COUNT; i++) {
