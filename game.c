@@ -2,10 +2,11 @@
 
 #include <math.h>
 #include <ax51401.h>
+#include <agGamePad.h>
+
 #include "field.h"
 #include "player.h"
 #include "weapon.h"
-#include "pad.h"
 #include "export.h"
 
 
@@ -20,6 +21,17 @@ extern WeaponData weapon[WEAPON_MAX_COUNT];
 void setSrand()
 {
 	srand(aglGetReg(AG_REG_SYSMNTR));
+}
+
+void pushedStartButton(void)
+{
+	u32 pad;
+
+	pad = agGamePadGetData(0);
+
+	if (pad & GAMEPAD_START) {
+		gameInit();
+	}
 }
 
 
@@ -39,9 +51,7 @@ void gameFunc(void)
 	playerFunc();
 	weaponFunc();
 
-	if (PadTrg()&PAD_X) {
-		gameInit();
-	}
+	pushedStartButton();
 }
 
 

@@ -5,6 +5,7 @@
 #include <agesndmgr.h>
 #include <vdpreg.h>
 #include <aggl.h>
+#include <agGamePad.h>
 
 #include "game.h"
 #include "export.h"
@@ -48,10 +49,13 @@ void drawNumberGraph(int number ,int x, int y, int size_x, int size_y , int orde
 
 
 static u32 DrawBuffer[ 4096*10 ];
+static volatile u32 _SystemVSyncCount = 0;
 
 void  main( void )  
 {
 	AGDrawBuffer DBuf;
+	u32 skip;
+    u32 v;
 
 
 
@@ -63,10 +67,20 @@ void  main( void )
 
 	gameInit();
 
+	skip = 0;
+	agGamePadSyncInit( &_SystemVSyncCount, 60);
+	v = _SystemVSyncCount;
+
+	_dprintf( "Sync Wait\n");
+
 	//agglInitialize();
     //agglDisplaySize( FB_WIDTH , FB_HEIGHT );
 
 	while( 1 ) {
+
+		agGamePadSync();
+
+		_dprintf( "%d\n", _SystemVSyncCount );
 
 		gameFunc();
 		fieldFunc();

@@ -7,6 +7,9 @@
 #現在のディレクトリからランタイムルートディレクトリへの相対パス
 ROOTDIR = ../../..
 
+# 追加のライブラリ
+EXTRA_LIBS = $(ROOTDIR)/library/agGamePad$(LIBPOSTFIX).lib
+
 # CGROM ディレクトリ
 CGROMDIR = .
 CGROM = $(CGROMDIR)/export_0.bin

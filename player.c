@@ -1,5 +1,7 @@
 
 #include <amlib.h>
+#include <agGamePad.h>
+
 #include "player.h"
 #include "pad.h"
 #include "field.h"
@@ -138,6 +140,11 @@ const static s16 JumpPattern[] = {
 
 int calcPlayer(int flag)
 {
+	u32 pad;
+
+	pad = agGamePadGetData(0);
+
+
 	switch (playerData.mode) {
 		// 地面にいる場合
 		case PLAYER_MODE_WAIT:
@@ -148,7 +155,7 @@ int calcPlayer(int flag)
 				// 一番下
 				playerData.mode = PLAYER_MODE_FALL;
 			}
-			else if (PadTrg()&PAD_B){	// ボタンが押された場合はジャンプモード
+			else if (pad & GAMEPAD_B){	// ボタンが押された場合はジャンプモード
 				playerData.mode = PLAYER_MODE_JUMPSTART;
 				playerData.count = 0;
 				// ジャンプの効果音
@@ -218,7 +225,7 @@ int calcPlayer(int flag)
 				movePlayer(-PLAYER_RUN_SPEED, 0, 1);
 			}
 
-			if (PadLvl()&PAD_B) {	// ボタンが押されている場合
+			if (pad & GAMEPAD_B) {	// ボタンが押されている場合
 				playerData.count++;
 
 				if (playerData.count > 0) {
@@ -243,7 +250,7 @@ int calcPlayer(int flag)
 				movePlayer(-PLAYER_RUN_SPEED, 0, 1);
 			}
 
-			if (PadLvl()&PAD_B) {	// ボタンが押されている場合
+			if (pad & GAMEPAD_B) {	// ボタンが押されている場合
 				movePlayer(0, -JumpPattern[playerData.jumpCount], 1);
 				playerData.jumpCount++;
 
