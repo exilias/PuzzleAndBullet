@@ -108,8 +108,8 @@ void addWeapon(void* playerData)
 	for (i = 0; i < WEAPON_MAX_COUNT; i++) {
 		if (!weapon[i].isActive) {
 			weapon[i].isActive = TRUE;
-			weapon[i].x = _playerData->x;
-			weapon[i].y = _playerData->y;
+			weapon[i].x = _playerData->x + 15;
+			weapon[i].y = _playerData->y + 23;
 			weapon[i].direction = _playerData->direction;
 			weapon[i].attackPoint = 1;
 			break;

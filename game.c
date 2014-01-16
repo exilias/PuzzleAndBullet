@@ -99,6 +99,20 @@ void gameDraw(AGDrawBuffer *DBuf)
 		}
 	}
 
+	// 武器の描画
+	for (i = 0; i < WEAPON_MAX_COUNT; i++) {
+		if (weapon[i].isActive) {
+			agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
+			if (weapon[i].direction) {
+				ageTransferAAC( DBuf, AG_CG_MAKO_BULLET_LEFT, 0, NULL, NULL );
+			} else {
+				ageTransferAAC( DBuf, AG_CG_MAKO_BULLET_RIGHT, 0, NULL, NULL );
+			}
+			agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
+			agDrawSPRITE(DBuf, TRUE, BS(weapon[i].x), BS(weapon[i].y), BS(weapon[i].x + WEAPON_BLOCK_SIZE), BS(weapon[i].y + WEAPON_BLOCK_SIZE));
+		}
+	}
+
 	// キャラクターの描画
 	agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
 	if (playerData.direction) {
@@ -107,15 +121,8 @@ void gameDraw(AGDrawBuffer *DBuf)
 		ageTransferAAC( DBuf, AG_CG_MAKO_RIGHT, 0, NULL, NULL );
 	}
 	agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-		agDrawSPRITE(DBuf, TRUE, BS(playerData.x), BS(playerData.y), BS(playerData.x + PLAYER_WIDTH), BS(playerData.y + PLAYER_HEIGHT));
+	agDrawSPRITE(DBuf, TRUE, BS(playerData.x), BS(playerData.y), BS(playerData.x + PLAYER_WIDTH), BS(playerData.y + PLAYER_HEIGHT));
 
-	// 武器の描画
-	for (i = 0; i < WEAPON_MAX_COUNT; i++) {
-		if (weapon[i].isActive) {
-			agDrawSETFCOLOR(DBuf, ARGB(255, 255, 255, 255));
-			agDrawSETDBMODE( DBuf, 0xff, 0, 0, 1 );
-			agDrawSPRITE(DBuf, FALSE, BS(weapon[i].x), BS(weapon[i].y), BS(weapon[i].x + WEAPON_BLOCK_SIZE), BS(weapon[i].y + WEAPON_BLOCK_SIZE));
-		}
-	}
+	
 	
 }

@@ -1,4 +1,4 @@
-#define WEAPON_BLOCK_SIZE	10
+#define WEAPON_BLOCK_SIZE	12
 #define WEAPON_MAX_COUNT	5
 
 
