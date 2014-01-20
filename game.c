@@ -14,8 +14,9 @@
 
 
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
-extern PlayerData playerData;
+extern PlayerData playerData[2];
 extern WeaponData weapon[WEAPON_MAX_COUNT];
+
 
 // 乱数の初期化
 void setSrand()
@@ -63,12 +64,12 @@ void gameDraw(AGDrawBuffer *DBuf)
 	for (k = 0; k < 2; k++) {
 		int fieldX;
 		if (k == 0) {
-			fieldX = FIELD_ORIGIN_X;
+			fieldX = FIELD_ORIGIN1_X;
 		} else {
-			fieldX = FIELD_ORIGIN_X + FIELD_BLOCK_SIZE * 9;
+			fieldX = FIELD_ORIGIN2_X;
 		}
 
-		if (playerData.isDead) { 
+		if (playerData[0].isDead) { 
 			return;
 		}
 
@@ -133,12 +134,12 @@ void gameDraw(AGDrawBuffer *DBuf)
 
 		// キャラクターの描画
 		agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
-		if (playerData.direction) {
+		if (playerData[k].direction) {
 			ageTransferAAC( DBuf, AG_CG_MAKO_LEFT, 0, NULL, NULL );
 		} else {
 			ageTransferAAC( DBuf, AG_CG_MAKO_RIGHT, 0, NULL, NULL );
 		}
 		agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-		agDrawSPRITE(DBuf, TRUE, BS(playerData.x), BS(playerData.y), BS(playerData.x + PLAYER_WIDTH), BS(playerData.y + PLAYER_HEIGHT));
+		agDrawSPRITE(DBuf, TRUE, BS(playerData[k].x), BS(playerData[k].y), BS(playerData[k].x + PLAYER_WIDTH), BS(playerData[k].y + PLAYER_HEIGHT));
 	}
 }

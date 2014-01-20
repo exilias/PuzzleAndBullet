@@ -11,7 +11,7 @@
 WeaponData weapon[WEAPON_MAX_COUNT];
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
-void blockDestroy(int x, int y, int playerNo);
+void blockDestroy(int x, int y, int playerId);
 
 void weaponInit()
 {
@@ -77,26 +77,26 @@ void weaponFunc()
 	}
 }
 
-void blockDestroy(int x, int y, int playerNo)
+void blockDestroy(int x, int y, int playerId)
 {
-	int fieldKind = field[playerNo][x][y].kind;
-	if (field[playerNo][x][y].kind == FIELD_KIND_NONE) {
+	int fieldKind = field[playerId][x][y].kind;
+	if (field[playerId][x][y].kind == FIELD_KIND_NONE) {
 		return;
 	}
 
-	field[playerNo][x][y].kind = FIELD_KIND_NONE;
+	field[playerId][x][y].kind = FIELD_KIND_NONE;
 
-	if (x-1 >= 0 && field[playerNo][x-1][y].kind == fieldKind) {
-		blockDestroy(x-1, y, playerNo);
+	if (x-1 >= 0 && field[playerId][x-1][y].kind == fieldKind) {
+		blockDestroy(x-1, y, playerId);
 	}
-	if (x+1 < FIELD_SIZE_WIDTH && field[playerNo][x+1][y].kind == fieldKind) {
-		blockDestroy(x+1, y, playerNo);
+	if (x+1 < FIELD_SIZE_WIDTH && field[playerId][x+1][y].kind == fieldKind) {
+		blockDestroy(x+1, y, playerId);
 	}
-	if (y-1 >= 0 && field[playerNo][x][y-1].kind == fieldKind) {
-		blockDestroy(x, y-1, playerNo);
+	if (y-1 >= 0 && field[playerId][x][y-1].kind == fieldKind) {
+		blockDestroy(x, y-1, playerId);
 	}
-	if (y+1 < FIELD_SIZE_HEIGHT && field[playerNo][x][y+1].kind == fieldKind) {
-		blockDestroy(x, y+1, playerNo);
+	if (y+1 < FIELD_SIZE_HEIGHT && field[playerId][x][y+1].kind == fieldKind) {
+		blockDestroy(x, y+1, playerId);
 	}
 
 	return;

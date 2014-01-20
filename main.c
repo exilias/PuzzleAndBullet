@@ -19,7 +19,8 @@ void _rtl_exit(void)
         ;
 }
 
-void drawNumberGraph(int number ,int x, int y, int size_x, int size_y , int order ,AGDrawBuffer* DBuf) {
+void drawNumberGraph(int number ,int x, int y, int size_x, int size_y , int order ,AGDrawBuffer* DBuf) 
+{
 	int i, n;
 	int draw_x;
 	int id[10] = {	AG_CG_NUMBER_0, 
@@ -31,7 +32,7 @@ void drawNumberGraph(int number ,int x, int y, int size_x, int size_y , int orde
 					AG_CG_NUMBER_6,
 					AG_CG_NUMBER_7,
 					AG_CG_NUMBER_8,
-					AG_CG_NUMBER_9};
+					AG_CG_NUMBER_9 };
 					
 	draw_x = x + (order-1)*size_x;
 
@@ -79,7 +80,7 @@ void  main( void )
 	while( 1 ) {
 
 		agGamePadSync();
-		
+
 		gameFunc();
 		fieldFunc();
 

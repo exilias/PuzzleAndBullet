@@ -4,7 +4,8 @@
 #define FIELD_SIZE_HEIGHT	9
 
 #define FIELD_BLOCK_SIZE	50
-#define FIELD_ORIGIN_X		100
+#define FIELD_ORIGIN1_X		100
+#define FIELD_ORIGIN2_X		550
 #define FIELD_ORIGIN_Y		100
 
 #define FIELD_KIND_NONE		0
