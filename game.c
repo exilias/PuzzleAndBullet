@@ -73,6 +73,12 @@ void gameDraw(AGDrawBuffer *DBuf)
 			return;
 		}
 
+		// フィールドの背景
+		agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
+		ageTransferAAC( DBuf, AG_CG_STAGE_BG, 0, NULL, NULL );
+		agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
+		agDrawSPRITE(DBuf, TRUE, BS(fieldX - FIELD_BLOCK_SIZE), BS(FIELD_ORIGIN_Y), BS(fieldX - FIELD_BLOCK_SIZE + FIELD_BLOCK_SIZE * (FIELD_SIZE_WIDTH + 2)), BS(FIELD_ORIGIN_Y + FIELD_BLOCK_SIZE * (FIELD_SIZE_HEIGHT + 2)));
+
 		// フィールドの描画
 		for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 			for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
@@ -81,8 +87,8 @@ void gameDraw(AGDrawBuffer *DBuf)
 				switch (field[k][i][j].kind) {
 					case FIELD_KIND_NONE:
 					default:
-						agDrawSETFCOLOR(DBuf, ARGB(255, 255, 255, 255));
-						agDrawSETDBMODE( DBuf, 0xff, 0, 0, 1 );
+						// agDrawSETFCOLOR(DBuf, ARGB(255, 255, 255, 255));
+						// agDrawSETDBMODE( DBuf, 0xff, 0, 0, 1 );
 						break;
 
 					case FIELD_KIND_RED:
