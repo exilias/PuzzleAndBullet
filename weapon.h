@@ -1,5 +1,6 @@
-#define WEAPON_BLOCK_SIZE	12
-#define WEAPON_MAX_COUNT	5
+#define WEAPON_BLOCK_SIZE		12
+#define WEAPON_BLOCK_INTERVAL	10
+#define WEAPON_MAX_COUNT		5
 
 
 typedef struct weaponData
@@ -13,4 +14,4 @@ typedef struct weaponData
 
 void weaponInit();
 void weaponFunc();
-void addWeapon(void *playerData);
+void addWeapon(void *playerData, int playerId);

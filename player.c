@@ -168,7 +168,7 @@ int calcPlayer(int playerId)
 			else if (pad & GAMEPAD_A) {
 				playerData[playerId].mode = PLAYER_MODE_ATTACK;
 				playerData[playerId].count = 0;
-				addWeapon(&playerData[playerId]);
+				addWeapon(&playerData[playerId], playerId);
 			}
 			else if (pad & GAMEPAD_R || pad & GAMEPAD_L) {
 				if (pad & GAMEPAD_R) {

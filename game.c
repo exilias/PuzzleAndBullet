@@ -15,7 +15,7 @@
 
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 extern PlayerData playerData[2];
-extern WeaponData weapon[WEAPON_MAX_COUNT];
+extern WeaponData weapon[2][WEAPON_MAX_COUNT];
 
 
 // 乱数の初期化
@@ -120,15 +120,15 @@ void gameDraw(AGDrawBuffer *DBuf)
 
 		// 武器の描画
 		for (i = 0; i < WEAPON_MAX_COUNT; i++) {
-			if (weapon[i].isActive) {
+			if (weapon[k][i].isActive) {
 				agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
-				if (weapon[i].direction) {
+				if (weapon[k][i].direction) {
 					ageTransferAAC( DBuf, AG_CG_MAKO_BULLET_LEFT, 0, NULL, NULL );
 				} else {
 					ageTransferAAC( DBuf, AG_CG_MAKO_BULLET_RIGHT, 0, NULL, NULL );
 				}
 				agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-				agDrawSPRITE(DBuf, TRUE, BS(weapon[i].x), BS(weapon[i].y), BS(weapon[i].x + WEAPON_BLOCK_SIZE), BS(weapon[i].y + WEAPON_BLOCK_SIZE));
+				agDrawSPRITE(DBuf, TRUE, BS(weapon[k][i].x), BS(weapon[k][i].y), BS(weapon[k][i].x + WEAPON_BLOCK_SIZE), BS(weapon[k][i].y + WEAPON_BLOCK_SIZE));
 			}
 		}
 

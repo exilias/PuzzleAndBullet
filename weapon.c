@@ -8,17 +8,22 @@
 #define WEAPON_SPEED	5
 
 
-WeaponData weapon[WEAPON_MAX_COUNT];
+
+WeaponData weapon[2][WEAPON_MAX_COUNT];
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
 void blockDestroy(int x, int y, int playerId);
 
+
+
 void weaponInit()
 {
-	int i;
+	int i, j;
 
-	for (i = 0; i < WEAPON_MAX_COUNT; i++) {
-		weapon[i].isActive = FALSE;
+	for (i = 0; i < 2; i++) {
+		for (j = 0; j < WEAPON_MAX_COUNT; j++) {
+			weapon[i][j].isActive = FALSE;
+		}
 	}
 }
 
@@ -27,12 +32,15 @@ void weaponFunc()
 	int i, j, k, l;
 
 	for (l = 0; l < 2; l++) {
-		for (i = 0; i < WEAPON_MAX_COUNT; i++) {
-			if (weapon[i].isActive) {
-				weapon[i].x += weapon[i].direction == 0 ? WEAPON_SPEED : -WEAPON_SPEED;
+		int fieldOriginX;
+		fieldOriginX = l == 0 ? FIELD_ORIGIN1_X : FIELD_ORIGIN2_X;
 
-				if (weapon[i].x < FIELD_ORIGIN_X || weapon[i].x > FIELD_ORIGIN_X * FIELD_SIZE_WIDTH) {
-					weapon[i].isActive = FALSE;
+		for (i = 0; i < WEAPON_MAX_COUNT; i++) {
+			if (weapon[l][i].isActive) {
+				weapon[l][i].x += weapon[l][i].direction == 0 ? WEAPON_SPEED : -WEAPON_SPEED;
+
+				if (weapon[l][i].x < fieldOriginX || weapon[l][i].x > fieldOriginX * FIELD_SIZE_WIDTH) {
+					weapon[l][i].isActive = FALSE;
 				}
 			}
 		}
@@ -41,7 +49,7 @@ void weaponFunc()
 		for (i = 0; i < FIELD_SIZE_WIDTH; i++) { 
 			for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
 				int fieldX, fieldY;
-				fieldX = FIELD_ORIGIN_X + i * FIELD_BLOCK_SIZE;
+				fieldX = fieldOriginX + i * FIELD_BLOCK_SIZE;
 				fieldY = FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE;
 
 				switch (field[l][i][j].kind) {
@@ -53,15 +61,15 @@ void weaponFunc()
 					case FIELD_KIND_GREEN:
 					case FIELD_KIND_BLUE:
 						for (k = 0; k < WEAPON_MAX_COUNT; k++) {
-							if (weapon[k].isActive) {
-								if( ( weapon[k].x < fieldX + FIELD_BLOCK_SIZE ) &&
-						    ( fieldX < weapon[k].x + WEAPON_BLOCK_SIZE ) &&
-						    ( weapon[k].y < fieldY + FIELD_BLOCK_SIZE ) &&
-							    ( fieldY < weapon[k].y + WEAPON_BLOCK_SIZE ) ) {
-									weapon[k].isActive = FALSE;
+							if (weapon[l][k].isActive) {
+								if( ( weapon[l][k].x < fieldX + FIELD_BLOCK_SIZE ) &&
+						    ( fieldX < weapon[l][k].x + WEAPON_BLOCK_SIZE ) &&
+						    ( weapon[l][k].y < fieldY + FIELD_BLOCK_SIZE ) &&
+							    ( fieldY < weapon[l][k].y + WEAPON_BLOCK_SIZE ) ) {
+									weapon[l][k].isActive = FALSE;
 									//　ダメージ処理
-									field[l][i][j].hp -= weapon[k].attackPoint;
-									_dprintf("attack %d %d\n", field[l][i][j].hp, weapon[k].attackPoint);
+									field[l][i][j].hp -= weapon[l][k].attackPoint;
+									_dprintf("attack %d %d\n", field[l][i][j].hp, weapon[l][k].attackPoint);
 									if (field[l][i][j].hp <= 0) {
 										_dprintf("delete\n");
 										blockDestroy(i, j, l);
@@ -102,18 +110,18 @@ void blockDestroy(int x, int y, int playerId)
 	return;
 }
 
-void addWeapon(void* playerData)
+void addWeapon(void* playerData, int playerId)
 {
 	int i;
 	PlayerData *_playerData = (PlayerData *)playerData;
 
 	for (i = 0; i < WEAPON_MAX_COUNT; i++) {
-		if (!weapon[i].isActive) {
-			weapon[i].isActive = TRUE;
-			weapon[i].x = _playerData->x + 15;
-			weapon[i].y = _playerData->y + 23;
-			weapon[i].direction = _playerData->direction;
-			weapon[i].attackPoint = 1;
+		if (!weapon[playerId][i].isActive) {
+			weapon[playerId][i].isActive = TRUE;
+			weapon[playerId][i].x = _playerData->x + 15;
+			weapon[playerId][i].y = _playerData->y + 23;
+			weapon[playerId][i].direction = _playerData->direction;
+			weapon[playerId][i].attackPoint = 1;
 			break;
 		}
 	}
