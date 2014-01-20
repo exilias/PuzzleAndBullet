@@ -53,6 +53,13 @@ int movePlayer(int dx, int dy, int moveFlag, int playerId)
 	int isHit;
 	int nextX = playerData[playerId].x + dx;
 	int nextY = playerData[playerId].y + dy;
+	int fieldOriginX;
+
+	if (playerId == 0) {
+		fieldOriginX = FIELD_ORIGIN1_X;
+	} else {
+		fieldOriginX = FIELD_ORIGIN2_X;
+	}
 
 	if (playerData[playerId].isDead == TRUE) {
 		return FALSE;
@@ -63,11 +70,7 @@ int movePlayer(int dx, int dy, int moveFlag, int playerId)
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 		for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
 			int fieldX, fieldY;
-			if (playerId == 0) {
-				fieldX = FIELD_ORIGIN1_X + i * FIELD_BLOCK_SIZE;
-			} else {
-				fieldX = FIELD_ORIGIN2_X + i * FIELD_BLOCK_SIZE;
-			}
+			fieldX = fieldOriginX + i * FIELD_BLOCK_SIZE;
 			fieldY = FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE;
 
 			switch (field[playerId][i][j].kind) {
@@ -89,6 +92,12 @@ int movePlayer(int dx, int dy, int moveFlag, int playerId)
 			}
 		}
 	}
+
+	// 壁判定
+	if ((nextX < fieldOriginX) || (nextX + PLAYER_WIDTH > fieldOriginX + FIELD_BLOCK_SIZE * FIELD_SIZE_WIDTH) || (nextY < FIELD_ORIGIN_Y)) {
+		isHit = TRUE;
+	}
+	
 
 	if (moveFlag && !isHit) {
 		playerData[playerId].x = nextX;
