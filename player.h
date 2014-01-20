@@ -10,6 +10,8 @@
 #define PLAYER_MODE_ATTACK		(8)
 
 #define PLAYER_RUN_SPEED		(4)
+#define PLAYER_WEAPON_INTERVAL	(10)
+
 
 #define PLAYER_WIDTH	40
 #define PLAYER_HEIGHT	40

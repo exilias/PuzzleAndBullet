@@ -149,7 +149,6 @@ int calcPlayer(int playerId)
 
 	pad = agGamePadGetData(playerId);
 
-
 	switch (playerData[playerId].mode) {
 		// 地面にいる場合
 		case PLAYER_MODE_WAIT:
@@ -322,7 +321,7 @@ int calcPlayer(int playerId)
 		case PLAYER_MODE_ATTACK:
 			playerData[playerId].count++;
 
-			if (playerData[playerId].count > 1) {
+			if (playerData[playerId].count > PLAYER_WEAPON_INTERVAL) {
 				playerData[playerId].count = 0;
 				playerData[playerId].mode = PLAYER_MODE_WAIT;
 			}
