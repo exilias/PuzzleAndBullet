@@ -47,6 +47,7 @@ extern "C" {
 #define AG_CG_MAKO_BULLET_RIGHT	(17)
 #define AG_CG_STAGE_BG	(18)
 #define AG_CG_MAKO_CUT_IN	(19)
+#define AG_CG_GAME_BG	(20)
 
 /***************************************************************/
 /*                     RM3 Member Symbol                       */
@@ -59,7 +60,7 @@ extern "C" {
 /***************************************************************/
 /*                          Data Member                        */
 /***************************************************************/
-extern const AGERomMember ageRM[20];
+extern const AGERomMember ageRM[21];
 extern const AGERM3Member ageRM3[1];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];

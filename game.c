@@ -68,6 +68,11 @@ void gameDraw(AGDrawBuffer *DBuf)
 	int i, j, k;
 	int isTexture;
 
+	// 背景
+	ageTransferAAC( DBuf, AG_CG_GAME_BG, 0, NULL, NULL );
+	agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
+	agDrawSPRITE(DBuf, TRUE, 0, 0, BS(FB_WIDTH), BS(FB_HEIGHT));
+
 	for (k = 0; k < 2; k++) {
 		int fieldX;
 		if (k == 0) {
@@ -77,7 +82,7 @@ void gameDraw(AGDrawBuffer *DBuf)
 		}
 
 		if (playerData[0].isDead) {
-			if (deadCount > 500) {
+			if (deadCount > 120) {
 				return;
 			} else {
 				deadCount++;
