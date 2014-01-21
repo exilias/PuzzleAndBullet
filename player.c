@@ -149,7 +149,7 @@ int isGameOver(int playerId)
 					    ( playerData[playerId].y < fieldY + FIELD_BLOCK_SIZE ) &&
 					    ( fieldY < playerData[playerId].y + PLAYER_HEIGHT ) ) {
 						isGameOver = TRUE;
-						_dprintf("normal dead\n");
+						_dprintf("player:%d dead\n", playerId);
 					}
 					break;
 			}

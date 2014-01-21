@@ -94,16 +94,16 @@ void blockDestroy(int x, int y, int playerId)
 
 	field[playerId][x][y].kind = FIELD_KIND_NONE;
 
-	if (x-1 >= 0 && field[playerId][x-1][y].kind == fieldKind) {
+	if (x-1 >= 0 && (field[playerId][x-1][y].kind == fieldKind || field[playerId][x-1][y].kind == FIELD_KIND_NEEDLE)) {
 		blockDestroy(x-1, y, playerId);
 	}
-	if (x+1 < FIELD_SIZE_WIDTH && field[playerId][x+1][y].kind == fieldKind) {
+	if (x+1 < FIELD_SIZE_WIDTH && (field[playerId][x+1][y].kind == fieldKind || field[playerId][x+1][y].kind == FIELD_KIND_NEEDLE)) {
 		blockDestroy(x+1, y, playerId);
 	}
-	if (y-1 >= 0 && field[playerId][x][y-1].kind == fieldKind) {
+	if (y-1 >= 0 && (field[playerId][x][y-1].kind == fieldKind || field[playerId][x][y-1].kind == FIELD_KIND_NEEDLE)) {
 		blockDestroy(x, y-1, playerId);
 	}
-	if (y+1 < FIELD_SIZE_HEIGHT && field[playerId][x][y+1].kind == fieldKind) {
+	if (y+1 < FIELD_SIZE_HEIGHT && (field[playerId][x][y+1].kind == fieldKind || field[playerId][x][y+1].kind == FIELD_KIND_NEEDLE)) {
 		blockDestroy(x, y+1, playerId);
 	}
 
