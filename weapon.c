@@ -39,7 +39,7 @@ void weaponFunc()
 			if (weapon[l][i].isActive) {
 				weapon[l][i].x += weapon[l][i].direction == 0 ? WEAPON_SPEED : -WEAPON_SPEED;
 
-				if (weapon[l][i].x < fieldOriginX || weapon[l][i].x > fieldOriginX * FIELD_SIZE_WIDTH) {
+				if (weapon[l][i].x < fieldOriginX || weapon[l][i].x > fieldOriginX + FIELD_BLOCK_SIZE * FIELD_SIZE_WIDTH) {
 					weapon[l][i].isActive = FALSE;
 				}
 			}
