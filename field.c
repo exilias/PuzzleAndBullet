@@ -21,7 +21,7 @@ void fieldInit()
 
 		for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 			for (j = FIELD_SIZE_HEIGHT - 2; j < FIELD_SIZE_HEIGHT; j++) {
-				field[k][i][j].kind = rand() % 4 + 1;
+				field[k][i][j].kind = rand() % 3 + 1;
 				field[k][i][j].hp = 5;
 			}
 		}
