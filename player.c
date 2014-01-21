@@ -2,8 +2,10 @@
 #include <amlib.h>
 #include <agGamePad.h>
 
+#include "export.h" // Cutin用に読み込んでる。本来は読み込まず、Cutin用画像のRomMemberNoはPlayer構造体につっこむ
 #include "player.h"
 #include "field.h"
+#include "cutin.h"
 
 
 PlayerData playerData[2];
@@ -12,6 +14,7 @@ extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 int movePlayer(int dx, int dy, int moveFlag, int playerId);
 int calcPlayer(int playerId);
 int isGameOver(int playerId);
+void checkPlayerInput(int playerId);
 
 
 
@@ -39,6 +42,7 @@ void playerFunc()
 		calcPlayer(i);
 		if (!playerData[i].isDead) {
 			playerData[i].isDead = isGameOver(i);
+			checkPlayerInput(i);
 		}
 	}
 }
@@ -365,4 +369,18 @@ int calcPlayer(int playerId)
 	}
 
 	return 0;
+}
+
+
+void checkPlayerInput(int playerId)
+{
+	u32 pad;
+
+	pad = agGamePadGetData(playerId);
+
+	if (pad & GAMEPAD_Y) {
+		if (!isCutinShowing()) {
+			createCutin(AG_CG_MAKO_CUT_IN);
+		}
+	}
 }

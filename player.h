@@ -11,6 +11,8 @@
 
 #define PLAYER_RUN_SPEED		(4)
 #define PLAYER_WEAPON_INTERVAL	(10)
+#define PLAYER_WEAPON_GRADE_MAX (3)
+#define PLAYER_WEAPON_GAUGE_MAX	(100)
 
 
 #define PLAYER_WIDTH	40
@@ -24,6 +26,8 @@ typedef struct playerData {
 	int mode;
 	int jumpCount;
 	int isDead;
+	int weaponGrade;
+	int weaponGauge;
 }PlayerData;
 
 void playerInit();

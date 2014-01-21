@@ -7,6 +7,7 @@
 #include "field.h"
 #include "player.h"
 #include "weapon.h"
+#include "cutin.h"
 #include "export.h"
 
 
@@ -16,6 +17,7 @@
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 extern PlayerData playerData[2];
 extern WeaponData weapon[2][WEAPON_MAX_COUNT];
+extern CutinData cutinData;
 
 static int deadCount;
 
@@ -44,6 +46,7 @@ void gameInit(void)
 	fieldInit();
 	playerInit();
 	weaponInit();
+	cutinInit();
 
 	deadCount = 0;
 }
@@ -54,6 +57,7 @@ void gameFunc(void)
 	fieldFunc();
 	playerFunc();
 	weaponFunc();
+	cutinFunc();
 
 	pushedStartButton();
 }
@@ -154,5 +158,13 @@ void gameDraw(AGDrawBuffer *DBuf)
 		}
 		agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
 		agDrawSPRITE(DBuf, TRUE, BS(playerData[k].x), BS(playerData[k].y), BS(playerData[k].x + PLAYER_WIDTH), BS(playerData[k].y + PLAYER_HEIGHT));
+	}
+
+	// カットイン
+	if (isCutinShowing()) {
+		agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
+		ageTransferAAC( DBuf, cutinData.imageFile, 0, NULL, NULL );
+		agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
+		agDrawSPRITE(DBuf, TRUE, BS(cutinData.x), BS(cutinData.y), BS(cutinData.x + cutinData.width), BS(cutinData.y + cutinData.height));
 	}
 }

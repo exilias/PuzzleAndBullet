@@ -15,7 +15,7 @@ CGROMDIR = .
 CGROM = $(CGROMDIR)/export_0.bin
 
 # モジュール群
-C_SRC = main.c pad.c game.c field.c export.c player.c weapon.c
+C_SRC = main.c pad.c game.c field.c export.c player.c weapon.c cutin.c
 
 include $(ROOTDIR)/include/makefile.def
 
