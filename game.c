@@ -82,7 +82,7 @@ void gameDraw(AGDrawBuffer *DBuf)
 		}
 
 		if (playerData[0].isDead) {
-			if (deadCount > 120) {
+			if (deadCount > 60) {
 				return;
 			} else {
 				deadCount++;

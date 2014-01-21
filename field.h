@@ -6,7 +6,7 @@
 #define FIELD_BLOCK_SIZE	50
 #define FIELD_ORIGIN1_X		54
 #define FIELD_ORIGIN2_X		570
-#define FIELD_ORIGIN_Y		100
+#define FIELD_ORIGIN_Y		200
 
 #define FIELD_KIND_NONE		0
 #define FIELD_KIND_RED		1
@@ -19,6 +19,8 @@ typedef struct fieldData
 {
 	int kind;
 	int hp;
+	int counter;
+	int state;
 }FieldData;
 
 void fieldInit();

@@ -28,8 +28,8 @@ void playerInit()
 		playerData[i].mode = PLAYER_MODE_WAIT;
 		playerData[i].jumpCount = 0;
 		playerData[i].isDead = FALSE;
-		playerData[i].x = i == 0 ? FIELD_ORIGIN1_X : FIELD_ORIGIN2_X;
-		playerData[i].y = FIELD_ORIGIN_Y;
+		playerData[i].x = (i == 0 ? FIELD_ORIGIN1_X : FIELD_ORIGIN2_X) + 200;
+		playerData[i].y = FIELD_ORIGIN_Y + 200;
 	}
 }
 
