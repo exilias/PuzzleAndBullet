@@ -1,4 +1,5 @@
-SuperPuzzlePlatformer
+PuzzleAndBullet
 =====================
 
-SuperPuzzlePlatformer
+筑波大学 キャンパスOJT ソフトウェアコース 第5期
+SW101、SW102のゲーム作品です。
