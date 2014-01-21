@@ -88,6 +88,16 @@ int movePlayer(int dx, int dy, int moveFlag, int playerId)
 					    ( fieldY < nextY + PLAYER_HEIGHT ) ) {
 						isHit = TRUE;
 					}
+
+					if (field[playerId][i][j].kind == FIELD_KIND_NEEDLE && isHit) {
+						// 針を踏んでる時は当たり判定を無効化する
+						if ((nextX < fieldX + FIELD_BLOCK_SIZE) &&
+							(fieldX < nextX + PLAYER_WIDTH) &&
+							(nextY + PLAYER_HEIGHT < fieldY + FIELD_BLOCK_SIZE) &&
+							(fieldY < nextY + PLAYER_HEIGHT)) {
+							isHit = FALSE;
+						}
+					}
 					break;
 			}
 		}
@@ -114,7 +124,6 @@ int isGameOver(int playerId)
 
 	isGameOver = FALSE;
 
-	// 潰され判定
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 		for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
 			int fieldX, fieldY;
@@ -125,6 +134,7 @@ int isGameOver(int playerId)
 			}
 			fieldY = FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE;
 
+			// 潰され判定
 			switch (field[playerId][i][j].kind) {
 				case FIELD_KIND_NONE:
 				default:
@@ -139,9 +149,22 @@ int isGameOver(int playerId)
 					    ( playerData[playerId].y < fieldY + FIELD_BLOCK_SIZE ) &&
 					    ( fieldY < playerData[playerId].y + PLAYER_HEIGHT ) ) {
 						isGameOver = TRUE;
+						_dprintf("normal dead\n");
 					}
 					break;
 			}
+
+			// // 針を踏んだ時の判定
+			// if (field[playerId][i][j].kind == FIELD_KIND_NEEDLE) {
+			// 	int margin = 40;
+			// 	if ((playerData[playerId].x < fieldX + FIELD_BLOCK_SIZE) &&
+			// 		(fieldX < playerData[playerId].x + PLAYER_WIDTH) &&
+			// 		(playerData[playerId].y + PLAYER_HEIGHT < fieldY + FIELD_BLOCK_SIZE) &&
+			// 		(fieldY < playerData[playerId].y + PLAYER_HEIGHT - margin)) {
+			// 		isGameOver = TRUE;
+			// 		_dprintf("needle dead\n");
+			// 	}
+			// }
 		}
 	}
 

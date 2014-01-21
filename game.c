@@ -17,6 +17,7 @@ extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 extern PlayerData playerData[2];
 extern WeaponData weapon[2][WEAPON_MAX_COUNT];
 
+static int deadCount;
 
 // 乱数の初期化
 void setSrand()
@@ -43,6 +44,8 @@ void gameInit(void)
 	fieldInit();
 	playerInit();
 	weaponInit();
+
+	deadCount = 0;
 }
 
 
@@ -69,8 +72,12 @@ void gameDraw(AGDrawBuffer *DBuf)
 			fieldX = FIELD_ORIGIN2_X;
 		}
 
-		if (playerData[0].isDead) { 
-			return;
+		if (playerData[0].isDead) {
+			if (deadCount > 500) {
+				return;
+			} else {
+				deadCount++;
+			}
 		}
 
 		// フィールドの背景
