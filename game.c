@@ -4,11 +4,13 @@
 #include <ax51401.h>
 #include <agGamePad.h>
 
+#include "export.h"
 #include "field.h"
 #include "player.h"
 #include "weapon.h"
 #include "cutin.h"
-#include "export.h"
+#include "draw_number.h"
+
 
 
 #define BS(a) ((a) << 2)
@@ -172,4 +174,7 @@ void gameDraw(AGDrawBuffer *DBuf)
 		agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
 		agDrawSPRITE(DBuf, TRUE, BS(cutinData.x), BS(cutinData.y), BS(cutinData.x + cutinData.width), BS(cutinData.y + cutinData.height));
 	}
+
+	// GUI
+	drawNumberGraph(4356 /*表示させたい数字(int)*/, BS(100) /*表示させたいX座標*/, BS(20) /*表示させたいY座標*/, BS(30)/*1つの文字の幅*/, BS(30)/*1つの文字の高さ*/, 6/*桁数*/, DBuf);
 }
