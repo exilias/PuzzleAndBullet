@@ -13,7 +13,7 @@
 WeaponData weapon[2][WEAPON_MAX_COUNT];
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
-void blockDestroy(int x, int y, int playerId);
+void blockDestroy(int x, int y, int count, int playerId);
 
 
 
@@ -73,7 +73,7 @@ void weaponFunc()
 									_dprintf("attack %d %d\n", field[l][i][j].hp, weapon[l][k].attackPoint);
 									if (field[l][i][j].hp <= 0) {
 										_dprintf("delete\n");
-										blockDestroy(i, j, l);
+										blockDestroy(i, j, 0, l);
 									} 
 								}
 							}
@@ -86,7 +86,7 @@ void weaponFunc()
 	}
 }
 
-void blockDestroy(int x, int y, int playerId)
+void blockDestroy(int x, int y, int count, int playerId)
 {
 	int fieldKind = field[playerId][x][y].kind;
 	if (field[playerId][x][y].kind == FIELD_KIND_NONE) {
@@ -95,19 +95,19 @@ void blockDestroy(int x, int y, int playerId)
 
 	field[playerId][x][y].kind = FIELD_KIND_NONE;
 
-	addScore(300, playerId);
+	addScore(300 + 50 * count, playerId);
 
 	if (x-1 >= 0 && (field[playerId][x-1][y].kind == fieldKind || field[playerId][x-1][y].kind == FIELD_KIND_NEEDLE)) {
-		blockDestroy(x-1, y, playerId);
+		blockDestroy(x-1, y, ++count, playerId);
 	}
 	if (x+1 < FIELD_SIZE_WIDTH && (field[playerId][x+1][y].kind == fieldKind || field[playerId][x+1][y].kind == FIELD_KIND_NEEDLE)) {
-		blockDestroy(x+1, y, playerId);
+		blockDestroy(x+1, y, ++count, playerId);
 	}
 	if (y-1 >= 0 && (field[playerId][x][y-1].kind == fieldKind || field[playerId][x][y-1].kind == FIELD_KIND_NEEDLE)) {
-		blockDestroy(x, y-1, playerId);
+		blockDestroy(x, y-1, ++count, playerId);
 	}
 	if (y+1 < FIELD_SIZE_HEIGHT && (field[playerId][x][y+1].kind == fieldKind || field[playerId][x][y+1].kind == FIELD_KIND_NEEDLE)) {
-		blockDestroy(x, y+1, playerId);
+		blockDestroy(x, y+1, ++count, playerId);
 	}
 
 	return;
