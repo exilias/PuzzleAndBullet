@@ -8,19 +8,38 @@
 #include "cutin.h"
 
 
+
+#define PLAYER_CHARACTER_MAKO	0
+#define PLAYER_CHARACTER_LEMI	1
+
+
+
 PlayerData playerData[2];
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
-const static u16 MotionMap[] = {
-	AG_RP_MAKO_STAND,
-	AG_RP_MAKO_RUN,
-	AG_RP_MAKO_RUN,
-	AG_RP_MAKO_RUN,
-	AG_RP_MAKO_JUMP,
-	AG_RP_MAKO_JUMP,
-	AG_RP_MAKO_JUMP,
-	AG_RP_MAKO_JUMP,
-	AG_RP_MAKO_STAND,
+const static u16 MotionMap[2][9] = {
+	{
+		AG_RP_MAKO_STAND,
+		AG_RP_MAKO_RUN,
+		AG_RP_MAKO_RUN,
+		AG_RP_MAKO_RUN,
+		AG_RP_MAKO_JUMP,
+		AG_RP_MAKO_JUMP,
+		AG_RP_MAKO_JUMP,
+		AG_RP_MAKO_JUMP,
+		AG_RP_MAKO_STAND
+	},
+	{
+		AG_RP_LEMI_STAND,
+		AG_RP_LEMI_RUN,
+		AG_RP_LEMI_RUN,
+		AG_RP_LEMI_RUN,
+		AG_RP_MAKO_JUMP,
+		AG_RP_MAKO_JUMP,
+		AG_RP_MAKO_JUMP,
+		AG_RP_MAKO_JUMP,
+		AG_RP_LEMI_STAND
+	}
 };
 
 const static s16 JumpPattern[] = {
@@ -48,6 +67,7 @@ void playerInit()
 		playerData[i].weaponCount = 0;
 		playerData[i].x = (i == 0 ? FIELD_ORIGIN1_X : FIELD_ORIGIN2_X) + 200;
 		playerData[i].y = FIELD_ORIGIN_Y + 200;
+		playerData[i].characterId = PLAYER_CHARACTER_LEMI;
 	}
 }
 
@@ -75,14 +95,14 @@ void playerDraw(void* DBuf)
 	AGDrawBuffer *_DBuf = (AGDrawBuffer *)DBuf;
 
 	for (i = 0; i < 2; i++) {
-		if ((playerData[i].count >> 1) >= ageRM3[MotionMap[playerData[i].mode]].Frames) {
+		if ((playerData[i].count >> 1) >= ageRM3[MotionMap[playerData[i].characterId][playerData[i].mode]].Frames) {
 			playerData[i].count = 0;
 		}
 
 		agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
 		pat = playerData[i].count >> 1;
 
-		ageTransferAAC_RM3( _DBuf, MotionMap[playerData[i].mode] , 0, &w, &h , pat);
+		ageTransferAAC_RM3( _DBuf, MotionMap[playerData[i].characterId][playerData[i].mode] , 0, &w, &h , pat);
 		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
 
 		if (playerData[i].direction) {
@@ -305,7 +325,7 @@ int calcPlayer(int playerId)
 			if (pad & GAMEPAD_B) {	// ボタンが押されている場合
 				playerData[playerId].count++;
 
-				if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[playerData[playerId].mode]].Frames) {
+				if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[playerData[playerId].characterId][playerData[playerId].mode]].Frames) {
 					playerData[playerId].count = 0;
 					playerData[playerId].mode = PLAYER_MODE_JUMP;
 					playerData[playerId].jumpCount = 0;
@@ -379,7 +399,7 @@ int calcPlayer(int playerId)
 
 			playerData[playerId].count++;
 
-			if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[playerData[playerId].mode]].Frames) {
+			if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[playerData[playerId].characterId][playerData[playerId].mode]].Frames) {
 				playerData[playerId].count = 0;
 				playerData[playerId].mode = PLAYER_MODE_WAIT;
 			}

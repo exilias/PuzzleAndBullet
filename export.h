@@ -63,6 +63,8 @@ extern "C" {
 #define AG_RP_MAKO_STAND	(0)
 #define AG_RP_MAKO_RUN	(1)
 #define AG_RP_MAKO_JUMP	(2)
+#define AG_RP_LEMI_STAND	(3)
+#define AG_RP_LEMI_RUN	(4)
 
 /***************************************************************/
 /*                       Vram Group Symbol                     */
@@ -72,7 +74,7 @@ extern "C" {
 /*                          Data Member                        */
 /***************************************************************/
 extern const AGERomMember ageRM[29];
-extern const AGERM3Member ageRM3[3];
+extern const AGERM3Member ageRM3[5];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;

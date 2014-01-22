@@ -31,6 +31,7 @@ typedef struct playerData {
 	int weaponCount;
 	int weaponGrade;
 	int weaponGauge;
+	int characterId;
 }PlayerData;
 
 void playerInit();
