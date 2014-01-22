@@ -1,4 +1,6 @@
 
+
+
 #define PLAYER_MODE_WAIT		(0)
 #define PLAYER_MODE_RUNSTART	(1)
 #define PLAYER_MODE_RUN			(2)
@@ -32,3 +34,4 @@ typedef struct playerData {
 
 void playerInit();
 void playerFunc();
+void playerDraw(void* DBuf);

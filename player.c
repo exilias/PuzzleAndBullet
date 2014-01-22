@@ -11,6 +11,15 @@
 PlayerData playerData[2];
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
+const static u16 MotionMap[] = {
+	AG_RP_MAKO_RUN,
+};
+
+const static s16 JumpPattern[] = {
+	50, 30, 22, 19, 15, 13, 10, 8 , 7 , 6 , 5 , 4 , 2 , 2 , 1, 1, 0, 0,
+};
+
+
 int movePlayer(int dx, int dy, int moveFlag, int playerId);
 int calcPlayer(int playerId);
 int isGameOver(int playerId);
@@ -47,6 +56,29 @@ void playerFunc()
 	}
 }
 
+
+void playerDraw(void* DBuf)
+{
+	int i;
+	int w, h;
+	int pat;
+
+	AGDrawBuffer *_DBuf = (AGDrawBuffer *)DBuf;
+
+	for (i = 0; i < 2; i++) {
+		agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
+		pat = playerData[i].count >> 1;
+
+		ageTransferAAC_RM3( _DBuf, MotionMap[0] , 0, &w, &h , pat );
+		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+
+		if (playerData[i].direction) {
+			agDrawSPRITE_UV( _DBuf, playerData[i].x << 2, playerData[i].y << 2, 0x1000 , 0, (playerData[i].x + PLAYER_WIDTH) << 2, (playerData[i].y + PLAYER_HEIGHT) << 2, 0, 0x1000);
+		} else {
+			agDrawSPRITE(_DBuf, TRUE, playerData[i].x << 2, playerData[i].y << 2, (playerData[i].x + PLAYER_WIDTH) << 2, (playerData[i].y + PLAYER_HEIGHT) << 2);
+		}
+	}
+}
 
 // プレイヤーを動かす
 // 戻り値は当たり判定の結果
@@ -175,10 +207,6 @@ int isGameOver(int playerId)
 	return isGameOver;
 }
 
-const static s16 JumpPattern[] = {
-	50, 30, 22, 19, 15, 13, 10, 8 , 7 , 6 , 5 , 4 , 2 , 2 , 1, 1, 0, 0,
-};
-
 int calcPlayer(int playerId)
 {
 	u32 pad;
@@ -229,6 +257,9 @@ int calcPlayer(int playerId)
 					playerData[playerId].count++;
 
 					// 移動モーションの変更部分
+					if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[0]].Frames) {
+						playerData[playerId].count = 0;
+					}
 
 					if (playerData[playerId].mode == PLAYER_MODE_RUNSTART) {	// 走り始めが終わったら走りモードへ
 						playerData[playerId].mode = PLAYER_MODE_RUN;
@@ -244,9 +275,12 @@ int calcPlayer(int playerId)
 					playerData[playerId].mode = PLAYER_MODE_RUNEND;
 				}
 				else {	// 止まってるか走り終わり
-					playerData[playerId].count++;
+					//playerData[playerId].count++;
 
 					// 移動モーションの変更部分
+					if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[0]].Frames) {
+						playerData[playerId].count = 0;
+					}
 
 					if (playerData[playerId].mode == PLAYER_MODE_RUNEND) {
 						playerData[playerId].mode = PLAYER_MODE_WAIT;
@@ -329,7 +363,7 @@ int calcPlayer(int playerId)
 				playerData[playerId].isDead = TRUE;
 			}
 			else {
-				playerData[playerId].count++;
+				//playerData[playerId].count++;
 
 				// アニメーション
 

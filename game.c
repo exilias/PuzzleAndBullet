@@ -158,17 +158,10 @@ void gameDraw(AGDrawBuffer *DBuf)
 				agDrawSPRITE(DBuf, TRUE, BS(weapon[k][i].x), BS(weapon[k][i].y), BS(weapon[k][i].x + WEAPON_BLOCK_SIZE), BS(weapon[k][i].y + WEAPON_BLOCK_SIZE));
 			}
 		}
-
-		// キャラクターの描画
-		agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
-		if (playerData[k].direction) {
-			ageTransferAAC( DBuf, AG_CG_MAKO_LEFT, 0, NULL, NULL );
-		} else {
-			ageTransferAAC( DBuf, AG_CG_MAKO_RIGHT, 0, NULL, NULL );
-		}
-		agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-		agDrawSPRITE(DBuf, TRUE, BS(playerData[k].x), BS(playerData[k].y), BS(playerData[k].x + PLAYER_WIDTH), BS(playerData[k].y + PLAYER_HEIGHT));
 	}
+
+	// プレイヤー描画
+	playerDraw(DBuf);
 
 	// カットイン
 	if (isCutinShowing()) {
