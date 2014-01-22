@@ -2,6 +2,7 @@
 #include "cutin.h"
 
 #include <amlib.h>
+#include "math.h"
 
 
 #define CUTIN_WIDTH			1024
@@ -21,20 +22,6 @@
 
 CutinData cutinData;
 
-
-
-float pow(float a, float times)
-{
-	int i;
-	float ans;
-
-	ans = 1;
-	for (i = 0; i < times; i++) {
-		ans *= a;
-	}
-
-	return a;
-}
 
 void cutinInit()
 {

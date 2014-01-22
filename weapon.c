@@ -4,6 +4,7 @@
 #include <amlib.h>
 #include "player.h"
 #include "field.h"
+#include "score.h"
 
 #define WEAPON_SPEED	5
 
@@ -93,6 +94,8 @@ void blockDestroy(int x, int y, int playerId)
 	}
 
 	field[playerId][x][y].kind = FIELD_KIND_NONE;
+
+	addScore(300, playerId);
 
 	if (x-1 >= 0 && (field[playerId][x-1][y].kind == fieldKind || field[playerId][x-1][y].kind == FIELD_KIND_NEEDLE)) {
 		blockDestroy(x-1, y, playerId);

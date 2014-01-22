@@ -10,6 +10,7 @@
 #include "weapon.h"
 #include "cutin.h"
 #include "draw_number.h"
+#include "score.h"
 
 
 
@@ -21,7 +22,7 @@ extern PlayerData playerData[2];
 extern WeaponData weapon[2][WEAPON_MAX_COUNT];
 extern CutinData cutinData;
 
-static int deadCount;
+int deadCount;
 
 // 乱数の初期化
 void setSrand()
@@ -49,6 +50,7 @@ void gameInit(void)
 	playerInit();
 	weaponInit();
 	cutinInit();
+	scoreInit();
 
 	deadCount = 0;
 }
@@ -60,6 +62,7 @@ void gameFunc(void)
 	playerFunc();
 	weaponFunc();
 	cutinFunc();
+	scoreFunc();
 
 	pushedStartButton();
 }
@@ -176,5 +179,9 @@ void gameDraw(AGDrawBuffer *DBuf)
 	}
 
 	// GUI
-	drawNumberGraph(4356 /*表示させたい数字(int)*/, BS(100) /*表示させたいX座標*/, BS(20) /*表示させたいY座標*/, BS(40)/*1つの文字の幅*/, BS(50)/*1つの文字の高さ*/, 6/*桁数*/, DBuf);
+	for (i = 0; i < 2; i++) {
+		// Score
+		drawNumberGraph(getScore(i) /*表示させたい数字(int)*/, BS(i == 0 ? 100 : 600) /*表示させたいX座標*/, BS(20) /*表示させたいY座標*/, BS(40)/*1つの文字の幅*/, BS(50)/*1つの文字の高さ*/, 6/*桁数*/, DBuf);
+	}
+	
 }
