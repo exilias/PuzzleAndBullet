@@ -12,16 +12,16 @@ void drawNumberGraph(int number ,int x, int y, int size_x, int size_y , int orde
 {
 	int i, n;
 	int draw_x;
-	int id[10] = {	AG_CG_NUMBER_0, 
-					AG_CG_NUMBER_1, 
-					AG_CG_NUMBER_2,
-					AG_CG_NUMBER_3,
-					AG_CG_NUMBER_4,
-					AG_CG_NUMBER_5,
-					AG_CG_NUMBER_6,
-					AG_CG_NUMBER_7,
-					AG_CG_NUMBER_8,
-					AG_CG_NUMBER_9 };
+	int id[10] = {	AG_CG_SCORE_NUMBER_0, 
+					AG_CG_SCORE_NUMBER_1, 
+					AG_CG_SCORE_NUMBER_2,
+					AG_CG_SCORE_NUMBER_3,
+					AG_CG_SCORE_NUMBER_4,
+					AG_CG_SCORE_NUMBER_5,
+					AG_CG_SCORE_NUMBER_6,
+					AG_CG_SCORE_NUMBER_7,
+					AG_CG_SCORE_NUMBER_8,
+					AG_CG_SCORE_NUMBER_9 };
 					
 	draw_x = x + (order-1)*size_x;
 
