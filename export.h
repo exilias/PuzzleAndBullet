@@ -41,28 +41,28 @@ extern "C" {
 #define AG_CG_BLOCK_GREEN	(11)
 #define AG_CG_BLOCK_NEEDLE	(12)
 #define AG_CG_BLOCK_RED	(13)
-#define AG_CG_MAKO_LEFT	(14)
-#define AG_CG_MAKO_RIGHT	(15)
-#define AG_CG_MAKO_BULLET_LEFT	(16)
-#define AG_CG_MAKO_BULLET_RIGHT	(17)
-#define AG_CG_STAGE_BG	(18)
-#define AG_CG_MAKO_CUT_IN	(19)
-#define AG_CG_GAME_BG	(20)
-#define AG_CG_SCORE_NUMBER_0	(21)
-#define AG_CG_SCORE_NUMBER_1	(22)
-#define AG_CG_SCORE_NUMBER_2	(23)
-#define AG_CG_SCORE_NUMBER_3	(24)
-#define AG_CG_SCORE_NUMBER_4	(25)
-#define AG_CG_SCORE_NUMBER_5	(26)
-#define AG_CG_SCORE_NUMBER_6	(27)
-#define AG_CG_SCORE_NUMBER_7	(28)
-#define AG_CG_SCORE_NUMBER_8	(29)
-#define AG_CG_SCORE_NUMBER_9	(30)
+#define AG_CG_MAKO_BULLET_LEFT	(14)
+#define AG_CG_MAKO_BULLET_RIGHT	(15)
+#define AG_CG_STAGE_BG	(16)
+#define AG_CG_MAKO_CUT_IN	(17)
+#define AG_CG_GAME_BG	(18)
+#define AG_CG_SCORE_NUMBER_0	(19)
+#define AG_CG_SCORE_NUMBER_1	(20)
+#define AG_CG_SCORE_NUMBER_2	(21)
+#define AG_CG_SCORE_NUMBER_3	(22)
+#define AG_CG_SCORE_NUMBER_4	(23)
+#define AG_CG_SCORE_NUMBER_5	(24)
+#define AG_CG_SCORE_NUMBER_6	(25)
+#define AG_CG_SCORE_NUMBER_7	(26)
+#define AG_CG_SCORE_NUMBER_8	(27)
+#define AG_CG_SCORE_NUMBER_9	(28)
 
 /***************************************************************/
 /*                     RM3 Member Symbol                       */
 /***************************************************************/
-#define AG_RP_MAKO_RUN	(0)
+#define AG_RP_MAKO_STAND	(0)
+#define AG_RP_MAKO_RUN	(1)
+#define AG_RP_MAKO_JUMP	(2)
 
 /***************************************************************/
 /*                       Vram Group Symbol                     */
@@ -71,8 +71,8 @@ extern "C" {
 /***************************************************************/
 /*                          Data Member                        */
 /***************************************************************/
-extern const AGERomMember ageRM[31];
-extern const AGERM3Member ageRM3[1];
+extern const AGERomMember ageRM[29];
+extern const AGERM3Member ageRM3[3];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;

@@ -28,6 +28,7 @@ typedef struct playerData {
 	int mode;
 	int jumpCount;
 	int isDead;
+	int weaponCount;
 	int weaponGrade;
 	int weaponGauge;
 }PlayerData;

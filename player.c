@@ -12,7 +12,15 @@ PlayerData playerData[2];
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
 const static u16 MotionMap[] = {
+	AG_RP_MAKO_STAND,
 	AG_RP_MAKO_RUN,
+	AG_RP_MAKO_RUN,
+	AG_RP_MAKO_RUN,
+	AG_RP_MAKO_JUMP,
+	AG_RP_MAKO_JUMP,
+	AG_RP_MAKO_JUMP,
+	AG_RP_MAKO_JUMP,
+	AG_RP_MAKO_STAND,
 };
 
 const static s16 JumpPattern[] = {
@@ -37,6 +45,7 @@ void playerInit()
 		playerData[i].mode = PLAYER_MODE_WAIT;
 		playerData[i].jumpCount = 0;
 		playerData[i].isDead = FALSE;
+		playerData[i].weaponCount = 0;
 		playerData[i].x = (i == 0 ? FIELD_ORIGIN1_X : FIELD_ORIGIN2_X) + 200;
 		playerData[i].y = FIELD_ORIGIN_Y + 200;
 	}
@@ -66,10 +75,14 @@ void playerDraw(void* DBuf)
 	AGDrawBuffer *_DBuf = (AGDrawBuffer *)DBuf;
 
 	for (i = 0; i < 2; i++) {
+		if ((playerData[i].count >> 1) >= ageRM3[MotionMap[playerData[i].mode]].Frames) {
+			playerData[i].count = 0;
+		}
+
 		agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
 		pat = playerData[i].count >> 1;
 
-		ageTransferAAC_RM3( _DBuf, MotionMap[0] , 0, &w, &h , pat );
+		ageTransferAAC_RM3( _DBuf, MotionMap[playerData[i].mode] , 0, &w, &h , pat);
 		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
 
 		if (playerData[i].direction) {
@@ -256,11 +269,6 @@ int calcPlayer(int playerId)
 				else {
 					playerData[playerId].count++;
 
-					// 移動モーションの変更部分
-					if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[0]].Frames) {
-						playerData[playerId].count = 0;
-					}
-
 					if (playerData[playerId].mode == PLAYER_MODE_RUNSTART) {	// 走り始めが終わったら走りモードへ
 						playerData[playerId].mode = PLAYER_MODE_RUN;
 					}
@@ -275,12 +283,7 @@ int calcPlayer(int playerId)
 					playerData[playerId].mode = PLAYER_MODE_RUNEND;
 				}
 				else {	// 止まってるか走り終わり
-					//playerData[playerId].count++;
-
-					// 移動モーションの変更部分
-					if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[0]].Frames) {
-						playerData[playerId].count = 0;
-					}
+					playerData[playerId].count++;
 
 					if (playerData[playerId].mode == PLAYER_MODE_RUNEND) {
 						playerData[playerId].mode = PLAYER_MODE_WAIT;
@@ -302,7 +305,7 @@ int calcPlayer(int playerId)
 			if (pad & GAMEPAD_B) {	// ボタンが押されている場合
 				playerData[playerId].count++;
 
-				if (playerData[playerId].count > 0) {
+				if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[playerData[playerId].mode]].Frames) {
 					playerData[playerId].count = 0;
 					playerData[playerId].mode = PLAYER_MODE_JUMP;
 					playerData[playerId].jumpCount = 0;
@@ -333,9 +336,6 @@ int calcPlayer(int playerId)
 				}
 
 				playerData[playerId].count++;
-
-				// キャラクターアニメーション
-			
 			}
 			else {	// ボタンが離されたので落ちモードへ
 				playerData[playerId].mode = PLAYER_MODE_FALL;
@@ -363,10 +363,7 @@ int calcPlayer(int playerId)
 				playerData[playerId].isDead = TRUE;
 			}
 			else {
-				//playerData[playerId].count++;
-
-				// アニメーション
-
+				playerData[playerId].count++;
 			}
 			break;
 
@@ -382,7 +379,7 @@ int calcPlayer(int playerId)
 
 			playerData[playerId].count++;
 
-			if (playerData[playerId].count > 1) {
+			if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[playerData[playerId].mode]].Frames) {
 				playerData[playerId].count = 0;
 				playerData[playerId].mode = PLAYER_MODE_WAIT;
 			}
@@ -390,9 +387,11 @@ int calcPlayer(int playerId)
 
 		case PLAYER_MODE_ATTACK:
 			playerData[playerId].count++;
+			playerData[playerId].weaponCount++;
 
-			if (playerData[playerId].count > PLAYER_WEAPON_INTERVAL) {
+			if (playerData[playerId].weaponCount > PLAYER_WEAPON_INTERVAL) {
 				playerData[playerId].count = 0;
+				playerData[playerId].weaponCount = 0;
 				playerData[playerId].mode = PLAYER_MODE_WAIT;
 			}
 			break;
