@@ -59,7 +59,7 @@ void fieldFunc()
 		if (count % FIELD_ADD_BLOCK_INTERVAL == 0) {
 			// 新たにブロックを生成する
 			int x = rand()%FIELD_SIZE_WIDTH;
-			if (field[k][x][0].kind = FIELD_KIND_NONE) {
+			if (field[k][x][0].kind == FIELD_KIND_NONE) {
 				field[k][x][0].kind = rand() % 4 + 1;
 				field[k][x][0].hp = 5;
 				field[k][x][0].state = FIELD_STATE_EXPOSE;
