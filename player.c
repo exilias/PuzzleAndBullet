@@ -2,10 +2,11 @@
 #include <amlib.h>
 #include <agGamePad.h>
 
-#include "export.h" // Cutin用に読み込んでる。本来は読み込まず、Cutin用画像のRomMemberNoはPlayer構造体につっこむ
+#include "export.h"
 #include "player.h"
 #include "field.h"
 #include "cutin.h"
+#include "math.h"
 
 
 
@@ -67,7 +68,7 @@ void playerInit()
 		playerData[i].weaponCount = 0;
 		playerData[i].x = (i == 0 ? FIELD_ORIGIN1_X : FIELD_ORIGIN2_X) + 200;
 		playerData[i].y = FIELD_ORIGIN_Y + 200;
-		playerData[i].characterId = PLAYER_CHARACTER_LEMI;
+		playerData[i].characterId = PLAYER_CHARACTER_MAKO;
 	}
 }
 
@@ -106,9 +107,9 @@ void playerDraw(void* DBuf)
 		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
 
 		if (playerData[i].direction) {
-			agDrawSPRITE_UV( _DBuf, playerData[i].x << 2, playerData[i].y << 2, 0x1000 , 0, (playerData[i].x + PLAYER_WIDTH) << 2, (playerData[i].y + PLAYER_HEIGHT) << 2, 0, 0x1000);
+			agDrawSPRITE_UV( _DBuf, x4(playerData[i].x), x4(playerData[i].y), 0x1000 , 0, x4(playerData[i].x + PLAYER_WIDTH), x4(playerData[i].y + PLAYER_HEIGHT), 0, 0x1000);
 		} else {
-			agDrawSPRITE(_DBuf, TRUE, playerData[i].x << 2, playerData[i].y << 2, (playerData[i].x + PLAYER_WIDTH) << 2, (playerData[i].y + PLAYER_HEIGHT) << 2);
+			agDrawSPRITE(_DBuf, TRUE, x4(playerData[i].x), x4(playerData[i].y), x4(playerData[i].x + PLAYER_WIDTH), x4(playerData[i].y + PLAYER_HEIGHT));
 		}
 	}
 }

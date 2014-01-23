@@ -13,4 +13,5 @@ typedef struct weaponData
 
 void weaponInit();
 void weaponFunc();
+void weaponDraw(void* DBuf);
 void addWeapon(void *playerData, int playerId);

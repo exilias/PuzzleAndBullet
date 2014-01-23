@@ -2,9 +2,11 @@
 #include "weapon.h"
 
 #include <amlib.h>
+#include "export.h"
 #include "player.h"
 #include "field.h"
 #include "score.h"
+#include "math.h"
 
 #define WEAPON_SPEED	5
 
@@ -81,6 +83,28 @@ void weaponFunc()
 						
 						break;
 				}
+			}
+		}
+	}
+}
+
+
+void weaponDraw(void* DBuf)
+{
+	int i, j;
+	AGDrawBuffer *_DBuf = (AGDrawBuffer *)DBuf;
+
+	for (i = 0; i < 2; i++) {
+		for (j = 0; j < WEAPON_MAX_COUNT; j++) {
+			if (weapon[i][j].isActive) {
+				agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
+				if (weapon[i][j].direction) {
+					ageTransferAAC( _DBuf, AG_CG_MAKO_BULLET_LEFT, 0, NULL, NULL );
+				} else {
+					ageTransferAAC( _DBuf, AG_CG_MAKO_BULLET_RIGHT, 0, NULL, NULL );
+				}
+				agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+				agDrawSPRITE(_DBuf, TRUE, x4(weapon[i][j].x), x4(weapon[i][j].y), x4(weapon[i][j].x + WEAPON_BLOCK_SIZE), x4(weapon[i][j].y + WEAPON_BLOCK_SIZE));
 			}
 		}
 	}

@@ -1,4 +1,8 @@
 
+int x4(int value)
+{
+	return value << 2;
+}
 
 float pow(float a, float times)
 {
