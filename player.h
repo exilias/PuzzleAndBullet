@@ -13,8 +13,10 @@
 
 #define PLAYER_RUN_SPEED		(4)
 #define PLAYER_WEAPON_INTERVAL	(10)
-#define PLAYER_WEAPON_GRADE_MAX (3)
+#define PLAYER_WEAPON_GRADE_MAX (5)
 #define PLAYER_WEAPON_GAUGE_MAX	(100)
+#define PLAYER_WEAPON_GAUGE_ADD_STANDARD_VALUE	(10)
+#define PLAYER_WEAPON_GAUGE_ADD_BONUS_VALUE		(5)
 
 
 #define PLAYER_WIDTH	40
@@ -29,7 +31,6 @@ typedef struct playerData {
 	int jumpCount;
 	int isDead;
 	int weaponCount;
-	int weaponGrade;
 	int weaponGauge;
 	int characterId;
 }PlayerData;
@@ -37,3 +38,4 @@ typedef struct playerData {
 void playerInit();
 void playerFunc();
 void playerDraw(void* DBuf);
+void addWeaponGauge(int value, int playerId);

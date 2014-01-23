@@ -122,7 +122,8 @@ void blockDestroy(int x, int y, int count, int playerId)
 
 	field[playerId][x][y].kind = FIELD_KIND_NONE;
 
-	addScore(300 + 50 * count, playerId);
+	addScore(SCORE_ADD_STANDARD_VALUE + SCORE_ADD_BONUS_VALUE * count, playerId);
+	addWeaponGauge(PLAYER_WEAPON_GAUGE_ADD_STANDARD_VALUE + PLAYER_WEAPON_GAUGE_ADD_BONUS_VALUE * count, playerId);
 
 	if (x-1 >= 0 && (field[playerId][x-1][y].kind == fieldKind || field[playerId][x-1][y].kind == FIELD_KIND_NEEDLE)) {
 		blockDestroy(x-1, y, ++count, playerId);

@@ -67,6 +67,7 @@ void playerInit()
 		playerData[i].jumpCount = 0;
 		playerData[i].isDead = FALSE;
 		playerData[i].weaponCount = 0;
+		playerData[i].weaponGauge = 0;
 		playerData[i].x = (i == 0 ? FIELD_ORIGIN1_X : FIELD_ORIGIN2_X) + 200;
 		playerData[i].y = FIELD_ORIGIN_Y + 200;
 		playerData[i].characterId = PLAYER_CHARACTER_MAKO;
@@ -113,6 +114,11 @@ void playerDraw(void* DBuf)
 			agDrawSPRITE(_DBuf, TRUE, x4(playerData[i].x), x4(playerData[i].y), x4(playerData[i].x + PLAYER_WIDTH), x4(playerData[i].y + PLAYER_HEIGHT));
 		}
 	}
+}
+
+void addWeaponGauge(int value, int playerId)
+{
+	playerData[playerId].weaponGauge += value;
 }
 
 // プレイヤーを動かす
