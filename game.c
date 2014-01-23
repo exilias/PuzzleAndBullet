@@ -7,7 +7,6 @@
 #include "export.h"
 #include "field.h"
 #include "player.h"
-#include "weapon.h"
 #include "cutin.h"
 #include "draw_number.h"
 #include "score.h"
@@ -16,13 +15,13 @@
 
 #define BS(a) ((a) << 2)
 
-
-extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 extern PlayerData playerData[2];
-extern WeaponData weapon[2][WEAPON_MAX_COUNT];
 extern CutinData cutinData;
 
 int deadCount;
+
+
+
 
 // 乱数の初期化
 void setSrand()
@@ -71,86 +70,26 @@ void gameFunc(void)
 void gameDraw(AGDrawBuffer *DBuf)
 {
 	int i, j, k;
-	int isTexture;
 
 	// 背景
 	ageTransferAAC( DBuf, AG_CG_GAME_BG, 0, NULL, NULL );
 	agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
 	agDrawSPRITE(DBuf, TRUE, 0, 0, BS(FB_WIDTH), BS(FB_HEIGHT));
 
-	for (k = 0; k < 2; k++) {
-		int fieldX;
-		if (k == 0) {
-			fieldX = FIELD_ORIGIN1_X;
+	if (playerData[0].isDead) {
+		if (deadCount > 60) {
+			return;
 		} else {
-			fieldX = FIELD_ORIGIN2_X;
+			deadCount++;
 		}
-
-		if (playerData[0].isDead) {
-			if (deadCount > 60) {
-				return;
-			} else {
-				deadCount++;
-			}
-		}
-
-		// フィールドの背景
-		agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
-		ageTransferAAC( DBuf, AG_CG_STAGE_BG, 0, NULL, NULL );
-		agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-		agDrawSPRITE(DBuf, TRUE, BS(fieldX - FIELD_BLOCK_SIZE), BS(FIELD_ORIGIN_Y), BS(fieldX - FIELD_BLOCK_SIZE + FIELD_BLOCK_SIZE * (FIELD_SIZE_WIDTH + 2)), BS(FIELD_ORIGIN_Y + FIELD_BLOCK_SIZE * (FIELD_SIZE_HEIGHT + 2)));
-
-		// フィールドの描画
-		for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
-			for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
-				isTexture = FALSE;
-
-				switch (field[k][i][j].kind) {
-					case FIELD_KIND_NONE:
-					default:
-						// agDrawSETFCOLOR(DBuf, ARGB(255, 255, 255, 255));
-						// agDrawSETDBMODE( DBuf, 0xff, 0, 0, 1 );
-						break;
-
-					case FIELD_KIND_RED:
-						isTexture = TRUE;
-						agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
-						ageTransferAAC( DBuf, AG_CG_BLOCK_RED, 0, NULL, NULL );
-						agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-						break;
-
-					case FIELD_KIND_GREEN:
-						isTexture = TRUE;
-						agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
-						ageTransferAAC( DBuf, AG_CG_BLOCK_GREEN, 0, NULL, NULL );
-						agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-						break;
-
-					case FIELD_KIND_BLUE:
-						isTexture = TRUE;
-						agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
-						ageTransferAAC( DBuf, AG_CG_BLOCK_BLUE, 0, NULL, NULL );
-						agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-						break;
-
-					case FIELD_KIND_NEEDLE:
-						isTexture = TRUE;
-						agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
-						ageTransferAAC( DBuf, AG_CG_BLOCK_NEEDLE, 0, NULL, NULL );
-						agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-						break;
-				}
-				
-				agDrawSPRITE( DBuf, isTexture, BS(fieldX + i * FIELD_BLOCK_SIZE), BS(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE), BS(fieldX + i * FIELD_BLOCK_SIZE) + BS(FIELD_BLOCK_SIZE), BS(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE) + BS(FIELD_BLOCK_SIZE) );
-			}
-		}
-
-		
 	}
+	
+	// フィールドの描画
+	fieldDraw(DBuf);
 
 	// 武器の描画
 	weaponDraw(DBuf);
-	
+
 	// プレイヤー描画
 	playerDraw(DBuf);
 

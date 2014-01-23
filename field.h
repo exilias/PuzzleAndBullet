@@ -25,3 +25,4 @@ typedef struct fieldData
 
 void fieldInit();
 void fieldFunc();
+void fieldDraw(void* DBuf);
