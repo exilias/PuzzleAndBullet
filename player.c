@@ -9,7 +9,7 @@
 #include "math.h"
 
 
-
+#define PLAYER_COLLISION_MARGIN	10
 #define PLAYER_CHARACTER_MAKO	0
 #define PLAYER_CHARACTER_LEMI	1
 
@@ -152,8 +152,8 @@ int movePlayer(int dx, int dy, int moveFlag, int playerId)
 				case FIELD_KIND_GREEN:
 				case FIELD_KIND_BLUE:
 				case FIELD_KIND_NEEDLE:
-					if( ( nextX < fieldX + FIELD_BLOCK_SIZE ) &&
-					    ( fieldX < nextX + PLAYER_WIDTH ) &&
+					if( ( nextX + PLAYER_COLLISION_MARGIN < fieldX + FIELD_BLOCK_SIZE ) &&
+					    ( fieldX < nextX + PLAYER_WIDTH - PLAYER_COLLISION_MARGIN ) &&
 					    ( nextY < fieldY + FIELD_BLOCK_SIZE ) &&
 					    ( fieldY < nextY + PLAYER_HEIGHT ) ) {
 						isHit = TRUE;
@@ -161,8 +161,8 @@ int movePlayer(int dx, int dy, int moveFlag, int playerId)
 
 					if (field[playerId][i][j].kind == FIELD_KIND_NEEDLE && isHit) {
 						// 針を踏んでる時は当たり判定を無効化する
-						if ((playerData[playerId].x < fieldX + FIELD_BLOCK_SIZE) &&
-							(fieldX < playerData[playerId].x + PLAYER_WIDTH) &&
+						if ((playerData[playerId].x + PLAYER_COLLISION_MARGIN < fieldX + FIELD_BLOCK_SIZE) &&
+							(fieldX < playerData[playerId].x + PLAYER_WIDTH - PLAYER_COLLISION_MARGIN) &&
 							(nextY + PLAYER_HEIGHT < fieldY + FIELD_BLOCK_SIZE) &&
 							(fieldY < nextY + PLAYER_HEIGHT)) {
 							isHit = FALSE;
@@ -214,8 +214,8 @@ int isGameOver(int playerId)
 				case FIELD_KIND_GREEN:
 				case FIELD_KIND_BLUE:
 				case FIELD_KIND_NEEDLE:
-					if( ( playerData[playerId].x < fieldX + FIELD_BLOCK_SIZE ) &&
-					    ( fieldX < playerData[playerId].x + PLAYER_WIDTH ) &&
+					if( ( playerData[playerId].x + PLAYER_COLLISION_MARGIN < fieldX + FIELD_BLOCK_SIZE ) &&
+					    ( fieldX < playerData[playerId].x + PLAYER_WIDTH - PLAYER_COLLISION_MARGIN ) &&
 					    ( playerData[playerId].y < fieldY + FIELD_BLOCK_SIZE ) &&
 					    ( fieldY < playerData[playerId].y + PLAYER_HEIGHT ) ) {
 						isGameOver = TRUE;
@@ -223,18 +223,6 @@ int isGameOver(int playerId)
 					}
 					break;
 			}
-
-			// // 針を踏んだ時の判定
-			// if (field[playerId][i][j].kind == FIELD_KIND_NEEDLE) {
-			// 	int margin = 40;
-			// 	if ((playerData[playerId].x < fieldX + FIELD_BLOCK_SIZE) &&
-			// 		(fieldX < playerData[playerId].x + PLAYER_WIDTH) &&
-			// 		(playerData[playerId].y + PLAYER_HEIGHT < fieldY + FIELD_BLOCK_SIZE) &&
-			// 		(fieldY < playerData[playerId].y + PLAYER_HEIGHT - margin)) {
-			// 		isGameOver = TRUE;
-			// 		_dprintf("needle dead\n");
-			// 	}
-			// }
 		}
 	}
 
