@@ -8,6 +8,8 @@
 #define FIELD_ORIGIN2_X		570
 #define FIELD_ORIGIN_Y		200
 
+#define FIELD_DAMAGING_EFFECT_FRAME		5
+
 #define FIELD_KIND_NONE		0
 #define FIELD_KIND_RED		1
 #define FIELD_KIND_GREEN	2
@@ -21,6 +23,7 @@ typedef struct fieldData
 	int hp;
 	int counter;
 	int state;
+	int damagingEffectCount;
 }FieldData;
 
 void fieldInit();

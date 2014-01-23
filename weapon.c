@@ -16,6 +16,7 @@ WeaponData weapon[2][WEAPON_MAX_COUNT];
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
 void blockDestroy(int x, int y, int count, int playerId);
+void blockDamaging(int x, int y, int playerId);
 
 
 
@@ -63,20 +64,22 @@ void weaponFunc()
 					case FIELD_KIND_RED:
 					case FIELD_KIND_GREEN:
 					case FIELD_KIND_BLUE:
+					case FIELD_KIND_NEEDLE:
 						for (k = 0; k < WEAPON_MAX_COUNT; k++) {
 							if (weapon[l][k].isActive) {
-								if( ( weapon[l][k].x < fieldX + FIELD_BLOCK_SIZE ) &&
-						    ( fieldX < weapon[l][k].x + WEAPON_BLOCK_SIZE ) &&
-						    ( weapon[l][k].y < fieldY + FIELD_BLOCK_SIZE ) &&
-							    ( fieldY < weapon[l][k].y + WEAPON_BLOCK_SIZE ) ) {
+								if( ( weapon[l][k].x < fieldX + FIELD_BLOCK_SIZE ) && ( fieldX < weapon[l][k].x + WEAPON_BLOCK_SIZE ) && ( weapon[l][k].y < fieldY + FIELD_BLOCK_SIZE ) && ( fieldY < weapon[l][k].y + WEAPON_BLOCK_SIZE ) ) {
 									weapon[l][k].isActive = FALSE;
-									//　ダメージ処理
-									field[l][i][j].hp -= weapon[l][k].attackPoint;
-									_dprintf("attack %d %d\n", field[l][i][j].hp, weapon[l][k].attackPoint);
-									if (field[l][i][j].hp <= 0) {
-										_dprintf("delete\n");
-										blockDestroy(i, j, 0, l);
-									} 
+
+									if (field[l][i][j].kind != FIELD_KIND_NEEDLE) {
+										//　通常ブロックにはダメージ処理
+										field[l][i][j].hp -= weapon[l][k].attackPoint;
+										blockDamaging(i, j, l);
+										_dprintf("attack %d %d\n", field[l][i][j].hp, weapon[l][k].attackPoint);
+										if (field[l][i][j].hp <= 0) {
+											_dprintf("delete\n");
+											blockDestroy(i, j, 0, l);
+										} 
+									}
 								}
 							}
 						}
@@ -132,6 +135,31 @@ void blockDestroy(int x, int y, int count, int playerId)
 	}
 	if (y+1 < FIELD_SIZE_HEIGHT && (field[playerId][x][y+1].kind == fieldKind || field[playerId][x][y+1].kind == FIELD_KIND_NEEDLE)) {
 		blockDestroy(x, y+1, ++count, playerId);
+	}
+
+	return;
+}
+
+void blockDamaging(int x, int y, int playerId)
+{
+	int fieldKind = field[playerId][x][y].kind;
+	if (field[playerId][x][y].damagingEffectCount == FIELD_DAMAGING_EFFECT_FRAME) {
+		return;
+	}
+
+	field[playerId][x][y].damagingEffectCount = FIELD_DAMAGING_EFFECT_FRAME;
+
+	if (x-1 >= 0 && (field[playerId][x-1][y].kind == fieldKind || field[playerId][x-1][y].kind == FIELD_KIND_NEEDLE)) {
+		blockDamaging(x-1, y, playerId);
+	}
+	if (x+1 < FIELD_SIZE_WIDTH && (field[playerId][x+1][y].kind == fieldKind || field[playerId][x+1][y].kind == FIELD_KIND_NEEDLE)) {
+		blockDamaging(x+1, y, playerId);
+	}
+	if (y-1 >= 0 && (field[playerId][x][y-1].kind == fieldKind || field[playerId][x][y-1].kind == FIELD_KIND_NEEDLE)) {
+		blockDamaging(x, y-1, playerId);
+	}
+	if (y+1 < FIELD_SIZE_HEIGHT && (field[playerId][x][y+1].kind == fieldKind || field[playerId][x][y+1].kind == FIELD_KIND_NEEDLE)) {
+		blockDamaging(x, y+1, playerId);
 	}
 
 	return;

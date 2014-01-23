@@ -25,6 +25,7 @@ void fieldInit()
 			for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
 				field[k][i][j].kind = FIELD_KIND_NONE;
 				field[k][i][j].hp = 5;
+				field[k][i][j].damagingEffectCount = 0;
 			}
 		}
 
@@ -54,6 +55,7 @@ void fieldFunc()
 							field[k][i][j+1].kind = field[k][i][j].kind;
 							field[k][i][j+1].hp = field[k][i][j].hp;
 							field[k][i][j+1].state = field[k][i][j].state;
+							field[k][i][j+1].damagingEffectCount = field[k][i][j].damagingEffectCount;
 							field[k][i][j].kind = FIELD_KIND_NONE;
 						}
 					}
@@ -112,43 +114,43 @@ void fieldDraw(void* DBuf)
 		for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 			for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
 				int isTexture = FALSE;
+				int imageFile;
 
 				switch (field[k][i][j].kind) {
 					case FIELD_KIND_NONE:
 					default:
-						// agDrawSETFCOLOR(_DBuf, ARGB(255, 255, 255, 255));
-						// agDrawSETDBMODE( _DBuf, 0xff, 0, 0, 1 );
 						break;
 
 					case FIELD_KIND_RED:
 						isTexture = TRUE;
-						agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
-						ageTransferAAC( _DBuf, AG_CG_BLOCK_RED, 0, NULL, NULL );
-						agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+						imageFile = AG_CG_BLOCK_RED;
 						break;
 
 					case FIELD_KIND_GREEN:
 						isTexture = TRUE;
-						agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
-						ageTransferAAC( _DBuf, AG_CG_BLOCK_GREEN, 0, NULL, NULL );
-						agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+						imageFile = AG_CG_BLOCK_GREEN;
 						break;
 
 					case FIELD_KIND_BLUE:
 						isTexture = TRUE;
-						agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
-						ageTransferAAC( _DBuf, AG_CG_BLOCK_BLUE, 0, NULL, NULL );
-						agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+						imageFile = AG_CG_BLOCK_BLUE;
 						break;
 
 					case FIELD_KIND_NEEDLE:
 						isTexture = TRUE;
-						agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
-						ageTransferAAC( _DBuf, AG_CG_BLOCK_NEEDLE, 0, NULL, NULL );
-						agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+						imageFile = AG_CG_BLOCK_NEEDLE;
 						break;
 				}
 				
+				if (field[k][i][j].damagingEffectCount > 0) {
+					agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 255, 255 ) );
+					agDrawSETDBMODE( _DBuf, 0xff, 0, 0, 1 );
+					isTexture = FALSE;
+					field[k][i][j].damagingEffectCount--;
+				} else {
+					ageTransferAAC( _DBuf, imageFile, 0, NULL, NULL );
+					agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+				}	
 				agDrawSPRITE( _DBuf, isTexture, x4(fieldX + i * FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE), x4(fieldX + i * FIELD_BLOCK_SIZE) + x4(FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE) + x4(FIELD_BLOCK_SIZE) );
 			}
 		}
