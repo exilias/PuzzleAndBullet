@@ -161,8 +161,8 @@ int movePlayer(int dx, int dy, int moveFlag, int playerId)
 
 					if (field[playerId][i][j].kind == FIELD_KIND_NEEDLE && isHit) {
 						// 針を踏んでる時は当たり判定を無効化する
-						if ((nextX < fieldX + FIELD_BLOCK_SIZE) &&
-							(fieldX < nextX + PLAYER_WIDTH) &&
+						if ((playerData[playerId].x < fieldX + FIELD_BLOCK_SIZE) &&
+							(fieldX < playerData[playerId].x + PLAYER_WIDTH) &&
 							(nextY + PLAYER_HEIGHT < fieldY + FIELD_BLOCK_SIZE) &&
 							(fieldY < nextY + PLAYER_HEIGHT)) {
 							isHit = FALSE;
