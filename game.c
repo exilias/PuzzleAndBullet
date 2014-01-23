@@ -12,6 +12,7 @@
 #include "score.h"
 
 
+
 #define BS(a) ((a) << 2)
 
 extern PlayerData playerData[2];
@@ -29,13 +30,18 @@ void setSrand()
 
 void pushedStartButton(void)
 {
+	int i;
 	u32 pad;
 
-	pad = agGamePadGetData(0);
 
-	if (pad & GAMEPAD_START) {
-		gameInit();
+	for (i = 0; i < 2; i++) {
+		pad = agGamePadGetData(i);
+
+		if (pad & GAMEPAD_START) {
+			gameInit();
+		}
 	}
+	
 }
 
 

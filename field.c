@@ -114,11 +114,13 @@ void fieldDraw(void* DBuf)
 		for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 			for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
 				int isTexture = FALSE;
+				int isDraw = TRUE;
 				int imageFile;
 
 				switch (field[k][i][j].kind) {
 					case FIELD_KIND_NONE:
 					default:
+						isDraw = FALSE;
 						break;
 
 					case FIELD_KIND_RED:
@@ -142,16 +144,18 @@ void fieldDraw(void* DBuf)
 						break;
 				}
 				
-				if (field[k][i][j].damagingEffectCount > 0) {
-					agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 255, 255 ) );
-					agDrawSETDBMODE( _DBuf, 0xff, 0, 0, 1 );
-					isTexture = FALSE;
-					field[k][i][j].damagingEffectCount--;
-				} else {
-					ageTransferAAC( _DBuf, imageFile, 0, NULL, NULL );
-					agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
-				}	
-				agDrawSPRITE( _DBuf, isTexture, x4(fieldX + i * FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE), x4(fieldX + i * FIELD_BLOCK_SIZE) + x4(FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE) + x4(FIELD_BLOCK_SIZE) );
+				if (isDraw) {
+					if (field[k][i][j].damagingEffectCount > 0) {
+						agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 255, 255 ) );
+						agDrawSETDBMODE( _DBuf, 0xff, 0, 0, 1 );
+						isTexture = FALSE;
+						field[k][i][j].damagingEffectCount--;
+					} else {
+						ageTransferAAC( _DBuf, imageFile, 0, NULL, NULL );
+						agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+					}	
+					agDrawSPRITE( _DBuf, isTexture, x4(fieldX + i * FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE), x4(fieldX + i * FIELD_BLOCK_SIZE) + x4(FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE) + x4(FIELD_BLOCK_SIZE) );
+				}
 			}
 		}
 	}
