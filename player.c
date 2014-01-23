@@ -10,6 +10,7 @@
 
 
 #define PLAYER_COLLISION_MARGIN	10
+
 #define PLAYER_CHARACTER_MAKO	0
 #define PLAYER_CHARACTER_LEMI	1
 
@@ -245,12 +246,12 @@ int calcPlayer(int playerId)
 				// 一番下
 				playerData[playerId].mode = PLAYER_MODE_FALL;
 			}
-			else if (pad & GAMEPAD_B){	// ボタンが押された場合はジャンプモード
+			else if (pad & GAMEPAD_A){	// ボタンが押された場合はジャンプモード
 				playerData[playerId].mode = PLAYER_MODE_JUMPSTART;
 				playerData[playerId].count = 0;
 				// ジャンプの効果音
 			}
-			else if (pad & GAMEPAD_A) {
+			else if (pad & GAMEPAD_B) {
 				playerData[playerId].mode = PLAYER_MODE_ATTACK;
 				playerData[playerId].count = 0;
 				addWeapon(&playerData[playerId], playerId);
@@ -311,7 +312,7 @@ int calcPlayer(int playerId)
 				movePlayer(-PLAYER_RUN_SPEED, 0, 1, playerId);
 			}
 
-			if (pad & GAMEPAD_B) {	// ボタンが押されている場合
+			if (pad & GAMEPAD_A) {	// ボタンが押されている場合
 				playerData[playerId].count++;
 
 				if ((playerData[playerId].count >> 1) >= ageRM3[MotionMap[playerData[playerId].characterId][playerData[playerId].mode]].Frames) {
@@ -336,7 +337,7 @@ int calcPlayer(int playerId)
 				movePlayer(-PLAYER_RUN_SPEED, 0, 1, playerId);
 			}
 
-			if (pad & GAMEPAD_B) {	// ボタンが押されている場合
+			if (pad & GAMEPAD_A) {	// ボタンが押されている場合
 				movePlayer(0, -JumpPattern[playerData[playerId].jumpCount], 1, playerId);
 				playerData[playerId].jumpCount++;
 
