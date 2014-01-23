@@ -2,6 +2,7 @@
 #include "cutin.h"
 
 #include <amlib.h>
+#include "export.h"
 #include "math.h"
 
 
@@ -75,6 +76,19 @@ void cutinFunc()
 				cutinData.state = CUTIN_STATE_NONE;
 			}
 			break;
+	}
+}
+
+void cutinDraw(void* DBuf)
+{
+	int i, j, k;
+	AGDrawBuffer *_DBuf = (AGDrawBuffer *)DBuf;
+
+	if (isCutinShowing()) {
+		agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
+		ageTransferAAC( _DBuf, cutinData.imageFile, 0, NULL, NULL );
+		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+		agDrawSPRITE(_DBuf, TRUE, x4(cutinData.x), x4(cutinData.y), x4(cutinData.x + cutinData.width), x4(cutinData.y + cutinData.height));
 	}
 }
 

@@ -11,4 +11,5 @@ typedef struct cutinData {
 void cutinInit();
 void createCutin(int imageFile);
 void cutinFunc();
+void cutinDraw(void* DBuf);
 int isCutinShowing();

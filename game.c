@@ -12,11 +12,9 @@
 #include "score.h"
 
 
-
 #define BS(a) ((a) << 2)
 
 extern PlayerData playerData[2];
-extern CutinData cutinData;
 
 int deadCount;
 
@@ -94,12 +92,7 @@ void gameDraw(AGDrawBuffer *DBuf)
 	playerDraw(DBuf);
 
 	// カットイン
-	if (isCutinShowing()) {
-		agDrawSETFCOLOR( DBuf, ARGB( 255, 255, 0, 0 ) );
-		ageTransferAAC( DBuf, cutinData.imageFile, 0, NULL, NULL );
-		agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-		agDrawSPRITE(DBuf, TRUE, BS(cutinData.x), BS(cutinData.y), BS(cutinData.x + cutinData.width), BS(cutinData.y + cutinData.height));
-	}
+	cutinDraw(DBuf);
 
 	// GUI
 	for (i = 0; i < 2; i++) {
