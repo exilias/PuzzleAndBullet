@@ -28,8 +28,7 @@ const static u16 MotionMap[2][9] = {
 		AG_RP_MAKO_JUMP,
 		AG_RP_MAKO_JUMP,
 		AG_RP_MAKO_JUMP,
-		AG_RP_MAKO_JUMP,
-		AG_RP_MAKO_IDLE
+		AG_RP_MAKO_JUMP
 	},
 	{
 		AG_RP_LEMI_IDLE,
@@ -39,8 +38,7 @@ const static u16 MotionMap[2][9] = {
 		AG_RP_LEMI_JUMP,
 		AG_RP_LEMI_JUMP,
 		AG_RP_LEMI_JUMP,
-		AG_RP_LEMI_JUMP,
-		AG_RP_LEMI_IDLE
+		AG_RP_LEMI_JUMP
 	}
 };
 
@@ -257,11 +255,6 @@ int calcPlayer(int playerId)
 				playerData[playerId].count = 0;
 				// ジャンプの効果音
 			}
-			else if (pad & GAMEPAD_B) {
-				playerData[playerId].mode = PLAYER_MODE_ATTACK;
-				playerData[playerId].count = 0;
-				addWeapon(&playerData[playerId], playerId);
-			}
 			else if (pad & GAMEPAD_R || pad & GAMEPAD_L) {
 				if (pad & GAMEPAD_R) {
 					playerData[playerId].direction = 0;
@@ -401,21 +394,16 @@ int calcPlayer(int playerId)
 			}
 			break;
 
-		case PLAYER_MODE_ATTACK:
-			playerData[playerId].count++;
-			playerData[playerId].weaponCount++;
-
-			if (playerData[playerId].weaponCount > PLAYER_WEAPON_INTERVAL) {
-				playerData[playerId].count = 0;
-				playerData[playerId].weaponCount = 0;
-				playerData[playerId].mode = PLAYER_MODE_WAIT;
-			}
-			break;
-
-
 		default:
 			break;
 	}
+
+	//　武器の使用
+	if ((pad & GAMEPAD_B) && (playerData[playerId].weaponCount > PLAYER_WEAPON_INTERVAL)) {
+		playerData[playerId].weaponCount = 0;
+		addWeapon(&playerData[playerId], playerId);
+	}
+	playerData[playerId].weaponCount++;
 
 	return 0;
 }

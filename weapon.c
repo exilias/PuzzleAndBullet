@@ -8,7 +8,7 @@
 #include "score.h"
 #include "math.h"
 
-#define WEAPON_SPEED	5
+#define WEAPON_SPEED	10
 
 
 
