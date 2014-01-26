@@ -26,6 +26,12 @@ const AGERomMember ageRM[] = {
 	{      16613,          0,   40,   50,   24,  8,       1344, NULL },		/* AG_CG_SCORE_NUMBER_7 */
 	{      16781,          0,   40,   50,   24,  8,       1568, NULL },		/* AG_CG_SCORE_NUMBER_8 */
 	{      16977,          0,   40,   50,   24,  8,       1504, NULL },		/* AG_CG_SCORE_NUMBER_9 */
+	{      17165,          0,   45,   50,   24,  8,       1184, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_0 */
+	{      17313,          0,   45,   50,   24,  8,        736, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_1 */
+	{      17405,          0,   45,   50,   24,  8,       1152, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_2 */
+	{      17549,          0,   45,   50,   24,  8,       1184, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_3 */
+	{      17697,          0,   45,   50,   24,  8,       1024, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_4 */
+	{      17825,          0,   45,   50,   24,  8,       1120, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_5 */
 };
 
 /***************************************************************/

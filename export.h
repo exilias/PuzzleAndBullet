@@ -48,6 +48,12 @@ extern "C" {
 #define AG_CG_SCORE_NUMBER_7	(18)
 #define AG_CG_SCORE_NUMBER_8	(19)
 #define AG_CG_SCORE_NUMBER_9	(20)
+#define AG_CG_WEAPON_GRADE_NUMBER_0	(21)
+#define AG_CG_WEAPON_GRADE_NUMBER_1	(22)
+#define AG_CG_WEAPON_GRADE_NUMBER_2	(23)
+#define AG_CG_WEAPON_GRADE_NUMBER_3	(24)
+#define AG_CG_WEAPON_GRADE_NUMBER_4	(25)
+#define AG_CG_WEAPON_GRADE_NUMBER_5	(26)
 
 /***************************************************************/
 /*                     RM3 Member Symbol                       */
@@ -66,7 +72,7 @@ extern "C" {
 /***************************************************************/
 /*                          Data Member                        */
 /***************************************************************/
-extern const AGERomMember ageRM[21];
+extern const AGERomMember ageRM[27];
 extern const AGERM3Member ageRM3[6];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
