@@ -5,5 +5,6 @@
 
 void scoreInit();
 void scoreFunc();
+void scoreDraw(void* DBuf);
 int getScore(int playerId);
 void addScore(int scoreValue, int playerId);

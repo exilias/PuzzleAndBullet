@@ -2,6 +2,7 @@
 #include "score.h"
 
 #include "math.h"
+#include "draw_number.h"
 
 
 typedef struct scoreData {
@@ -34,6 +35,16 @@ void scoreFunc()
 		} else {
 			scoreData[i].score = scoreData[i].trueScore;
 		}
+	}
+}
+
+void scoreDraw(void* DBuf)
+{
+	int i;
+
+	for (i = 0; i < 2; i++) {
+		// Score
+		drawNumberGraph(getScore(i) /*表示させたい数字(int)*/, x4(i == 0 ? 100 : 600) /*表示させたいX座標*/, x4(20) /*表示させたいY座標*/, x4(50)/*1つの文字の幅*/, x4(60)/*1つの文字の高さ*/, 6/*桁数*/, DBuf);
 	}
 }
 
