@@ -5,13 +5,18 @@
 #include "math.h"
 
 
-#define FPS							60
+#define FIELD_BG_WIDTH				450
+#define FIELD_BG_HEIGHT				550
+#define FIELD_BG_MARGIN_X			27
+#define FIELD_BG_MARGIN_Y			23
+
 #define FIELD_UPDATE_INTERVAL		4
 #define FIELD_ADD_BLOCK_INTERVAL	120
 #define FIELD_EXPOSE_TIME			120
 
 #define FIELD_STATE_EXPOSE	0
 #define FIELD_STATE_FALL	1
+
 
 FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];	
 
@@ -37,7 +42,6 @@ void fieldInit()
 			}
 		}
 	}
-	
 }
 
 void fieldFunc()
@@ -106,9 +110,9 @@ void fieldDraw(void* DBuf)
 
 		// フィールドの背景
 		agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
-		ageTransferAAC( _DBuf, AG_CG_STAGE_BG, 0, NULL, NULL );
+		ageTransferAAC( _DBuf, AG_CG_GAME_BG_STAGE_BACK_MAKO, 0, NULL, NULL );
 		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
-		agDrawSPRITE(_DBuf, TRUE, x4(fieldX - FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y), x4(fieldX - FIELD_BLOCK_SIZE + FIELD_BLOCK_SIZE * (FIELD_SIZE_WIDTH + 2)), x4(FIELD_ORIGIN_Y + FIELD_BLOCK_SIZE * (FIELD_SIZE_HEIGHT + 2)));
+		agDrawSPRITE(_DBuf, TRUE, x4(fieldX - FIELD_BG_MARGIN_X), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y), x4(fieldX - FIELD_BG_MARGIN_X + FIELD_BG_WIDTH), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + FIELD_BG_HEIGHT));
 
 		// フィールドの描画
 		for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
@@ -158,5 +162,11 @@ void fieldDraw(void* DBuf)
 				}
 			}
 		}
+
+		// フィールドの背景
+		agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
+		ageTransferAAC( _DBuf, AG_CG_GAME_BG_STAGE_FRONT, 0, NULL, NULL );
+		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+		agDrawSPRITE(_DBuf, TRUE, x4(fieldX - FIELD_BG_MARGIN_X), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y), x4(fieldX - FIELD_BG_MARGIN_X + FIELD_BG_WIDTH), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + FIELD_BG_HEIGHT));
 	}
 }
