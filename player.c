@@ -427,7 +427,7 @@ void checkPlayerInput(int playerId)
 
 	if (pad & GAMEPAD_Y) {
 		if (!isCutinShowing()) {
-			createCutin(AG_CG_MAKO_CUT_IN);
+			createCutin(AG_CG_CUTIN_LEMI);
 		}
 	}
 }
