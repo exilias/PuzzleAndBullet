@@ -117,6 +117,16 @@ void playerDraw(void* DBuf)
 void addWeaponGauge(int value, int playerId)
 {
 	playerData[playerId].weaponGauge += value;
+
+	if (playerData[playerId].weaponGauge > (PLAYER_WEAPON_GAUGE_MAX * PLAYER_WEAPON_GRADE_MAX)) {
+		playerData[playerId].weaponGauge = PLAYER_WEAPON_GAUGE_MAX * PLAYER_WEAPON_GRADE_MAX;
+	}
+}
+
+
+int getPlayerWeaponGauge(int playerId)
+{
+	return playerData[playerId].weaponGauge;
 }
 
 // プレイヤーを動かす
