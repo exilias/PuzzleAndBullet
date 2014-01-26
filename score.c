@@ -1,8 +1,21 @@
 
 #include "score.h"
 
+#include <amlib.h>
+#include "export.h"
 #include "math.h"
 #include "draw_number.h"
+#include "field.h"
+
+
+#define SCORE_BG_WIDTH			410
+#define SCORE_BG_HEIGHT			90
+#define SCORE_BG_ORIGIN1_X		FIELD_ORIGIN1_X
+#define	SCORE_BG_ORIGIN2_X		FIELD_ORIGIN2_X
+#define SCORE_BG_ORIGIN_Y		(FIELD_ORIGIN_Y + FIELD_BLOCK_SIZE * (FIELD_SIZE_HEIGHT + 1) + 30)
+
+#define SCORE_MARGIN_X			50
+#define SCORE_MARGIN_Y			8
 
 
 typedef struct scoreData {
@@ -41,10 +54,19 @@ void scoreFunc()
 void scoreDraw(void* DBuf)
 {
 	int i;
+	AGDrawBuffer *_DBuf = (AGDrawBuffer *)DBuf;
 
+	// 背景
+	agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
+	ageTransferAAC( _DBuf, AG_CG_SCORE_BG, 0, NULL, NULL );
+	agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+	agDrawSPRITE(_DBuf, TRUE, x4(SCORE_BG_ORIGIN1_X), x4(SCORE_BG_ORIGIN_Y), x4(SCORE_BG_ORIGIN1_X + SCORE_BG_WIDTH), x4(SCORE_BG_ORIGIN_Y + SCORE_BG_HEIGHT));
+
+	agDrawSPRITE(_DBuf, TRUE, x4(SCORE_BG_ORIGIN2_X), x4(SCORE_BG_ORIGIN_Y), x4(SCORE_BG_ORIGIN2_X + SCORE_BG_WIDTH), x4(SCORE_BG_ORIGIN_Y + SCORE_BG_HEIGHT));
+
+	// Score
 	for (i = 0; i < 2; i++) {
-		// Score
-		drawNumberGraph(getScore(i) /*表示させたい数字(int)*/, x4(i == 0 ? 100 : 600) /*表示させたいX座標*/, x4(20) /*表示させたいY座標*/, x4(50)/*1つの文字の幅*/, x4(60)/*1つの文字の高さ*/, 6/*桁数*/, DBuf);
+		drawNumberGraph(getScore(i) /*表示させたい数字(int)*/, x4(i == 0 ? (SCORE_BG_ORIGIN1_X + SCORE_MARGIN_X) : (SCORE_BG_ORIGIN2_X + SCORE_MARGIN_X)) /*表示させたいX座標*/, x4(SCORE_BG_ORIGIN_Y + SCORE_MARGIN_Y) /*表示させたいY座標*/, x4(50)/*1つの文字の幅*/, x4(60)/*1つの文字の高さ*/, 6/*桁数*/, _DBuf);
 	}
 }
 
