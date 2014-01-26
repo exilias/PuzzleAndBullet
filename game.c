@@ -10,6 +10,7 @@
 #include "cutin.h"
 #include "draw_number.h"
 #include "score.h"
+#include "gauge.h"
 
 
 
@@ -101,9 +102,13 @@ void gameDraw(AGDrawBuffer *DBuf)
 	cutinDraw(DBuf);
 
 	// GUI
+	gaugeDraw(DBuf);
+	
 	for (i = 0; i < 2; i++) {
 		// Score
 		drawNumberGraph(getScore(i) /*表示させたい数字(int)*/, BS(i == 0 ? 100 : 600) /*表示させたいX座標*/, BS(20) /*表示させたいY座標*/, BS(40)/*1つの文字の幅*/, BS(50)/*1つの文字の高さ*/, 6/*桁数*/, DBuf);
 	}
+
+
 	
 }
