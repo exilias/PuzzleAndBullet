@@ -33,6 +33,7 @@ void gaugeFunc()
 
 void gaugeDraw(void* DBuf)
 {
+	int i;
 	AGDrawBuffer *_DBuf = (AGDrawBuffer *)DBuf;
 	int weaponCount, weaponGauge;
 	int height;
@@ -50,14 +51,21 @@ void gaugeDraw(void* DBuf)
 	agDrawSETFCOLOR( _DBuf, ARGB( 255, 254, 204, 22 ) );
 	agDrawSETDBMODE( _DBuf, 0xff, 0, 0, 1 );
 
-	weaponCount = (getPlayerWeaponGauge(0) / PLAYER_WEAPON_GAUGE_MAX);
-	weaponGauge = getPlayerWeaponGauge(0) - weaponCount * PLAYER_WEAPON_GAUGE_MAX;
-	height = (int)(GAUGE_HEIGHT * ((float)weaponGauge / 100));
-	//_dprintf("count:%d, gauge:%d, height:%d \n", weaponCount, weaponGauge, height);
-	agDrawSPRITE( _DBuf, FALSE, x4(GAUGE_BG_ORIGIN1_X + GAUGE_BG_MARGIN_X), x4(GAUGE_BG_ORIGIN_Y + GAUGE_BG_MARGIN_Y + GAUGE_HEIGHT - height), x4(GAUGE_BG_ORIGIN1_X + GAUGE_BG_MARGIN_X + GAUGE_WIDTH), x4(GAUGE_BG_ORIGIN_Y + GAUGE_BG_MARGIN_Y + GAUGE_HEIGHT));
+	for (i = 0; i < 2; i++) {
+		int originX;
+		if (i == 0) {
+			originX = GAUGE_BG_ORIGIN1_X;
+		} else {
+			originX = GAUGE_BG_ORIGIN2_X;
+		}
 
-	weaponCount = (getPlayerWeaponGauge(0) / PLAYER_WEAPON_GAUGE_MAX);
-	weaponGauge = getPlayerWeaponGauge(0) - weaponCount * PLAYER_WEAPON_GAUGE_MAX;
-	height = (int)(GAUGE_HEIGHT * ((float)weaponGauge / 100));
-	agDrawSPRITE( _DBuf, FALSE, x4(GAUGE_BG_ORIGIN2_X + GAUGE_BG_MARGIN_X), x4(GAUGE_BG_ORIGIN_Y + GAUGE_BG_MARGIN_Y + GAUGE_HEIGHT - height), x4(GAUGE_BG_ORIGIN2_X + GAUGE_BG_MARGIN_X + GAUGE_WIDTH), x4(GAUGE_BG_ORIGIN_Y + GAUGE_BG_MARGIN_Y + GAUGE_HEIGHT));
+		weaponCount = (getPlayerWeaponGauge(i) / PLAYER_WEAPON_GAUGE_MAX);
+		if (weaponCount == PLAYER_WEAPON_GRADE_MAX) {
+			weaponCount = PLAYER_WEAPON_GRADE_MAX - 1;
+		}
+		weaponGauge = getPlayerWeaponGauge(i) - weaponCount * PLAYER_WEAPON_GAUGE_MAX;
+		height = (int)(GAUGE_HEIGHT * ((float)weaponGauge / 100));
+		//_dprintf("count:%d, gauge:%d, height:%d \n", weaponCount, weaponGauge, height);
+		agDrawSPRITE( _DBuf, FALSE, x4(originX + GAUGE_BG_MARGIN_X), x4(GAUGE_BG_ORIGIN_Y + GAUGE_BG_MARGIN_Y + GAUGE_HEIGHT - height), x4(originX + GAUGE_BG_MARGIN_X + GAUGE_WIDTH), x4(GAUGE_BG_ORIGIN_Y + GAUGE_BG_MARGIN_Y + GAUGE_HEIGHT));
+	}
 }
