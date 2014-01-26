@@ -55,6 +55,7 @@ void gameInit(void)
 	weaponInit();
 	cutinInit();
 	scoreInit();
+	gaugeInit();
 
 	deadCount = 0;
 }
@@ -67,6 +68,7 @@ void gameFunc(void)
 	weaponFunc();
 	cutinFunc();
 	scoreFunc();
+	gaugeFunc();
 
 	pushedStartButton();
 }

@@ -3,6 +3,7 @@
 
 #include <amlib.h>
 #include "export.h"
+#include "math.h"
 #include "field.h"
 #include "player.h"
 
@@ -19,15 +20,33 @@
 
 
 
+int currentGauge[2];
+
+
 void gaugeInit()
 {
+	int i;
 
+	for (i = 0; i < 2; i++) {
+		currentGauge[i] = 0;
+	}
 }
 
 
 void gaugeFunc()
 {
+	int i;
 
+	for (i = 0; i < 2; i++) {
+		float subScore = getPlayerWeaponGauge(i) - currentGauge[i];
+		if (subScore != 0) {
+			if (abs(subScore) > 10) {
+				currentGauge[i] += (int)(subScore / 10.0f);
+			} else {
+				currentGauge[i]++;
+			}
+		}
+	}
 }
 
 
@@ -59,12 +78,12 @@ void gaugeDraw(void* DBuf)
 			originX = GAUGE_BG_ORIGIN2_X;
 		}
 
-		weaponCount = (getPlayerWeaponGauge(i) / PLAYER_WEAPON_GAUGE_MAX);
+		weaponCount = (currentGauge[i] / PLAYER_WEAPON_GAUGE_MAX);
 		if (weaponCount == PLAYER_WEAPON_GRADE_MAX) {
 			weaponCount = PLAYER_WEAPON_GRADE_MAX - 1;
 		}
-		weaponGauge = getPlayerWeaponGauge(i) - weaponCount * PLAYER_WEAPON_GAUGE_MAX;
-		height = (int)(GAUGE_HEIGHT * ((float)weaponGauge / 100));
+		weaponGauge = currentGauge[i] - weaponCount * PLAYER_WEAPON_GAUGE_MAX;
+		height = (int)(GAUGE_HEIGHT * ((float)weaponGauge / PLAYER_WEAPON_GAUGE_MAX));
 		//_dprintf("count:%d, gauge:%d, height:%d \n", weaponCount, weaponGauge, height);
 		agDrawSPRITE( _DBuf, FALSE, x4(originX + GAUGE_BG_MARGIN_X), x4(GAUGE_BG_ORIGIN_Y + GAUGE_BG_MARGIN_Y + GAUGE_HEIGHT - height), x4(originX + GAUGE_BG_MARGIN_X + GAUGE_WIDTH), x4(GAUGE_BG_ORIGIN_Y + GAUGE_BG_MARGIN_Y + GAUGE_HEIGHT));
 	}
