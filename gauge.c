@@ -38,7 +38,7 @@ typedef struct gaugeData {
 
 GaugeData gaugeData[2];
 
-int weaponGradeNumberId[] = {	AG_CG_WEAPON_GRADE_NUMBER_0, 
+const u16 weaponGradeNumberId[] = {	AG_CG_WEAPON_GRADE_NUMBER_0, 
 								AG_CG_WEAPON_GRADE_NUMBER_1, 
 								AG_CG_WEAPON_GRADE_NUMBER_2,
 								AG_CG_WEAPON_GRADE_NUMBER_3,

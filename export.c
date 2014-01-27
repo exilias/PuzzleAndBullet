@@ -105,7 +105,26 @@ const AGEMotion ageMot[] = {
 /***************************************************************/
 /*                   Sound Rom Member Lists                    */
 /***************************************************************/
-const AGESoundRomMember ageSRM[] = { { 0, 0 } };
+const AGESoundRomMember ageSRM[] = {
+	/* Ch, Length */
+	{ 1,      857 },		/* AS_SND_MAKO_GRADE_MAX */
+	{ 1,      347 },		/* AS_SND_MAKO_JUMP */
+	{ 1,     1526 },		/* AS_SND_MAKO_LEVEL_UP */
+	{ 1,     1678 },		/* AS_SND_MAKO_LOSE */
+	{ 1,     1221 },		/* AS_SND_MAKO_SELECTED_CHARACTER */
+	{ 1,     2409 },		/* AS_SND_MAKO_SKILL_1 */
+	{ 1,     1873 },		/* AS_SND_MAKO_SKILL_2 */
+	{ 1,     1736 },		/* AS_SND_MAKO_WIN */
+	{ 1,     1417 },		/* AS_SND_LEMI_GRADE_MAX */
+	{ 1,      277 },		/* AS_SND_LEMI_JUMP */
+	{ 1,     1741 },		/* AS_SND_LEMI_LEVEL_UP */
+	{ 1,     1246 },		/* AS_SND_LEMI_LOSE */
+	{ 1,     1718 },		/* AS_SND_LEMI_SELECTED_CHARACTER */
+	{ 1,     1607 },		/* AS_SND_LEMI_SKILL_1 */
+	{ 1,      937 },		/* AS_SND_LEMI_SKILL_2 */
+	{ 1,     1720 },		/* AS_SND_LEMI_WIN */
+};
+
 /***************************************************************/
 /*                      Sound Score Lists                      */
 /***************************************************************/

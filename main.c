@@ -22,10 +22,12 @@ void _rtl_exit(void)
 
 
 static u32 DrawBuffer[ 4096*10 ];
+AGESoundManagerData SndMgr;
 static volatile u32 _SystemVSyncCount = 0;
 
 void  main( void )  
 {
+	int i;
 	AGDrawBuffer DBuf;
 	u32 skip;
     u32 v;
@@ -36,7 +38,21 @@ void  main( void )
 	aglInitialize();
 	agpEnableCpuInterrupts();
 
-	_dprintf( ">> [Super Puzzle Platformer] start.\n" );
+	// 初期化.
+	ageSndMgrInit(&SndMgr, AGE_SOUND_ROM_OFFSET);
+
+	// マスターボリュームの設定
+	for( i=0 ; i<AG_SND_MAX_MASTERVOLUME ; i++ ) {
+		ageSndMgrSetMasterVolume( i , 0x94 );
+	};
+
+	// チャンネルボリュームの設定
+	for( i=0 ; i<AG_SND_MAX_CHANNEL ; i++ ) {
+		ageSndMgrSetChannelVolume( i , 0xc0 );
+	};
+
+
+	_dprintf( ">> [Puzzle & Bullet] start.\n" );
 
 	gameInit();
 
@@ -46,12 +62,10 @@ void  main( void )
 
 	_dprintf( "Sync Wait\n");
 
-	//agglInitialize();
-    //agglDisplaySize( FB_WIDTH , FB_HEIGHT );
-
 	while( 1 ) {
 
 		agGamePadSync();
+		ageSndMgrRun();
 
 		gameFunc();
 		fieldFunc();
@@ -72,7 +86,6 @@ void  main( void )
 		gameDraw(&DBuf);
 
 		// GUIの描画
-
 
 		// ディスプレイリスト生成終了
 		agDrawEODL( &DBuf );

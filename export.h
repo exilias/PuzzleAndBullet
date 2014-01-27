@@ -22,7 +22,7 @@ extern "C" {
 #define AGE_ZMD	(1)
 #define AGE_AAC_ADDR	(13631488)
 #define AGE_AAC_SIZE	(13631488)
-#define AGE_SOUND_ROM_OFFSET	(0x800000)
+#define AGE_SOUND_ROM_OFFSET	(0x400000)
 
 /***************************************************************/
 /*                    Rom Member Symbol                        */
@@ -79,6 +79,26 @@ extern "C" {
 /***************************************************************/
 
 /***************************************************************/
+/*                       Sound Member Symbol                   */
+/***************************************************************/
+#define AS_SND_MAKO_GRADE_MAX	(0)
+#define AS_SND_MAKO_JUMP	(1)
+#define AS_SND_MAKO_LEVEL_UP	(2)
+#define AS_SND_MAKO_LOSE	(3)
+#define AS_SND_MAKO_SELECTED_CHARACTER	(4)
+#define AS_SND_MAKO_SKILL_1	(5)
+#define AS_SND_MAKO_SKILL_2	(6)
+#define AS_SND_MAKO_WIN	(7)
+#define AS_SND_LEMI_GRADE_MAX	(8)
+#define AS_SND_LEMI_JUMP	(9)
+#define AS_SND_LEMI_LEVEL_UP	(10)
+#define AS_SND_LEMI_LOSE	(11)
+#define AS_SND_LEMI_SELECTED_CHARACTER	(12)
+#define AS_SND_LEMI_SKILL_1	(13)
+#define AS_SND_LEMI_SKILL_2	(14)
+#define AS_SND_LEMI_WIN	(15)
+
+/***************************************************************/
 /*                          Data Member                        */
 /***************************************************************/
 extern const AGERomMember ageRM[36];
@@ -86,6 +106,7 @@ extern const AGERM3Member ageRM3[6];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;
+extern const AGESoundRomMember ageSRM[16];
 
 #ifdef __cplusplus
 }

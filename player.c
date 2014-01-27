@@ -1,6 +1,7 @@
 
 #include <amlib.h>
 #include <agGamePad.h>
+#include <agesndmgr.h>
 
 #include "export.h"
 #include "player.h"
@@ -45,6 +46,11 @@ const static u16 MotionMap[2][9] = {
 const u16 PLAYER_CHARACTER_ID[] = {
 	PLAYER_CHARACTER_MAKO,
 	PLAYER_CHARACTER_LEMI
+};
+
+const u16 PLAYER_VOICE_JUMP_ID[] = {
+	AS_SND_MAKO_JUMP,
+	AS_SND_LEMI_JUMP
 };
 
 const static s16 JumpPattern[] = {
@@ -269,6 +275,7 @@ int calcPlayer(int playerId)
 				playerData[playerId].mode = PLAYER_MODE_JUMPSTART;
 				playerData[playerId].count = 0;
 				// ジャンプの効果音
+				ageSndMgrPlayOneshot( PLAYER_VOICE_JUMP_ID[playerId] , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 			}
 			else if (pad & GAMEPAD_R || pad & GAMEPAD_L) {
 				if (pad & GAMEPAD_R) {
