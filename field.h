@@ -17,6 +17,8 @@
 #define FIELD_KIND_NEEDLE	4
 #define FIELD_KIND_NUM		5
 
+#define FIELD_BLOCK_HP		5
+
 typedef struct fieldData
 {
 	int kind;

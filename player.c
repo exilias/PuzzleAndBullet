@@ -42,6 +42,11 @@ const static u16 MotionMap[2][9] = {
 	}
 };
 
+const u16 PLAYER_CHARACTER_ID[] = {
+	PLAYER_CHARACTER_MAKO,
+	PLAYER_CHARACTER_LEMI
+};
+
 const static s16 JumpPattern[] = {
 	50, 30, 22, 19, 15, 13, 10, 8 , 7 , 6 , 5 , 4 , 2 , 2 , 1, 1, 0, 0,
 };
@@ -68,7 +73,7 @@ void playerInit()
 		playerData[i].weaponGauge = 0;
 		playerData[i].x = (i == 0 ? FIELD_ORIGIN1_X : FIELD_ORIGIN2_X) + 200;
 		playerData[i].y = FIELD_ORIGIN_Y + 200;
-		playerData[i].characterId = PLAYER_CHARACTER_MAKO;
+		playerData[i].characterId = PLAYER_CHARACTER_ID[i];
 	}
 }
 

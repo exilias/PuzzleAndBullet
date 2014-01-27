@@ -18,7 +18,35 @@
 #define FIELD_STATE_FALL	1
 
 
-FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];	
+
+int getBlockNo(int hp);
+
+FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
+
+const int FIELD_STAGE_BG_ID[] = {
+		AG_CG_GAME_BG_STAGE_BACK_MAKO,
+		AG_CG_GAME_BG_STAGE_BACK_LEMI
+	};	
+
+const int FIELD_BLOCK_BLUE_ID[] = {
+		AG_CG_BLOCK_BLUE_1,
+		AG_CG_BLOCK_BLUE_2,
+		AG_CG_BLOCK_BLUE_3
+	};
+
+const int FIELD_BLOCK_RED_ID[] = {
+		AG_CG_BLOCK_RED_1,
+		AG_CG_BLOCK_RED_2,
+		AG_CG_BLOCK_RED_3
+	};	
+
+const int FIELD_BLOCK_GREEN_ID[] = {
+		AG_CG_BLOCK_GREEN_1,
+		AG_CG_BLOCK_GREEN_2,
+		AG_CG_BLOCK_GREEN_3
+	};
+
+
 
 
 void fieldInit()
@@ -29,7 +57,7 @@ void fieldInit()
 		for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
 			for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
 				field[k][i][j].kind = FIELD_KIND_NONE;
-				field[k][i][j].hp = 5;
+				field[k][i][j].hp = FIELD_BLOCK_HP;
 				field[k][i][j].damagingEffectCount = 0;
 			}
 		}
@@ -110,7 +138,7 @@ void fieldDraw(void* DBuf)
 
 		// フィールドの背景
 		agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
-		ageTransferAAC( _DBuf, AG_CG_GAME_BG_STAGE_BACK_MAKO, 0, NULL, NULL );
+		ageTransferAAC( _DBuf, FIELD_STAGE_BG_ID[k], 0, NULL, NULL );
 		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
 		agDrawSPRITE(_DBuf, TRUE, x4(fieldX - FIELD_BG_MARGIN_X), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y), x4(fieldX - FIELD_BG_MARGIN_X + FIELD_BG_WIDTH), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + FIELD_BG_HEIGHT));
 
@@ -129,17 +157,17 @@ void fieldDraw(void* DBuf)
 
 					case FIELD_KIND_RED:
 						isTexture = TRUE;
-						imageFile = AG_CG_BLOCK_RED;
+						imageFile = FIELD_BLOCK_RED_ID[getBlockNo(field[k][i][j].hp)];
 						break;
 
 					case FIELD_KIND_GREEN:
 						isTexture = TRUE;
-						imageFile = AG_CG_BLOCK_GREEN;
+						imageFile = FIELD_BLOCK_GREEN_ID[getBlockNo(field[k][i][j].hp)];
 						break;
 
 					case FIELD_KIND_BLUE:
 						isTexture = TRUE;
-						imageFile = AG_CG_BLOCK_BLUE;
+						imageFile = FIELD_BLOCK_BLUE_ID[getBlockNo(field[k][i][j].hp)];
 						break;
 
 					case FIELD_KIND_NEEDLE:
@@ -168,5 +196,17 @@ void fieldDraw(void* DBuf)
 		ageTransferAAC( _DBuf, AG_CG_GAME_BG_STAGE_FRONT, 0, NULL, NULL );
 		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
 		agDrawSPRITE(_DBuf, TRUE, x4(fieldX - FIELD_BG_MARGIN_X), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y), x4(fieldX - FIELD_BG_MARGIN_X + FIELD_BG_WIDTH), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + FIELD_BG_HEIGHT));
+	}
+}
+
+
+int getBlockNo(int hp)
+{
+	if (hp >= FIELD_BLOCK_HP*0.7) {
+		return 0;
+	} else if (hp >= FIELD_BLOCK_HP * 0.3) {
+		return 1;
+	} else {
+		return 2;
 	}
 }
