@@ -48,9 +48,22 @@ const u16 PLAYER_CHARACTER_ID[] = {
 	PLAYER_CHARACTER_LEMI
 };
 
-const u16 PLAYER_VOICE_JUMP_ID[] = {
-	AS_SND_MAKO_JUMP,
-	AS_SND_LEMI_JUMP
+
+#define PLAYER_SND_JUMP			0
+#define PLAYER_SND_LEVEL_UP		1
+#define PLAYER_SND_GRADE_MAX	2
+
+const u16 PLAYER_VOICE_ID[2][3] = {
+	{
+		AS_SND_MAKO_JUMP,
+		AS_SND_MAKO_LEVEL_UP,
+		AS_SND_MAKO_GRADE_MAX
+	},
+	{
+		AS_SND_LEMI_JUMP,
+		AS_SND_LEMI_LEVEL_UP,
+		AS_SND_LEMI_GRADE_MAX
+	}
 };
 
 const static s16 JumpPattern[] = {
@@ -127,10 +140,31 @@ void playerDraw(void* DBuf)
 
 void addWeaponGauge(int value, int playerId)
 {
+	static int isPlayedGradeMaxSound = FALSE;
+
+	// LEVEL_UP サウンドの再生
+	int preWeaponGrade = (playerData[playerId].weaponGauge / PLAYER_WEAPON_GAUGE_MAX);
+	int nextWeaponGrade = ((playerData[playerId].weaponGauge + value) / PLAYER_WEAPON_GAUGE_MAX);
+	if (preWeaponGrade < nextWeaponGrade) {
+		if (nextWeaponGrade != PLAYER_WEAPON_GRADE_MAX) {
+			ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_LEVEL_UP] , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+		}
+	}
+
 	playerData[playerId].weaponGauge += value;
 
 	if (playerData[playerId].weaponGauge > (PLAYER_WEAPON_GAUGE_MAX * PLAYER_WEAPON_GRADE_MAX)) {
 		playerData[playerId].weaponGauge = PLAYER_WEAPON_GAUGE_MAX * PLAYER_WEAPON_GRADE_MAX;
+	}
+
+	// GRADE_MAX サウンドの再生
+	if (playerData[playerId].weaponGauge == (PLAYER_WEAPON_GAUGE_MAX * PLAYER_WEAPON_GRADE_MAX)) {
+		if (!isPlayedGradeMaxSound) {
+			ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_GRADE_MAX] , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+			isPlayedGradeMaxSound = TRUE;
+		}
+	} else {
+		isPlayedGradeMaxSound = FALSE;
 	}
 }
 
@@ -275,7 +309,7 @@ int calcPlayer(int playerId)
 				playerData[playerId].mode = PLAYER_MODE_JUMPSTART;
 				playerData[playerId].count = 0;
 				// ジャンプの効果音
-				ageSndMgrPlayOneshot( PLAYER_VOICE_JUMP_ID[playerId] , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+				ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_JUMP], 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 			}
 			else if (pad & GAMEPAD_R || pad & GAMEPAD_L) {
 				if (pad & GAMEPAD_R) {
@@ -440,6 +474,7 @@ void checkPlayerInput(int playerId)
 	if (pad & GAMEPAD_Y) {
 		if (!isCutinShowing()) {
 			createCutin(AG_CG_CUTIN_LEMI);
+			addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX, playerId);
 		}
 	}
 }
