@@ -73,6 +73,7 @@ extern "C" {
 #define AG_RP_LEMI_IDLE	(3)
 #define AG_RP_LEMI_RUN	(4)
 #define AG_RP_LEMI_JUMP	(5)
+#define AG_RP_EFFECT_SMOKE	(6)
 
 /***************************************************************/
 /*                       Vram Group Symbol                     */
@@ -102,7 +103,7 @@ extern "C" {
 /*                          Data Member                        */
 /***************************************************************/
 extern const AGERomMember ageRM[36];
-extern const AGERM3Member ageRM3[6];
+extern const AGERM3Member ageRM3[7];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;

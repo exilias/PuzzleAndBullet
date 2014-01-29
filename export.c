@@ -72,6 +72,11 @@ const u32 ageRM3Offsets0005[] = {		/* AG_RP_LEMI_JUMP */
 	     23547,
 };
 
+const u32 ageRM3Offsets0006[] = {		/* AG_RP_EFFECT_SMOKE */
+	     41708,     41744,     41800,     41868,     41936,     42020,     42108,     42204,
+	     42316,     42436,
+};
+
 const AGERM3Member ageRM3[] = {
 	/*    Offset,Width,Height,FrameRate,Frames,Alpha,EncodeType, Offsets */
 	{      18575,   40,   40,   7680,      6, 2, 0, ageRM3Offsets0000, NULL        },		/* AG_RP_MAKO_IDLE */
@@ -80,6 +85,7 @@ const AGERM3Member ageRM3[] = {
 	{      21297,   40,   40,   7680,      6, 2, 0, ageRM3Offsets0003, NULL        },		/* AG_RP_LEMI_IDLE */
 	{      22110,   40,   40,   7680,     10, 2, 0, ageRM3Offsets0004, NULL        },		/* AG_RP_LEMI_RUN */
 	{      23527,   40,   40,   7680,      1, 2, 1, ageRM3Offsets0005, NULL        },		/* AG_RP_LEMI_JUMP */
+	{      41688,   96,   96,   7680,     10, 2, 0, ageRM3Offsets0006, NULL        },		/* AG_RP_EFFECT_SMOKE */
 };
 
 /***************************************************************/
