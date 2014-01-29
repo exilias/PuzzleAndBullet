@@ -244,13 +244,17 @@ void useMakoSkill(int applyPlayerId)
 
 void useLemiSkill(int applyPlayerId)
 {
-	int i;
+	int i, j;
 
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
-		if (field[applyPlayerId][i][FIELD_SIZE_HEIGHT-1].kind != FIELD_KIND_NONE) {
-			field[applyPlayerId][i][FIELD_SIZE_HEIGHT-1].state = FIELD_STATE_USING_SKILL;
-			field[applyPlayerId][i][FIELD_SIZE_HEIGHT-1].damagingEffectCount = 0;
-			field[applyPlayerId][i][FIELD_SIZE_HEIGHT-1].counter = 0;
+		for (j = FIELD_SIZE_HEIGHT-1; j >= 0; j--) {
+			if (field[applyPlayerId][i][j].kind != FIELD_KIND_NONE) {
+				if (field[applyPlayerId][i][j-1].kind != FIELD_KIND_NONE) {
+					field[applyPlayerId][i][j].state = FIELD_STATE_USING_SKILL;
+					field[applyPlayerId][i][j].damagingEffectCount = 0;
+					field[applyPlayerId][i][j].counter = 0;
+				}
+			}
 		}
 	}
 }
