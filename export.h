@@ -102,6 +102,11 @@ extern "C" {
 #define AS_SND_LEMI_SKILL_2	(14)
 #define AS_SND_LEMI_WIN	(15)
 #define AS_SND_GAME_BGM	(16)
+#define AS_SND_SE_MAKO_WEAPON	(17)
+#define AS_SND_SE_USE_SKILL	(18)
+#define AS_SND_SE_LEMI_WEAPON	(19)
+#define AS_SND_SE_JUMP	(20)
+#define AS_SND_SE_BLOCK_CRASH	(21)
 
 /***************************************************************/
 /*                          Data Member                        */
@@ -111,7 +116,7 @@ extern const AGERM3Member ageRM3[10];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;
-extern const AGESoundRomMember ageSRM[17];
+extern const AGESoundRomMember ageSRM[22];
 
 #ifdef __cplusplus
 }

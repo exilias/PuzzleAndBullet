@@ -329,6 +329,7 @@ int calcPlayer(int playerId)
 				playerData[playerId].count = 0;
 				// ジャンプの効果音
 				ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_JUMP], 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+				ageSndMgrPlayOneshot( AS_SND_SE_JUMP, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 				//addEffect(playerData[playerId].x + PLAYER_WIDTH / 2, playerData[playerId].y+20 + PLAYER_HEIGHT / 2, AG_RP_EFFECT_JUMP);
 			}
 			else if (pad & GAMEPAD_R || pad & GAMEPAD_L) {
@@ -478,6 +479,12 @@ int calcPlayer(int playerId)
 	if ((pad & GAMEPAD_B) && (playerData[playerId].weaponCount > PLAYER_WEAPON_INTERVAL)) {
 		playerData[playerId].weaponCount = 0;
 		addWeapon(&playerData[playerId], playerId);
+		if (playerId == 0) {
+			ageSndMgrPlayOneshot( AS_SND_SE_MAKO_WEAPON, 0 , 0x50 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+		} else {
+			ageSndMgrPlayOneshot( AS_SND_SE_LEMI_WEAPON, 0 , 0x50 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+		}
+		
 	}
 	playerData[playerId].weaponCount++;
 
@@ -504,6 +511,7 @@ void checkPlayerInput(int playerId)
 					addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX * 2, playerId);
 				}
 			}
+			ageSndMgrPlayOneshot( AS_SND_SE_USE_SKILL, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 		}
 	}
 }

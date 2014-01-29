@@ -2,6 +2,8 @@
 #include "weapon.h"
 
 #include <amlib.h>
+#include <agesndmgr.h>
+
 #include "export.h"
 #include "player.h"
 #include "field.h"
@@ -127,6 +129,7 @@ void blockDestroy(int x, int y, int count, int playerId)
 	addWeaponGauge(PLAYER_WEAPON_GAUGE_ADD_STANDARD_VALUE + PLAYER_WEAPON_GAUGE_ADD_BONUS_VALUE * count, playerId);
 	addEffectInField(x, y, AG_RP_EFFECT_SUNRISE, playerId);
 	addEffectInField(x, y, AG_RP_EFFECT_BOMB, playerId);
+	ageSndMgrPlayOneshot( AS_SND_SE_BLOCK_CRASH, 0 , 0xa0 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 
 	if (x-1 >= 0 && (field[playerId][x-1][y].kind == fieldKind || field[playerId][x-1][y].kind == FIELD_KIND_NEEDLE)) {
 		blockDestroy(x-1, y, ++count, playerId);
