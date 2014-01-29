@@ -517,11 +517,21 @@ void checkPlayerInput(int playerId)
 					createCutin(AG_CG_CUTIN_MAKO);
 					useMakoSkill(1);
 					addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX, playerId);
+					if ((rand() % 2) == 0) {
+						ageSndMgrPlayOneshot( AS_SND_MAKO_SKILL_1, 0 , 0xff , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+					} else {
+						ageSndMgrPlayOneshot( AS_SND_MAKO_SKILL_2, 0 , 0xff , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+					}
 				} else {
 					createCutin(AG_CG_CUTIN_LEMI);
-					ageSndMgrPlayOneshot( AS_SND_SE_LEMI_SKILL , 0 , 0xf0 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 					useLemiSkill(0);
 					addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX * 2, playerId);
+					ageSndMgrPlayOneshot( AS_SND_SE_LEMI_SKILL , 0 , 0xff , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+					if ((rand() % 2) == 0) {
+						ageSndMgrPlayOneshot( AS_SND_LEMI_SKILL_1, 0 , 0xff , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+					} else {
+						ageSndMgrPlayOneshot( AS_SND_LEMI_SKILL_2, 0 , 0xf0 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+					}
 				}
 				ageSndMgrPlayOneshot( AS_SND_SE_USE_SKILL, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 			}
