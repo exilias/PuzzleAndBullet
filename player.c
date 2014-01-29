@@ -430,28 +430,39 @@ int calcPlayer(int playerId)
 			break;
 
 		case PLAYER_MODE_FALL:
+		{
+			int fallSpeed, runSpeed;
+
+			// 地面に落とす（重力）
+			if (pad & GAMEPAD_A) {	// ジャンプボタンを押していたら落ちるスピードを半減させる
+				fallSpeed = PLAYER_FALL_SPEED / 2;
+				runSpeed = PLAYER_RUN_SPEED / 2;
+			} else {
+				fallSpeed = PLAYER_FALL_SPEED;
+				runSpeed = PLAYER_RUN_SPEED;
+			}
+
 			if (pad & GAMEPAD_R) {
 				playerData[playerId].direction = 0;
-				movePlayer(PLAYER_RUN_SPEED, 0, 1, playerId);
+				movePlayer(runSpeed, 0, 1, playerId);
 			}
 			if (pad & GAMEPAD_L) {
 				playerData[playerId].direction = 1;
-				movePlayer(-PLAYER_RUN_SPEED, 0, 1, playerId);
+				movePlayer(-runSpeed, 0, 1, playerId);
 			}
-
-			if (movePlayer(0, 8, 1, playerId)) {
+			
+			if (movePlayer(0, fallSpeed, 1, playerId)) {
 				playerData[playerId].mode = PLAYER_MODE_JUMPEND;
 				playerData[playerId].count = 0;
-			}
-			else if (playerData[playerId].y >= (FIELD_ORIGIN_Y + FIELD_BLOCK_SIZE * FIELD_SIZE_HEIGHT)) {
+			} else if (playerData[playerId].y >= (FIELD_ORIGIN_Y + FIELD_BLOCK_SIZE * FIELD_SIZE_HEIGHT)) {
 				playerData[playerId].y = (FIELD_ORIGIN_Y + FIELD_BLOCK_SIZE * FIELD_SIZE_HEIGHT);
 				playerData[playerId].mode = PLAYER_MODE_JUMPEND;
 				playerData[playerId].count = 0;
 				playerData[playerId].isDead = TRUE;
-			}
-			else {
+			} else {
 				playerData[playerId].count++;
 			}
+		}
 			break;
 
 		case PLAYER_MODE_JUMPEND:
@@ -503,7 +514,7 @@ void checkPlayerInput(int playerId)
 		if (!isCutinShowing()) {
 			if (isAvailableSkill(playerId)) {
 				if (playerId == 0) {
-					createCutin(AG_CG_CUTIN_LEMI);
+					createCutin(AG_CG_CUTIN_MAKO);
 					useMakoSkill(1);
 					addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX, playerId);
 				} else {
