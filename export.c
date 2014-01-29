@@ -155,6 +155,7 @@ const AGESoundRomMember ageSRM[] = {
 	{ 1,     1529 },		/* AS_SND_SE_BLOCK_CRASH */
 	{ 2,     4048 },		/* AS_SND_SE_LEVEL_MAX */
 	{ 2,     4336 },		/* AS_SND_SE_LEMI_SKILL */
+	{ 2,      835 },		/* AS_SND_SE_TOUCH_NEEDLE */
 };
 
 /***************************************************************/

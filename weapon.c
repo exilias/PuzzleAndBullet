@@ -87,6 +87,8 @@ void weaponFunc()
 											_dprintf("delete\n");
 											blockDestroy(i, j, 0, l);
 										} 
+									} else {
+										ageSndMgrPlayOneshot( AS_SND_SE_TOUCH_NEEDLE, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 									}
 								}
 							}
