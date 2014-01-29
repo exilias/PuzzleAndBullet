@@ -14,9 +14,14 @@
 #define WEAPON_SPEED	10
 
 
+const u16 WEAPON_GRAPHIC_ID[] = {
+	AG_CG_MAKO_BULLET,
+	AG_CG_LEMI_BULLET
+};
 
 WeaponData weapon[2][WEAPON_MAX_COUNT];
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
+
 
 void blockDestroy(int x, int y, int count, int playerId);
 void blockDamaging(int x, int y, int playerId);
@@ -104,13 +109,13 @@ void weaponDraw(void* DBuf)
 		for (j = 0; j < WEAPON_MAX_COUNT; j++) {
 			if (weapon[i][j].isActive) {
 				agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
-				if (weapon[i][j].direction) {
-					ageTransferAAC( _DBuf, AG_CG_MAKO_BULLET_LEFT, 0, NULL, NULL );
-				} else {
-					ageTransferAAC( _DBuf, AG_CG_MAKO_BULLET_RIGHT, 0, NULL, NULL );
-				}
+				ageTransferAAC( _DBuf, WEAPON_GRAPHIC_ID[i], 0, NULL, NULL );
 				agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
-				agDrawSPRITE(_DBuf, TRUE, x4(weapon[i][j].x), x4(weapon[i][j].y), x4(weapon[i][j].x + WEAPON_BLOCK_SIZE), x4(weapon[i][j].y + WEAPON_BLOCK_SIZE));
+				if (weapon[i][j].direction) {
+					agDrawSPRITE_UV( _DBuf, x4(weapon[i][j].x), x4(weapon[i][j].y), 0x1000 , 0, x4(weapon[i][j].x + WEAPON_BLOCK_SIZE), x4(weapon[i][j].y + WEAPON_BLOCK_SIZE), 0, 0x1000);
+				} else {
+					agDrawSPRITE(_DBuf, TRUE, x4(weapon[i][j].x), x4(weapon[i][j].y), x4(weapon[i][j].x + WEAPON_BLOCK_SIZE), x4(weapon[i][j].y + WEAPON_BLOCK_SIZE));
+				}
 			}
 		}
 	}
