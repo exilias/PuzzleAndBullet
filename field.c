@@ -14,7 +14,7 @@
 #define FIELD_UPDATE_INTERVAL		2
 #define FIELD_ADD_BLOCK_INTERVAL	60
 #define FIELD_EXPOSE_TIME			60
-#define FIELD_SKILL_EXPOSE_TIME		60
+#define FIELD_SKILL_EXPOSE_TIME		90
 
 #define FIELD_STATE_EXPOSE			0
 #define FIELD_STATE_FALL			1
@@ -238,23 +238,93 @@ int getBlockNo(int hp)
 
 void useMakoSkill(int applyPlayerId)
 {
+	int i;
+	int index = rand() % FIELD_SIZE_WIDTH;
 
+	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
+		if (field[applyPlayerId][i][0].kind != FIELD_KIND_NONE) {
+			if (index == i) {
+				index = i + 1;
+			}
+		}
+	}
+	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
+		if (i != index) {
+			field[applyPlayerId][i][0].kind = rand() % 3 + 1;
+			field[applyPlayerId][i][0].hp = 5;
+			field[applyPlayerId][i][0].state = FIELD_STATE_EXPOSE;
+			field[applyPlayerId][i][0].counter = 0;
+			field[applyPlayerId][i][0].damagingEffectCount = 0;
+		}
+	}
 }
 
 
 void useLemiSkill(int applyPlayerId)
 {
 	int i, j;
+	int deleteTable[FIELD_SIZE_WIDTH];
 
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
-		for (j = FIELD_SIZE_HEIGHT-1; j >= 0; j--) {
-			if (field[applyPlayerId][i][j].kind != FIELD_KIND_NONE) {
-				if (field[applyPlayerId][i][j-1].kind != FIELD_KIND_NONE) {
-					field[applyPlayerId][i][j].state = FIELD_STATE_USING_SKILL;
-					field[applyPlayerId][i][j].damagingEffectCount = 0;
-					field[applyPlayerId][i][j].counter = 0;
-				}
+		if (i < 4) {
+			deleteTable[i] = TRUE;
+		} else {
+			deleteTable[i] = FALSE;
+		}
+	}
+
+	for (i = 0; i < 10; i++) {
+		int swapIndexA = rand() % FIELD_SIZE_WIDTH;
+		int swapIndexB = rand() % FIELD_SIZE_WIDTH;
+		int buf;
+
+		buf = deleteTable[swapIndexA];
+		deleteTable[swapIndexA] = deleteTable[swapIndexB];
+		deleteTable[swapIndexB] = buf;
+	}
+
+	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
+		for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
+			if (deleteTable[i]) {
+				field[applyPlayerId][i][j].state = FIELD_STATE_USING_SKILL;
+				field[applyPlayerId][i][j].damagingEffectCount = 0;
+	 			field[applyPlayerId][i][j].counter = 0;
 			}
 		}
 	}
+
+	// int i, j;
+	// int isFound = FALSE;
+	// for (i = 1; i < FIELD_SIZE_HEIGHT; i++) {
+	// 	for (j = 0; j < FIELD_SIZE_WIDTH; j++) {
+	// 		if (!isFound) {
+	// 			if ((field[applyPlayerId][j][i].kind == FIELD_KIND_RED) ||
+	// 				(field[applyPlayerId][j][i].kind == FIELD_KIND_GREEN) ||
+	// 				(field[applyPlayerId][j][i].kind == FIELD_KIND_BLUE)) {
+	// 				isFound = TRUE;
+	// 				break;
+	// 			}
+	// 		} else {
+	// 			if (field[applyPlayerId][j][i].kind != FIELD_KIND_NONE) {
+	// 				field[applyPlayerId][j][i].state = FIELD_STATE_USING_SKILL;
+	// 				field[applyPlayerId][j][i].damagingEffectCount = 0;
+	//  				field[applyPlayerId][j][i].counter = 0;
+	// 			}
+	// 		}
+			
+	// 	}
+	// }
+
+
+	// for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
+	// 	for (j = FIELD_SIZE_HEIGHT-1; j >= 0; j--) {
+	// 		if (field[applyPlayerId][i][j].kind != FIELD_KIND_NONE) {
+	// 			if (field[applyPlayerId][i][j-1].kind != FIELD_KIND_NONE) {
+	// 				field[applyPlayerId][i][j].state = FIELD_STATE_USING_SKILL;
+	// 				field[applyPlayerId][i][j].damagingEffectCount = 0;
+	// 				field[applyPlayerId][i][j].counter = 0;
+	// 			}
+	// 		}
+	// 	}
+	// }
 }

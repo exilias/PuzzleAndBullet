@@ -180,7 +180,7 @@ void addWeapon(void* playerData, int playerId)
 			weapon[playerId][i].x = _playerData->x + 15;
 			weapon[playerId][i].y = _playerData->y + 23;
 			weapon[playerId][i].direction = _playerData->direction;
-			weapon[playerId][i].attackPoint = 1;
+			weapon[playerId][i].attackPoint = 1 + (_playerData->weaponGauge / PLAYER_WEAPON_GAUGE_MAX);
 			break;
 		}
 	}

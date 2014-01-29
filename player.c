@@ -496,12 +496,13 @@ void checkPlayerInput(int playerId)
 			if (isAvailableSkill(playerId)) {
 				if (playerId == 0) {
 					createCutin(AG_CG_CUTIN_LEMI);
-					useLemiSkill(1);
+					useMakoSkill(1);
+					addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX, playerId);
 				} else {
 					createCutin(AG_CG_CUTIN_LEMI);
 					useLemiSkill(0);
+					addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX * 2, playerId);
 				}
-				addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX, playerId);
 			}
 		}
 	}
