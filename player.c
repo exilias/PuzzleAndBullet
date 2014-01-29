@@ -21,6 +21,11 @@
 PlayerData playerData[2];
 extern FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 
+
+int isAvailableSkill(int playerId);
+
+
+
 const static u16 MotionMap[2][9] = {
 	{
 		AG_RP_MAKO_IDLE,
@@ -175,6 +180,17 @@ void addWeaponGauge(int value, int playerId)
 int getPlayerWeaponGauge(int playerId)
 {
 	return playerData[playerId].weaponGauge;
+}
+
+int isAvailableSkill(int playerId)
+{
+	int isAvailableSkill = FALSE;
+
+	if (getPlayerWeaponGauge(playerId) >= (PLAYER_WEAPON_GRADE_MAX * PLAYER_WEAPON_GAUGE_MAX)) {
+		isAvailableSkill = TRUE;
+	}
+
+	return isAvailableSkill;
 }
 
 // プレイヤーを動かす
@@ -477,8 +493,16 @@ void checkPlayerInput(int playerId)
 
 	if (pad & GAMEPAD_Y) {
 		if (!isCutinShowing()) {
-			createCutin(AG_CG_CUTIN_LEMI);
-			addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX, playerId);
+			if (isAvailableSkill(playerId)) {
+				if (playerId == 0) {
+					createCutin(AG_CG_CUTIN_LEMI);
+					useLemiSkill(1);
+				} else {
+					createCutin(AG_CG_CUTIN_LEMI);
+					useLemiSkill(0);
+				}
+				addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX, playerId);
+			}
 		}
 	}
 }

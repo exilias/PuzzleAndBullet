@@ -3,6 +3,7 @@
 #include <amlib.h>
 #include "export.h"
 #include "math.h"
+#include "cutin.h"
 
 
 #define FIELD_BG_WIDTH				450
@@ -10,18 +11,22 @@
 #define FIELD_BG_MARGIN_X			27
 #define FIELD_BG_MARGIN_Y			23
 
-#define FIELD_UPDATE_INTERVAL		4
-#define FIELD_ADD_BLOCK_INTERVAL	120
-#define FIELD_EXPOSE_TIME			120
+#define FIELD_UPDATE_INTERVAL		2
+#define FIELD_ADD_BLOCK_INTERVAL	60
+#define FIELD_EXPOSE_TIME			60
+#define FIELD_SKILL_EXPOSE_TIME		60
 
-#define FIELD_STATE_EXPOSE	0
-#define FIELD_STATE_FALL	1
+#define FIELD_STATE_EXPOSE			0
+#define FIELD_STATE_FALL			1
+#define FIELD_STATE_USING_SKILL		2
 
 
 
 int getBlockNo(int hp);
 
 FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
+
+
 
 const int FIELD_STAGE_BG_ID[] = {
 		AG_CG_GAME_BG_STAGE_BACK_MAKO,
@@ -59,6 +64,7 @@ void fieldInit()
 				field[k][i][j].kind = FIELD_KIND_NONE;
 				field[k][i][j].hp = FIELD_BLOCK_HP;
 				field[k][i][j].damagingEffectCount = 0;
+				field[k][i][j].counter = 0;
 			}
 		}
 
@@ -95,7 +101,7 @@ void fieldFunc()
 			}
 		}
 
-		if (count % FIELD_ADD_BLOCK_INTERVAL == 0) {
+		if ((count % FIELD_ADD_BLOCK_INTERVAL == 0)) {
 			// 新たにブロックを生成する
 			int x = rand()%FIELD_SIZE_WIDTH;
 			if (field[k][x][0].kind == FIELD_KIND_NONE) {
@@ -103,6 +109,7 @@ void fieldFunc()
 				field[k][x][0].hp = 5;
 				field[k][x][0].state = FIELD_STATE_EXPOSE;
 				field[k][x][0].counter = 0;
+				field[k][x][0].damagingEffectCount = 0;
 			}
 		}
 
@@ -112,6 +119,23 @@ void fieldFunc()
 					field[k][i][0].state = FIELD_STATE_FALL;
 				} else {
 					field[k][i][0].counter++;
+				}
+			}
+		}
+
+		for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
+			for (j = 0; j < FIELD_SIZE_HEIGHT; j++) {
+				if (field[k][i][j].state == FIELD_STATE_USING_SKILL) {
+					if (field[k][i][j].damagingEffectCount <= 0) {
+						if ((field[k][i][j].counter % (FIELD_DAMAGING_EFFECT_FRAME)) == 0 ) {
+							field[k][i][j].damagingEffectCount = FIELD_DAMAGING_EFFECT_FRAME;
+						}
+						field[k][i][j].counter++;
+					}
+
+					if (field[k][i][j].counter >= FIELD_SKILL_EXPOSE_TIME) {
+						field[k][i][j].kind = FIELD_KIND_NONE;
+					}
 				}
 			}
 		}
@@ -208,5 +232,25 @@ int getBlockNo(int hp)
 		return 1;
 	} else {
 		return 2;
+	}
+}
+
+
+void useMakoSkill(int applyPlayerId)
+{
+
+}
+
+
+void useLemiSkill(int applyPlayerId)
+{
+	int i;
+
+	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
+		if (field[applyPlayerId][i][FIELD_SIZE_HEIGHT-1].kind != FIELD_KIND_NONE) {
+			field[applyPlayerId][i][FIELD_SIZE_HEIGHT-1].state = FIELD_STATE_USING_SKILL;
+			field[applyPlayerId][i][FIELD_SIZE_HEIGHT-1].damagingEffectCount = 0;
+			field[applyPlayerId][i][FIELD_SIZE_HEIGHT-1].counter = 0;
+		}
 	}
 }

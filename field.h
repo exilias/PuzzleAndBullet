@@ -19,6 +19,8 @@
 
 #define FIELD_BLOCK_HP		5
 
+
+
 typedef struct fieldData
 {
 	int kind;
@@ -31,3 +33,6 @@ typedef struct fieldData
 void fieldInit();
 void fieldFunc();
 void fieldDraw(void* DBuf);
+
+void useMakoSkill(int applyPlayerId);
+void useLemiSkill(int applyPlayerId);

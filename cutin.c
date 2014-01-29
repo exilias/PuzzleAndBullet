@@ -17,7 +17,7 @@
 #define CUTIN_STATE_FADEOUT	3
 
 #define CUTIN_FADE_FRAME	6
-#define CUTIN_SHOW_FRAME	45	
+#define CUTIN_SHOW_FRAME	60	
 
 
 

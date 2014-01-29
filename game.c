@@ -65,9 +65,9 @@ void gameInit(void)
 
 void gameFunc(void)
 {
-	fieldFunc();
-	playerFunc();
-	weaponFunc();
+	if (!isCutinShowing()) fieldFunc();
+	if (!isCutinShowing()) playerFunc();
+	if (!isCutinShowing()) weaponFunc();
 	cutinFunc();
 	scoreFunc();
 	gaugeFunc();
@@ -111,6 +111,5 @@ void gameDraw(AGDrawBuffer *DBuf)
 	scoreDraw(DBuf);
 
 	// カットイン
-	cutinDraw(DBuf);
-	
+	cutinDraw(DBuf);	
 }

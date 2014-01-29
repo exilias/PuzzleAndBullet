@@ -68,7 +68,6 @@ void  main( void )
 		ageSndMgrRun();
 
 		gameFunc();
-		fieldFunc();
 
 		// ディスプレイリストの作成
 		agDrawBufferInit( &DBuf , DrawBuffer );
