@@ -7,6 +7,7 @@
 #include "field.h"
 #include "score.h"
 #include "math.h"
+#include "effect.h"
 
 #define WEAPON_SPEED	10
 
@@ -124,6 +125,8 @@ void blockDestroy(int x, int y, int count, int playerId)
 
 	addScore(SCORE_ADD_STANDARD_VALUE + SCORE_ADD_BONUS_VALUE * count, playerId);
 	addWeaponGauge(PLAYER_WEAPON_GAUGE_ADD_STANDARD_VALUE + PLAYER_WEAPON_GAUGE_ADD_BONUS_VALUE * count, playerId);
+	addEffectInField(x, y, AG_RP_EFFECT_SUNRISE, playerId);
+	addEffectInField(x, y, AG_RP_EFFECT_BOMB, playerId);
 
 	if (x-1 >= 0 && (field[playerId][x-1][y].kind == fieldKind || field[playerId][x-1][y].kind == FIELD_KIND_NEEDLE)) {
 		blockDestroy(x-1, y, ++count, playerId);

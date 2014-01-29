@@ -11,6 +11,7 @@
 #include "draw_number.h"
 #include "score.h"
 #include "gauge.h"
+#include "effect.h"
 
 
 
@@ -56,6 +57,7 @@ void gameInit(void)
 	cutinInit();
 	scoreInit();
 	gaugeInit();
+	effectInit();
 
 	deadCount = 0;
 }
@@ -69,6 +71,7 @@ void gameFunc(void)
 	cutinFunc();
 	scoreFunc();
 	gaugeFunc();
+	effectFunc();
 
 	pushedStartButton();
 }
@@ -99,6 +102,9 @@ void gameDraw(AGDrawBuffer *DBuf)
 
 	// 武器の描画
 	weaponDraw(DBuf);
+
+	// エフェクト
+	effectDraw(DBuf);
 
 	// GUI
 	gaugeDraw(DBuf);

@@ -77,6 +77,16 @@ const u32 ageRM3Offsets0006[] = {		/* AG_RP_EFFECT_SMOKE */
 	     42316,     42436,
 };
 
+const u32 ageRM3Offsets0007[] = {		/* AG_RP_EFFECT_BOMB */
+	     42569,     42729,     42905,     43097,     43337,     43593,     43869,     44153,
+	     44445,     44721,     44977,     45209,     45401,     45561,     45705,     45801,
+};
+
+const u32 ageRM3Offsets0008[] = {		/* AG_RP_EFFECT_SUNRISE */
+	     45866,     46126,     46426,     46770,     47146,     47630,     48114,     48594,
+	     49058,     49514,     49958,     50370,     50774,     51130,     51314,     51470,
+};
+
 const AGERM3Member ageRM3[] = {
 	/*    Offset,Width,Height,FrameRate,Frames,Alpha,EncodeType, Offsets */
 	{      18575,   40,   40,   7680,      6, 2, 0, ageRM3Offsets0000, NULL        },		/* AG_RP_MAKO_IDLE */
@@ -86,6 +96,8 @@ const AGERM3Member ageRM3[] = {
 	{      22110,   40,   40,   7680,     10, 2, 0, ageRM3Offsets0004, NULL        },		/* AG_RP_LEMI_RUN */
 	{      23527,   40,   40,   7680,      1, 2, 1, ageRM3Offsets0005, NULL        },		/* AG_RP_LEMI_JUMP */
 	{      41688,   96,   96,   7680,     10, 2, 0, ageRM3Offsets0006, NULL        },		/* AG_RP_EFFECT_SMOKE */
+	{      42549,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0007, NULL        },		/* AG_RP_EFFECT_BOMB */
+	{      45846,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0008, NULL        },		/* AG_RP_EFFECT_SUNRISE */
 };
 
 /***************************************************************/
