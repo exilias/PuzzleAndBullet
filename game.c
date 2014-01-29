@@ -12,6 +12,7 @@
 #include "score.h"
 #include "gauge.h"
 #include "effect.h"
+#include "bgm_manager.h"
 
 
 
@@ -58,6 +59,8 @@ void gameInit(void)
 	scoreInit();
 	gaugeInit();
 	effectInit();
+
+	playBgm(AS_SND_GAME_BGM);
 
 	deadCount = 0;
 }

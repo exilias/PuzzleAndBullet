@@ -147,6 +147,7 @@ const AGESoundRomMember ageSRM[] = {
 	{ 1,     1607 },		/* AS_SND_LEMI_SKILL_1 */
 	{ 1,      937 },		/* AS_SND_LEMI_SKILL_2 */
 	{ 1,     1720 },		/* AS_SND_LEMI_WIN */
+	{ 2,    51850 },		/* AS_SND_GAME_BGM */
 };
 
 /***************************************************************/
