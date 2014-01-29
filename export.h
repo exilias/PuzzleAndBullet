@@ -110,6 +110,8 @@ extern "C" {
 #define AS_SND_SE_LEVEL_MAX	(22)
 #define AS_SND_SE_LEMI_SKILL	(23)
 #define AS_SND_SE_TOUCH_NEEDLE	(24)
+#define AS_SND_SE_LEVEL_UP	(25)
+#define AS_SND_SE_MAKO_SKILL	(26)
 
 /***************************************************************/
 /*                          Data Member                        */
@@ -119,7 +121,7 @@ extern const AGERM3Member ageRM3[10];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;
-extern const AGESoundRomMember ageSRM[25];
+extern const AGESoundRomMember ageSRM[27];
 
 #ifdef __cplusplus
 }

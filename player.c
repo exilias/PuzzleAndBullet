@@ -154,6 +154,7 @@ void addWeaponGauge(int value, int playerId)
 	if (preWeaponGrade < nextWeaponGrade) {
 		if (nextWeaponGrade != PLAYER_WEAPON_GRADE_MAX) {
 			ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_LEVEL_UP] , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+			ageSndMgrPlayOneshot( AS_SND_SE_LEVEL_UP , 0 , 0xff , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 			addEffect(playerData[playerId].x + PLAYER_WIDTH / 2, playerData[playerId].y + PLAYER_HEIGHT / 2, AG_RP_EFFECT_LEVEL_UP);
 		}
 	}
@@ -510,6 +511,7 @@ void checkPlayerInput(int playerId)
 
 	pad = agGamePadGetData(playerId);
 
+	// スキル発動
 	if (pad & GAMEPAD_Y) {
 		if (!isCutinShowing()) {
 			if (isAvailableSkill(playerId)) {
@@ -517,6 +519,7 @@ void checkPlayerInput(int playerId)
 					createCutin(AG_CG_CUTIN_MAKO);
 					useMakoSkill(1);
 					addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX, playerId);
+					ageSndMgrPlayOneshot( AS_SND_SE_MAKO_SKILL, 0 , 0xff , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 					if ((rand() % 2) == 0) {
 						ageSndMgrPlayOneshot( AS_SND_MAKO_SKILL_1, 0 , 0xff , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 					} else {
