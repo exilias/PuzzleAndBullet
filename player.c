@@ -8,6 +8,7 @@
 #include "field.h"
 #include "cutin.h"
 #include "math.h"
+#include "effect.h"
 
 
 #define PLAYER_COLLISION_MARGIN	10
@@ -148,6 +149,7 @@ void addWeaponGauge(int value, int playerId)
 	if (preWeaponGrade < nextWeaponGrade) {
 		if (nextWeaponGrade != PLAYER_WEAPON_GRADE_MAX) {
 			ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_LEVEL_UP] , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+			addEffect(playerData[playerId].x + PLAYER_WIDTH / 2, playerData[playerId].y + PLAYER_HEIGHT / 2, AG_RP_EFFECT_LEVEL_UP);
 		}
 	}
 
@@ -161,6 +163,7 @@ void addWeaponGauge(int value, int playerId)
 	if (playerData[playerId].weaponGauge == (PLAYER_WEAPON_GAUGE_MAX * PLAYER_WEAPON_GRADE_MAX)) {
 		if (!isPlayedGradeMaxSound) {
 			ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_GRADE_MAX] , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+			addEffect(playerData[playerId].x + PLAYER_WIDTH / 2, playerData[playerId].y + PLAYER_HEIGHT / 2, AG_RP_EFFECT_GRADE_MAX);
 			isPlayedGradeMaxSound = TRUE;
 		}
 	} else {
@@ -310,6 +313,7 @@ int calcPlayer(int playerId)
 				playerData[playerId].count = 0;
 				// ジャンプの効果音
 				ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_JUMP], 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+				//addEffect(playerData[playerId].x + PLAYER_WIDTH / 2, playerData[playerId].y+20 + PLAYER_HEIGHT / 2, AG_RP_EFFECT_JUMP);
 			}
 			else if (pad & GAMEPAD_R || pad & GAMEPAD_L) {
 				if (pad & GAMEPAD_R) {
