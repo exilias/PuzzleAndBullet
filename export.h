@@ -107,6 +107,8 @@ extern "C" {
 #define AS_SND_SE_LEMI_WEAPON	(19)
 #define AS_SND_SE_JUMP	(20)
 #define AS_SND_SE_BLOCK_CRASH	(21)
+#define AS_SND_SE_LEVEL_MAX	(22)
+#define AS_SND_SE_LEMI_SKILL	(23)
 
 /***************************************************************/
 /*                          Data Member                        */
@@ -116,7 +118,7 @@ extern const AGERM3Member ageRM3[10];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;
-extern const AGESoundRomMember ageSRM[22];
+extern const AGESoundRomMember ageSRM[24];
 
 #ifdef __cplusplus
 }

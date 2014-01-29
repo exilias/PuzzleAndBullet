@@ -168,6 +168,7 @@ void addWeaponGauge(int value, int playerId)
 	if (playerData[playerId].weaponGauge == (PLAYER_WEAPON_GAUGE_MAX * PLAYER_WEAPON_GRADE_MAX)) {
 		if (!isPlayedGradeMaxSound) {
 			ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_GRADE_MAX] , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+			ageSndMgrPlayOneshot( AS_SND_SE_LEVEL_MAX , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 			addEffect(playerData[playerId].x + PLAYER_WIDTH / 2, playerData[playerId].y + PLAYER_HEIGHT / 2, AG_RP_EFFECT_GRADE_MAX);
 			isPlayedGradeMaxSound = TRUE;
 		}
@@ -507,11 +508,12 @@ void checkPlayerInput(int playerId)
 					addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX, playerId);
 				} else {
 					createCutin(AG_CG_CUTIN_LEMI);
+					ageSndMgrPlayOneshot( AS_SND_SE_LEMI_SKILL , 0 , 0xf0 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 					useLemiSkill(0);
 					addWeaponGauge(-PLAYER_WEAPON_GAUGE_MAX * 2, playerId);
 				}
+				ageSndMgrPlayOneshot( AS_SND_SE_USE_SKILL, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 			}
-			ageSndMgrPlayOneshot( AS_SND_SE_USE_SKILL, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 		}
 	}
 }

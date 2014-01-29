@@ -153,6 +153,8 @@ const AGESoundRomMember ageSRM[] = {
 	{ 2,      391 },		/* AS_SND_SE_LEMI_WEAPON */
 	{ 2,      208 },		/* AS_SND_SE_JUMP */
 	{ 1,     1529 },		/* AS_SND_SE_BLOCK_CRASH */
+	{ 2,     4048 },		/* AS_SND_SE_LEVEL_MAX */
+	{ 2,     4336 },		/* AS_SND_SE_LEMI_SKILL */
 };
 
 /***************************************************************/
