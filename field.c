@@ -12,7 +12,9 @@
 #define FIELD_BG_MARGIN_Y			23
 
 #define FIELD_UPDATE_INTERVAL		2
-#define FIELD_ADD_BLOCK_INTERVAL	60
+#define FIELD_ADD_BLOCK_INTERVAL_INIT	60
+#define FIELD_ADD_BLOCK_INTERVAL_SUB_INTERVAL	3 * 60	// 何フレームごとにブロック追加間隔を短くするか（10秒ごとに1フレーム短くする）
+#define FIELD_ADD_BLOCK_INTERVAL_MIN	30
 #define FIELD_EXPOSE_TIME			60
 #define FIELD_SKILL_EXPOSE_TIME		95
 
@@ -23,8 +25,10 @@
 
 
 int getBlockNo(int hp);
+int getAddBlock();
 
 FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
+int fieldAddBlockInterval, fieldAddBlockIntervalCounter;
 
 
 
@@ -76,6 +80,9 @@ void fieldInit()
 			}
 		}
 	}
+
+	fieldAddBlockInterval = FIELD_ADD_BLOCK_INTERVAL_INIT;
+	fieldAddBlockIntervalCounter = 0;
 }
 
 void fieldFunc()
@@ -101,15 +108,26 @@ void fieldFunc()
 			}
 		}
 
-		if ((count % FIELD_ADD_BLOCK_INTERVAL == 0)) {
-			// 新たにブロックを生成する
-			int x = rand()%FIELD_SIZE_WIDTH;
-			if (field[k][x][0].kind == FIELD_KIND_NONE) {
-				field[k][x][0].kind = rand() % 4 + 1;
-				field[k][x][0].hp = 5;
-				field[k][x][0].state = FIELD_STATE_EXPOSE;
-				field[k][x][0].counter = 0;
-				field[k][x][0].damagingEffectCount = 0;
+		// 新たにブロックを生成する
+		if ((count % fieldAddBlockInterval == 0)) {
+			// もし、空きエリアの数をチェック
+			int emptyBlockCount = 0;
+			for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
+				if (field[k][i][0].kind == FIELD_KIND_NONE) {
+					emptyBlockCount++;
+				}
+			}
+
+			if (emptyBlockCount >= 2) {
+				int x = rand()%FIELD_SIZE_WIDTH;
+				if (field[k][x][0].kind == FIELD_KIND_NONE) {
+					field[k][x][0].kind = getAddBlock();
+					field[k][x][0].hp = 5;
+					field[k][x][0].state = FIELD_STATE_EXPOSE;
+					field[k][x][0].counter = 0;
+					field[k][x][0].damagingEffectCount = 0;
+					_dprintf("add interval: %d\n", fieldAddBlockInterval);
+				}
 			}
 		}
 
@@ -141,9 +159,46 @@ void fieldFunc()
 		}
 	}
 
+	if (fieldAddBlockIntervalCounter >= FIELD_ADD_BLOCK_INTERVAL_SUB_INTERVAL) {
+		fieldAddBlockIntervalCounter = 0;
+		fieldAddBlockInterval--;
+		if (fieldAddBlockInterval < FIELD_ADD_BLOCK_INTERVAL_MIN) {
+			fieldAddBlockInterval = FIELD_ADD_BLOCK_INTERVAL_MIN;
+		}
+	}
+
+	fieldAddBlockIntervalCounter++;
 	count++;
 }
 
+
+int getAddBlock()
+{
+	int addBlock;
+
+	switch(rand() % 7) {
+		case 0:
+		case 1:
+			addBlock = FIELD_KIND_RED;
+			break;
+
+		case 2:
+		case 3:
+			addBlock = FIELD_KIND_GREEN;
+			break;
+
+		case 4:
+		case 5:
+			addBlock = FIELD_KIND_BLUE;
+			break;
+
+		case 6:
+			addBlock = FIELD_KIND_NEEDLE;
+			break;
+	}
+
+	return addBlock;
+}
 
 void fieldDraw(void* DBuf)
 {
@@ -266,7 +321,7 @@ void useLemiSkill(int applyPlayerId)
 	int deleteTable[FIELD_SIZE_WIDTH];
 
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
-		if (i < 4) {
+		if (i < 5) {
 			deleteTable[i] = TRUE;
 		} else {
 			deleteTable[i] = FALSE;
