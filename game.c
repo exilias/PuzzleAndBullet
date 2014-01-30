@@ -14,9 +14,17 @@
 #include "effect.h"
 #include "bgm_manager.h"
 #include "game_bg.h"
+#include "fade.h"
 
 
 
+#define GAME_STATE_FADE_IN		0
+#define GAME_STATE_COUNT_DOWN	1
+#define GAME_STATE_GAMING		2
+
+
+
+int gameState;
 extern PlayerData playerData[2];
 
 
@@ -49,6 +57,8 @@ void gameInit(void)
 {
 	setSrand();
 
+	gameState = GAME_STATE_FADE_IN;
+
 	gameBgInit();
 	fieldInit();
 	playerInit();
@@ -57,6 +67,7 @@ void gameInit(void)
 	scoreInit();
 	gaugeInit();
 	effectInit();
+	fadeInit();
 
 	playBgm(AS_SND_GAME_BGM);
 }
@@ -64,14 +75,27 @@ void gameInit(void)
 
 void gameFunc(void)
 {
-	if (!isCutinShowing()) gameBgFunc();
-	if (!isCutinShowing()) fieldFunc();
-	if (!isCutinShowing()) playerFunc();
-	if (!isCutinShowing()) weaponFunc();
-	cutinFunc();
-	scoreFunc();
-	gaugeFunc();
-	effectFunc();
+	switch (gameState) {
+		case GAME_STATE_FADE_IN:
+			gameBgFunc();
+
+			break;
+
+		case GAME_STATE_COUNT_DOWN:
+
+			break;
+
+		case GAME_STATE_GAMING:
+			if (!isCutinShowing()) fieldFunc();
+			if (!isCutinShowing()) playerFunc();
+			if (!isCutinShowing()) weaponFunc();
+			cutinFunc();
+			scoreFunc();
+			gaugeFunc();
+			effectFunc();
+			break;
+
+	}
 
 	pushedStartButton();
 }
@@ -100,4 +124,7 @@ void gameDraw(AGDrawBuffer *DBuf)
 
 	// カットイン
 	cutinDraw(DBuf);	
+
+	// フェードイン
+	fadeDraw(DBuf);
 }
