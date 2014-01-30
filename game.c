@@ -16,9 +16,6 @@
 #include "game_bg.h"
 
 
-
-#define BS(a) ((a) << 2)
-
 extern PlayerData playerData[2];
 
 int deadCount;

@@ -155,7 +155,7 @@ void addWeaponGauge(int value, int playerId)
 		if (nextWeaponGrade != PLAYER_WEAPON_GRADE_MAX) {
 			ageSndMgrPlayOneshot( PLAYER_VOICE_ID[playerId][PLAYER_SND_LEVEL_UP] , 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 			ageSndMgrPlayOneshot( AS_SND_SE_LEVEL_UP , 0 , 0xff , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
-			addEffect(playerData[playerId].x + PLAYER_WIDTH / 2, playerData[playerId].y + PLAYER_HEIGHT / 2, AG_RP_EFFECT_LEVEL_UP);
+			addEffect(playerData[playerId].x + PLAYER_WIDTH / 2, playerData[playerId].y + PLAYER_HEIGHT / 2, AG_RP_EFFECT_GRADE_MAX);
 		}
 	}
 
