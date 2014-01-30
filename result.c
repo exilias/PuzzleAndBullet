@@ -31,6 +31,9 @@ typedef struct resultData {
 
 ResultData resultData;
 
+const int RESULT_WIN_PLAYER_SOUND_ID[] = {AS_SND_MAKO_WIN, AS_SND_LEMI_WIN};
+const int RESULT_LOSE_PLAYER_SOUND_ID[] = {AS_SND_MAKO_LOSE, AS_SND_LEMI_LOSE};
+
 
 void resultInit()
 {
@@ -51,12 +54,14 @@ void resultFunc()
 			resultData.marginY = 0;
 			resultData.counter = 0;
 			resultData.marginCounter = 0;
+			ageSndMgrPlayOneshot( RESULT_LOSE_PLAYER_SOUND_ID[resultData.winPlayerId == 0 ? 1 : 0], 0 , 0xf0 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 			break;
 
 		case RESULT_STATE_SHOW_LOSE_PLAYER:
 			if (resultData.counter >= RESULT_SHOW_INTERVAL) {
 				resultData.state = RESULT_STATE_SHOW_WIN_PLAYER;
 				resultData.counter = 0;
+				ageSndMgrPlayOneshot( RESULT_WIN_PLAYER_SOUND_ID[resultData.winPlayerId], 0 , 0xf0 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 			}
 			break;
 
