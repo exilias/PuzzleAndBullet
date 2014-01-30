@@ -67,6 +67,9 @@ extern "C" {
 #define AG_CG_SCORE_NUMBER_7	(37)
 #define AG_CG_SCORE_NUMBER_8	(38)
 #define AG_CG_SCORE_NUMBER_9	(39)
+#define AG_CG_COUNT_DOWN_NUMBER_1	(40)
+#define AG_CG_COUNT_DOWN_NUMBER_2	(41)
+#define AG_CG_COUNT_DOWN_NUMBER_3	(42)
 
 /***************************************************************/
 /*                     RM3 Member Symbol                       */
@@ -116,16 +119,18 @@ extern "C" {
 #define AS_SND_SE_TOUCH_NEEDLE	(24)
 #define AS_SND_SE_LEVEL_UP	(25)
 #define AS_SND_SE_MAKO_SKILL	(26)
+#define AS_SND_SYSTEM_COUNT_DOWN	(27)
+#define AS_SND_SYSTEM_GAME_START	(28)
 
 /***************************************************************/
 /*                          Data Member                        */
 /***************************************************************/
-extern const AGERomMember ageRM[40];
+extern const AGERomMember ageRM[43];
 extern const AGERM3Member ageRM3[10];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;
-extern const AGESoundRomMember ageSRM[27];
+extern const AGESoundRomMember ageSRM[29];
 
 #ifdef __cplusplus
 }

@@ -15,6 +15,7 @@
 #include "bgm_manager.h"
 #include "game_bg.h"
 #include "fade.h"
+#include "count_down.h"
 
 
 
@@ -71,6 +72,8 @@ void gameInit(void)
 	fadeInit();
 	fadeIn();
 
+	countDownInit();
+
 	playBgm(AS_SND_GAME_BGM);
 }
 
@@ -83,14 +86,20 @@ void gameFunc(void)
 			fadeFunc();
 			if (!isFadeDraw()) {
 				gameState = GAME_STATE_COUNT_DOWN;
+				fireCountDown();
 			}
 			break;
 
 		case GAME_STATE_COUNT_DOWN:
 			gameBgFunc();
+			countDownFunc();
+			if (isCountDownCompleted()) {
+				gameState = GAME_STATE_GAMING;
+			}
 			break;
 
 		case GAME_STATE_GAMING:
+			if (!isCutinShowing()) gameBgFunc();
 			if (!isCutinShowing()) fieldFunc();
 			if (!isCutinShowing()) playerFunc();
 			if (!isCutinShowing()) weaponFunc();
@@ -108,28 +117,33 @@ void gameFunc(void)
 
 void gameDraw(AGDrawBuffer *DBuf)
 {
-	// 背景
-	gameBgDraw(DBuf);
-	
-	// フィールドの描画
-	fieldDraw(DBuf);
+	switch (gameState) {
+		case GAME_STATE_FADE_IN:
+			gameBgDraw(DBuf);
+			fieldDraw(DBuf);
+			gaugeDraw(DBuf);
+			scoreDraw(DBuf);
+			fadeDraw(DBuf);
+			break;
 
-	// プレイヤー描画
-	playerDraw(DBuf);
+		case GAME_STATE_COUNT_DOWN:
+			gameBgDraw(DBuf);
+			fieldDraw(DBuf);
+			gaugeDraw(DBuf);
+			scoreDraw(DBuf);
+			countDownDraw(DBuf);
+			fadeDraw(DBuf);
 
-	// 武器の描画
-	weaponDraw(DBuf);
-
-	// エフェクト
-	effectDraw(DBuf);
-
-	// GUI
-	gaugeDraw(DBuf);
-	scoreDraw(DBuf);
-
-	// カットイン
-	cutinDraw(DBuf);	
-
-	// フェードイン
-	fadeDraw(DBuf);
+		case GAME_STATE_GAMING:
+			gameBgDraw(DBuf);
+			fieldDraw(DBuf);
+			playerDraw(DBuf);
+			weaponDraw(DBuf);
+			effectDraw(DBuf);
+			gaugeDraw(DBuf);
+			scoreDraw(DBuf);
+			cutinDraw(DBuf);	
+			fadeDraw(DBuf);
+			break;
+	}
 }
