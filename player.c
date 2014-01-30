@@ -126,6 +126,10 @@ void playerDraw(void* DBuf)
 	AGDrawBuffer *_DBuf = (AGDrawBuffer *)DBuf;
 
 	for (i = 0; i < 2; i++) {
+		if (playerData[i].isDead) {
+			break;
+		}
+		
 		if ((playerData[i].count >> 1) >= ageRM3[MotionMap[playerData[i].characterId][playerData[i].mode]].Frames) {
 			playerData[i].count = 0;
 		}
