@@ -335,13 +335,18 @@ int calcPlayer(int playerId)
 				//addEffect(playerData[playerId].x + PLAYER_WIDTH / 2, playerData[playerId].y+20 + PLAYER_HEIGHT / 2, AG_RP_EFFECT_JUMP);
 			}
 			else if (pad & GAMEPAD_R || pad & GAMEPAD_L) {
+				float dashSpeed = 1.0;
+				if (pad & GAMEPAD_X) {
+					dashSpeed = 1.5;
+				}
+
 				if (pad & GAMEPAD_R) {
 					playerData[playerId].direction = 0;
-					movePlayer(PLAYER_RUN_SPEED, 0, 1, playerId);
+					movePlayer((int)(PLAYER_RUN_SPEED * dashSpeed), 0, 1, playerId);
 				}
 				else {
 					playerData[playerId].direction = 1;
-					movePlayer(-PLAYER_RUN_SPEED, 0, 1, playerId);
+					movePlayer(-(int)(PLAYER_RUN_SPEED * dashSpeed), 0, 1, playerId);
 				}
 
 				if (playerData[playerId].mode == PLAYER_MODE_WAIT) {
