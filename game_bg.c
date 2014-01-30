@@ -20,6 +20,8 @@
 #define GAME_BG_BEACH_STATE_DOWN		2
 #define GAME_BG_BEACH_STATE_REMAIN_DOWN	3
 
+#define GAME_BG_SUN_INTERVAL			90
+
 
 typedef struct gameBgCloudObject
 {
@@ -41,9 +43,16 @@ typedef struct gameBgBeachObject
 	int fileId;
 }GameBgBeachObject;
 
+typedef struct gameBgSunObject
+{
+	int counter;
+	int isShine;
+}GameBgSunObject;
+
 
 GameBgCloudObject gameBgCloudObject[GAME_BG_CLOUD_OBJECT_MAX];
 GameBgBeachObject gameBgBeachObject;
+GameBgSunObject gameBgSunObject;
 
 
 void gameBgInit()
@@ -85,6 +94,10 @@ void gameBgInit()
 	gameBgBeachObject.counter = 0;
 	gameBgBeachObject.state = GAME_BG_BEACH_STATE_UP;
 	gameBgBeachObject.fileId = AG_CG_GAME_BG_SAND;
+
+	// 太陽
+	gameBgSunObject.counter = 0;
+	gameBgSunObject.isShine = FALSE;
 }
 
 
@@ -151,6 +164,13 @@ void gameBgFunc()
 			break;
 	}
 	gameBgBeachObject.counter++;
+
+	// 太陽
+	if (gameBgSunObject.counter >= GAME_BG_SUN_INTERVAL) {
+		gameBgSunObject.isShine = !gameBgSunObject.isShine;
+		gameBgSunObject.counter = 0;
+	}
+	gameBgSunObject.counter++;
 }
 
 
@@ -164,14 +184,22 @@ void gameBgDraw(void* DBuf)
 
 	agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
 
+	// 空
 	ageTransferAAC( _DBuf, AG_CG_GAME_BG_SKY, 0, &w, &h );
 	agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
 	agDrawSPRITE(_DBuf, TRUE, 0, 0, x4(w), x4(h));
 
+	// 砂浜
 	ageTransferAAC( _DBuf, gameBgBeachObject.fileId, 0, &w, &h );
 	agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
 	agDrawSPRITE(_DBuf, TRUE, x4(gameBgBeachObject.x), x4(gameBgBeachObject.y + GAME_BG_BEACH_MARGIN_Y), x4(gameBgBeachObject.x + w), x4(gameBgBeachObject.y + GAME_BG_BEACH_MARGIN_Y + h));
 
+	// 太陽
+	ageTransferAAC( _DBuf, gameBgSunObject.isShine ? AG_CG_GAME_BG_SUN_SHINE : AG_CG_GAME_BG_SUN, 0, &w, &h );
+	agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
+	agDrawSPRITE(_DBuf, TRUE, 0, 0, x4(w), x4(h));
+
+	// 雲
 	for (i = 0; i < GAME_BG_CLOUD_OBJECT_MAX; i++) {
 		ageTransferAAC( _DBuf, gameBgCloudObject[i].fileId, 0, &w, &h );
 		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );

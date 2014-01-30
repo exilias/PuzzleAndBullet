@@ -40,31 +40,33 @@ extern "C" {
 #define AG_CG_GAME_BG_STAGE_BACK	(10)
 #define AG_CG_GAME_BG_CLOUD_BIG	(11)
 #define AG_CG_GAME_BG_CLOUD_SMALL	(12)
-#define AG_CG_GAME_BG_SAND	(13)
-#define AG_CG_GAME_BG_SKY	(14)
-#define AG_CG_GAUGE_BG	(15)
-#define AG_CG_GAME_BG_STAGE_FRONT	(16)
-#define AG_CG_LEMI_BULLET	(17)
-#define AG_CG_MAKO_BULLET	(18)
-#define AG_CG_CUTIN_LEMI	(19)
-#define AG_CG_CUTIN_MAKO	(20)
-#define AG_CG_SCORE_BG	(21)
-#define AG_CG_WEAPON_GRADE_NUMBER_0	(22)
-#define AG_CG_WEAPON_GRADE_NUMBER_1	(23)
-#define AG_CG_WEAPON_GRADE_NUMBER_2	(24)
-#define AG_CG_WEAPON_GRADE_NUMBER_3	(25)
-#define AG_CG_WEAPON_GRADE_NUMBER_4	(26)
-#define AG_CG_WEAPON_GRADE_NUMBER_5	(27)
-#define AG_CG_SCORE_NUMBER_0	(28)
-#define AG_CG_SCORE_NUMBER_1	(29)
-#define AG_CG_SCORE_NUMBER_2	(30)
-#define AG_CG_SCORE_NUMBER_3	(31)
-#define AG_CG_SCORE_NUMBER_4	(32)
-#define AG_CG_SCORE_NUMBER_5	(33)
-#define AG_CG_SCORE_NUMBER_6	(34)
-#define AG_CG_SCORE_NUMBER_7	(35)
-#define AG_CG_SCORE_NUMBER_8	(36)
-#define AG_CG_SCORE_NUMBER_9	(37)
+#define AG_CG_GAME_BG_SUN	(13)
+#define AG_CG_GAME_BG_SUN_SHINE	(14)
+#define AG_CG_GAME_BG_SAND	(15)
+#define AG_CG_GAME_BG_SKY	(16)
+#define AG_CG_GAUGE_BG	(17)
+#define AG_CG_GAME_BG_STAGE_FRONT	(18)
+#define AG_CG_LEMI_BULLET	(19)
+#define AG_CG_MAKO_BULLET	(20)
+#define AG_CG_CUTIN_LEMI	(21)
+#define AG_CG_CUTIN_MAKO	(22)
+#define AG_CG_SCORE_BG	(23)
+#define AG_CG_WEAPON_GRADE_NUMBER_0	(24)
+#define AG_CG_WEAPON_GRADE_NUMBER_1	(25)
+#define AG_CG_WEAPON_GRADE_NUMBER_2	(26)
+#define AG_CG_WEAPON_GRADE_NUMBER_3	(27)
+#define AG_CG_WEAPON_GRADE_NUMBER_4	(28)
+#define AG_CG_WEAPON_GRADE_NUMBER_5	(29)
+#define AG_CG_SCORE_NUMBER_0	(30)
+#define AG_CG_SCORE_NUMBER_1	(31)
+#define AG_CG_SCORE_NUMBER_2	(32)
+#define AG_CG_SCORE_NUMBER_3	(33)
+#define AG_CG_SCORE_NUMBER_4	(34)
+#define AG_CG_SCORE_NUMBER_5	(35)
+#define AG_CG_SCORE_NUMBER_6	(36)
+#define AG_CG_SCORE_NUMBER_7	(37)
+#define AG_CG_SCORE_NUMBER_8	(38)
+#define AG_CG_SCORE_NUMBER_9	(39)
 
 /***************************************************************/
 /*                     RM3 Member Symbol                       */
@@ -118,7 +120,7 @@ extern "C" {
 /***************************************************************/
 /*                          Data Member                        */
 /***************************************************************/
-extern const AGERomMember ageRM[38];
+extern const AGERomMember ageRM[40];
 extern const AGERM3Member ageRM3[10];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
