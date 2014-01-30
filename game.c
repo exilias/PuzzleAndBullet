@@ -22,10 +22,16 @@
 #define GAME_STATE_FADE_IN		0
 #define GAME_STATE_COUNT_DOWN	1
 #define GAME_STATE_GAMING		2
+#define GAME_STATE_PLAYER_DEATH	3
 
 
+typedef struct gameData {
+	int state;
+	int counter;
+}GameData;
 
-int gameState;
+GameData gameData;
+
 extern PlayerData playerData[2];
 
 
@@ -58,7 +64,7 @@ void gameInit(void)
 {
 	setSrand();
 
-	gameState = GAME_STATE_FADE_IN;
+	gameData.state = GAME_STATE_FADE_IN;
 
 	gameBgInit();
 	fieldInit();
@@ -80,12 +86,12 @@ void gameInit(void)
 
 void gameFunc(void)
 {
-	switch (gameState) {
+	switch (gameData.state) {
 		case GAME_STATE_FADE_IN:
 			gameBgFunc();
 			fadeFunc();
 			if (!isFadeDraw()) {
-				gameState = GAME_STATE_COUNT_DOWN;
+				gameData.state = GAME_STATE_COUNT_DOWN;
 				fireCountDown();
 			}
 			break;
@@ -94,16 +100,40 @@ void gameFunc(void)
 			gameBgFunc();
 			countDownFunc();
 			if (isCountDownCompleted()) {
-				gameState = GAME_STATE_GAMING;
+				gameData.state = GAME_STATE_GAMING;
 			}
 			break;
 
 		case GAME_STATE_GAMING:
+		{
+			int i;
+
+			for (i = 0; i < 2; i++) {
+				if (playerData[i].isDead) {
+					if (getDropFieldCompleted()) {
+						gameData.state = GAME_STATE_PLAYER_DEATH;
+						gameData.counter = 0;
+					}
+				}
+			}
+
 			if (!isCutinShowing()) gameBgFunc();
 			if (!isCutinShowing()) fieldFunc();
 			if (!isCutinShowing()) playerFunc();
 			if (!isCutinShowing()) weaponFunc();
 			cutinFunc();
+			scoreFunc();
+			gaugeFunc();
+			effectFunc();
+		}
+			break;
+
+		case GAME_STATE_PLAYER_DEATH:
+			gameBgFunc();
+			// if (!isCutinShowing()) fieldFunc();
+			// if (!isCutinShowing()) playerFunc();
+			// if (!isCutinShowing()) weaponFunc();
+			// cutinFunc();
 			scoreFunc();
 			gaugeFunc();
 			effectFunc();
@@ -117,7 +147,7 @@ void gameFunc(void)
 
 void gameDraw(AGDrawBuffer *DBuf)
 {
-	switch (gameState) {
+	switch (gameData.state) {
 		case GAME_STATE_FADE_IN:
 			gameBgDraw(DBuf);
 			fieldDraw(DBuf);
@@ -139,6 +169,15 @@ void gameDraw(AGDrawBuffer *DBuf)
 			fieldDraw(DBuf);
 			playerDraw(DBuf);
 			weaponDraw(DBuf);
+			effectDraw(DBuf);
+			gaugeDraw(DBuf);
+			scoreDraw(DBuf);
+			cutinDraw(DBuf);	
+			break;
+
+		case GAME_STATE_PLAYER_DEATH:
+			gameBgDraw(DBuf);
+			fieldDraw(DBuf);
 			effectDraw(DBuf);
 			gaugeDraw(DBuf);
 			scoreDraw(DBuf);

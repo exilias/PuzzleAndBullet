@@ -34,5 +34,8 @@ void fieldInit();
 void fieldFunc();
 void fieldDraw(void* DBuf);
 
+void dropField(int playerId);
+int getDropFieldCompleted();
+
 void useMakoSkill(int applyPlayerId);
 void useLemiSkill(int applyPlayerId);

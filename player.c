@@ -300,6 +300,8 @@ int isGameOver(int playerId)
 					    ( playerData[playerId].y < fieldY + FIELD_BLOCK_SIZE ) &&
 					    ( fieldY < playerData[playerId].y + PLAYER_HEIGHT ) ) {
 						isGameOver = TRUE;
+						addEffect(playerData[playerId].x + PLAYER_WIDTH/2, playerData[playerId].y + PLAYER_HEIGHT/2, AG_RP_EFFECT_DEATH);
+						dropField(playerId);
 						_dprintf("player:%d dead\n", playerId);
 					}
 					break;

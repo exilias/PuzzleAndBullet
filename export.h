@@ -51,25 +51,31 @@ extern "C" {
 #define AG_CG_CUTIN_LEMI	(21)
 #define AG_CG_CUTIN_MAKO	(22)
 #define AG_CG_SCORE_BG	(23)
-#define AG_CG_WEAPON_GRADE_NUMBER_0	(24)
-#define AG_CG_WEAPON_GRADE_NUMBER_1	(25)
-#define AG_CG_WEAPON_GRADE_NUMBER_2	(26)
-#define AG_CG_WEAPON_GRADE_NUMBER_3	(27)
-#define AG_CG_WEAPON_GRADE_NUMBER_4	(28)
-#define AG_CG_WEAPON_GRADE_NUMBER_5	(29)
-#define AG_CG_SCORE_NUMBER_0	(30)
-#define AG_CG_SCORE_NUMBER_1	(31)
-#define AG_CG_SCORE_NUMBER_2	(32)
-#define AG_CG_SCORE_NUMBER_3	(33)
-#define AG_CG_SCORE_NUMBER_4	(34)
-#define AG_CG_SCORE_NUMBER_5	(35)
-#define AG_CG_SCORE_NUMBER_6	(36)
-#define AG_CG_SCORE_NUMBER_7	(37)
-#define AG_CG_SCORE_NUMBER_8	(38)
-#define AG_CG_SCORE_NUMBER_9	(39)
-#define AG_CG_COUNT_DOWN_NUMBER_1	(40)
-#define AG_CG_COUNT_DOWN_NUMBER_2	(41)
-#define AG_CG_COUNT_DOWN_NUMBER_3	(42)
+#define AG_CG_RESULT_WORD_WIN	(24)
+#define AG_CG_RESULT_WORD_LOSE	(25)
+#define AG_CG_LEMI_WIN	(26)
+#define AG_CG_LEMI_LOSE	(27)
+#define AG_CG_MAKO_WIN	(28)
+#define AG_CG_MAKO_LOSE	(29)
+#define AG_CG_WEAPON_GRADE_NUMBER_0	(30)
+#define AG_CG_WEAPON_GRADE_NUMBER_1	(31)
+#define AG_CG_WEAPON_GRADE_NUMBER_2	(32)
+#define AG_CG_WEAPON_GRADE_NUMBER_3	(33)
+#define AG_CG_WEAPON_GRADE_NUMBER_4	(34)
+#define AG_CG_WEAPON_GRADE_NUMBER_5	(35)
+#define AG_CG_SCORE_NUMBER_0	(36)
+#define AG_CG_SCORE_NUMBER_1	(37)
+#define AG_CG_SCORE_NUMBER_2	(38)
+#define AG_CG_SCORE_NUMBER_3	(39)
+#define AG_CG_SCORE_NUMBER_4	(40)
+#define AG_CG_SCORE_NUMBER_5	(41)
+#define AG_CG_SCORE_NUMBER_6	(42)
+#define AG_CG_SCORE_NUMBER_7	(43)
+#define AG_CG_SCORE_NUMBER_8	(44)
+#define AG_CG_SCORE_NUMBER_9	(45)
+#define AG_CG_COUNT_DOWN_NUMBER_1	(46)
+#define AG_CG_COUNT_DOWN_NUMBER_2	(47)
+#define AG_CG_COUNT_DOWN_NUMBER_3	(48)
 
 /***************************************************************/
 /*                     RM3 Member Symbol                       */
@@ -84,6 +90,7 @@ extern "C" {
 #define AG_RP_EFFECT_SUNRISE	(7)
 #define AG_RP_EFFECT_GRADE_MAX	(8)
 #define AG_RP_EFFECT_LEVEL_UP	(9)
+#define AG_RP_EFFECT_DEATH	(10)
 
 /***************************************************************/
 /*                       Vram Group Symbol                     */
@@ -127,8 +134,8 @@ extern "C" {
 /***************************************************************/
 /*                          Data Member                        */
 /***************************************************************/
-extern const AGERomMember ageRM[43];
-extern const AGERM3Member ageRM3[10];
+extern const AGERomMember ageRM[49];
+extern const AGERM3Member ageRM3[11];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;

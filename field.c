@@ -27,8 +27,17 @@
 int getBlockNo(int hp);
 int getAddBlock();
 
+
+typedef struct dropFieldData{
+	int marginY;
+	int isDropField;
+	int playerId;
+	int isDropFieldCompleted;
+}DropFieldData;
+
 FieldData field[2][FIELD_SIZE_WIDTH][FIELD_SIZE_HEIGHT];
 int fieldAddBlockInterval, fieldAddBlockIntervalCounter;
+DropFieldData dropFieldData;
 
 
 
@@ -83,6 +92,9 @@ void fieldInit()
 
 	fieldAddBlockInterval = FIELD_ADD_BLOCK_INTERVAL_INIT;
 	fieldAddBlockIntervalCounter = 0;
+	
+	dropFieldData.marginY = 0;
+	dropFieldData.isDropField = FALSE;
 }
 
 void fieldFunc()
@@ -167,6 +179,14 @@ void fieldFunc()
 		}
 	}
 
+	if (dropFieldData.isDropField) {
+		dropFieldData.marginY += 12;
+
+		if (dropFieldData.marginY >= AGE_FB_HEIGHT) {
+			dropFieldData.isDropFieldCompleted = TRUE;
+		}
+	}
+
 	fieldAddBlockIntervalCounter++;
 	count++;
 }
@@ -206,11 +226,18 @@ void fieldDraw(void* DBuf)
 	AGDrawBuffer *_DBuf = (AGDrawBuffer *)DBuf;
 
 	for (k = 0; k < 2; k++) {
-		int fieldX;
+		int fieldX, fieldMarginY;
+
 		if (k == 0) {
 			fieldX = FIELD_ORIGIN1_X;
 		} else {
 			fieldX = FIELD_ORIGIN2_X;
+		}
+
+		if (dropFieldData.isDropField && dropFieldData.playerId == k) {
+			fieldMarginY = dropFieldData.marginY;
+		} else {
+			fieldMarginY = 0;
 		}
 
 		
@@ -219,7 +246,7 @@ void fieldDraw(void* DBuf)
 		agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
 		ageTransferAAC( _DBuf, FIELD_STAGE_BG_ID[k], 0, NULL, NULL );
 		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
-		agDrawSPRITE(_DBuf, TRUE, x4(fieldX - FIELD_BG_MARGIN_X), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y), x4(fieldX - FIELD_BG_MARGIN_X + FIELD_BG_WIDTH), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + FIELD_BG_HEIGHT));
+		agDrawSPRITE(_DBuf, TRUE, x4(fieldX - FIELD_BG_MARGIN_X), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + fieldMarginY), x4(fieldX - FIELD_BG_MARGIN_X + FIELD_BG_WIDTH), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + fieldMarginY + FIELD_BG_HEIGHT));
 
 		// フィールドの描画
 		for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
@@ -265,7 +292,7 @@ void fieldDraw(void* DBuf)
 						ageTransferAAC( _DBuf, imageFile, 0, NULL, NULL );
 						agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
 					}	
-					agDrawSPRITE( _DBuf, isTexture, x4(fieldX + i * FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE), x4(fieldX + i * FIELD_BLOCK_SIZE) + x4(FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE) + x4(FIELD_BLOCK_SIZE) );
+					agDrawSPRITE( _DBuf, isTexture, x4(fieldX + i * FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE + fieldMarginY), x4(fieldX + i * FIELD_BLOCK_SIZE) + x4(FIELD_BLOCK_SIZE), x4(FIELD_ORIGIN_Y + j * FIELD_BLOCK_SIZE + fieldMarginY) + x4(FIELD_BLOCK_SIZE) );
 				}
 			}
 		}
@@ -274,7 +301,7 @@ void fieldDraw(void* DBuf)
 		agDrawSETFCOLOR( _DBuf, ARGB( 255, 255, 0, 0 ) );
 		ageTransferAAC( _DBuf, AG_CG_GAME_BG_STAGE_FRONT, 0, NULL, NULL );
 		agDrawSETDBMODE( _DBuf, 0xff, 0, 2, 1 );
-		agDrawSPRITE(_DBuf, TRUE, x4(fieldX - FIELD_BG_MARGIN_X), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y), x4(fieldX - FIELD_BG_MARGIN_X + FIELD_BG_WIDTH), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + FIELD_BG_HEIGHT));
+		agDrawSPRITE(_DBuf, TRUE, x4(fieldX - FIELD_BG_MARGIN_X), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + fieldMarginY), x4(fieldX - FIELD_BG_MARGIN_X + FIELD_BG_WIDTH), x4(FIELD_ORIGIN_Y - FIELD_BG_MARGIN_Y + fieldMarginY + FIELD_BG_HEIGHT));
 	}
 }
 
@@ -288,6 +315,19 @@ int getBlockNo(int hp)
 	} else {
 		return 2;
 	}
+}
+
+void dropField(int playerId)
+{
+	dropFieldData.playerId = playerId;
+	dropFieldData.marginY = 0;
+	dropFieldData.isDropField = TRUE;
+	dropFieldData.isDropFieldCompleted = FALSE;
+}
+
+int getDropFieldCompleted()
+{
+	return dropFieldData.isDropFieldCompleted;
 }
 
 
