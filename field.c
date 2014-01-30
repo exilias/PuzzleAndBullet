@@ -33,8 +33,8 @@ int fieldAddBlockInterval, fieldAddBlockIntervalCounter;
 
 
 const int FIELD_STAGE_BG_ID[] = {
-		AG_CG_GAME_BG_STAGE_BACK_MAKO,
-		AG_CG_GAME_BG_STAGE_BACK_LEMI
+		AG_CG_GAME_BG_STAGE_BACK,
+		AG_CG_GAME_BG_STAGE_BACK
 	};	
 
 const int FIELD_BLOCK_BLUE_ID[] = {

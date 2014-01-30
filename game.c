@@ -13,6 +13,7 @@
 #include "gauge.h"
 #include "effect.h"
 #include "bgm_manager.h"
+#include "game_bg.h"
 
 
 
@@ -52,6 +53,7 @@ void gameInit(void)
 {
 	setSrand();
 
+	gameBgInit();
 	fieldInit();
 	playerInit();
 	weaponInit();
@@ -68,6 +70,7 @@ void gameInit(void)
 
 void gameFunc(void)
 {
+	if (!isCutinShowing()) gameBgFunc();
 	if (!isCutinShowing()) fieldFunc();
 	if (!isCutinShowing()) playerFunc();
 	if (!isCutinShowing()) weaponFunc();
@@ -84,11 +87,6 @@ void gameDraw(AGDrawBuffer *DBuf)
 {
 	int i, j, k;
 
-	// 背景
-	ageTransferAAC( DBuf, AG_CG_GAME_BG, 0, NULL, NULL );
-	agDrawSETDBMODE( DBuf, 0xff, 0, 2, 1 );
-	agDrawSPRITE(DBuf, TRUE, 0, 0, BS(FB_WIDTH), BS(FB_HEIGHT));
-
 	if (playerData[0].isDead) {
 		if (deadCount > 60) {
 			//return;
@@ -96,6 +94,9 @@ void gameDraw(AGDrawBuffer *DBuf)
 			deadCount++;
 		}
 	}
+
+	// 背景
+	gameBgDraw(DBuf);
 	
 	// フィールドの描画
 	fieldDraw(DBuf);
