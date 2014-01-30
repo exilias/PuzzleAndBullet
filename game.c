@@ -16,6 +16,7 @@
 #include "game_bg.h"
 #include "fade.h"
 #include "count_down.h"
+#include "result.h"
 
 
 
@@ -74,6 +75,7 @@ void gameInit(void)
 	scoreInit();
 	gaugeInit();
 	effectInit();
+	resultInit();
 
 	fadeInit();
 	fadeIn();
@@ -113,6 +115,7 @@ void gameFunc(void)
 					if (getDropFieldCompleted()) {
 						gameData.state = GAME_STATE_PLAYER_DEATH;
 						gameData.counter = 0;
+						showResult(i == 0 ? 1 : 0);
 					}
 				}
 			}
@@ -137,6 +140,7 @@ void gameFunc(void)
 			scoreFunc();
 			gaugeFunc();
 			effectFunc();
+			resultFunc();
 			break;
 
 	}
@@ -181,7 +185,8 @@ void gameDraw(AGDrawBuffer *DBuf)
 			effectDraw(DBuf);
 			gaugeDraw(DBuf);
 			scoreDraw(DBuf);
-			cutinDraw(DBuf);	
+			cutinDraw(DBuf);
+			resultDraw(DBuf);	
 			fadeDraw(DBuf);
 			break;
 	}

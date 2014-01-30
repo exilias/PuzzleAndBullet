@@ -29,31 +29,31 @@ const AGERomMember ageRM[] = {
 	{      19342,          0, 1024,  300,  512,  8,      78272, NULL },		/* AG_CG_CUTIN_LEMI */
 	{      29126,          0, 1024,  300,  512,  8,      82624, NULL },		/* AG_CG_CUTIN_MAKO */
 	{      39454,          0,  410,   90,  208,  8,       1664, NULL },		/* AG_CG_SCORE_BG */
-	{      39662,          0,  500,  300,  256,  8,      21760, NULL },		/* AG_CG_RESULT_WORD_WIN */
-	{      42382,          0,  500,  300,  256,  8,      28832, NULL },		/* AG_CG_RESULT_WORD_LOSE */
-	{      45986,          0,  500,  500,  256,  8,      58144, NULL },		/* AG_CG_LEMI_WIN */
-	{      53254,          0,  500,  500,  256,  8,      60032, NULL },		/* AG_CG_LEMI_LOSE */
-	{      60758,          0,  590,  500,  296,  8,      56704, NULL },		/* AG_CG_MAKO_WIN */
-	{      67846,          0,  550,  500,  280,  8,      55040, NULL },		/* AG_CG_MAKO_LOSE */
-	{      74726,          0,   45,   50,   24,  8,       1184, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_0 */
-	{      74874,          0,   45,   50,   24,  8,        736, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_1 */
-	{      74966,          0,   45,   50,   24,  8,       1152, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_2 */
-	{      75110,          0,   45,   50,   24,  8,       1184, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_3 */
-	{      75258,          0,   45,   50,   24,  8,       1024, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_4 */
-	{      75386,          0,   45,   50,   24,  8,       1120, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_5 */
-	{      75526,          0,   50,   60,   32,  8,       1920, NULL },		/* AG_CG_SCORE_NUMBER_0 */
-	{      75766,          0,   50,   60,   32,  8,       1280, NULL },		/* AG_CG_SCORE_NUMBER_1 */
-	{      75926,          0,   50,   60,   32,  8,       1920, NULL },		/* AG_CG_SCORE_NUMBER_2 */
-	{      76166,          0,   50,   60,   32,  8,       1920, NULL },		/* AG_CG_SCORE_NUMBER_3 */
-	{      76406,          0,   50,   60,   32,  8,       1824, NULL },		/* AG_CG_SCORE_NUMBER_4 */
-	{      76634,          0,   50,   60,   32,  8,       1888, NULL },		/* AG_CG_SCORE_NUMBER_5 */
-	{      76870,          0,   50,   60,   32,  8,       1920, NULL },		/* AG_CG_SCORE_NUMBER_6 */
-	{      77110,          0,   50,   60,   32,  8,       1728, NULL },		/* AG_CG_SCORE_NUMBER_7 */
-	{      77326,          0,   50,   60,   32,  8,       2016, NULL },		/* AG_CG_SCORE_NUMBER_8 */
-	{      77578,          0,   50,   60,   32,  8,       1952, NULL },		/* AG_CG_SCORE_NUMBER_9 */
-	{      77822,          0,  300,  300,  152,  8,       8160, NULL },		/* AG_CG_COUNT_DOWN_NUMBER_1 */
-	{      78842,          0,  300,  300,  152,  8,      19328, NULL },		/* AG_CG_COUNT_DOWN_NUMBER_2 */
-	{      81258,          0,  300,  300,  152,  8,      20352, NULL },		/* AG_CG_COUNT_DOWN_NUMBER_3 */
+	{      39662,          0,  400,  240,  200,  8,      26016, NULL },		/* AG_CG_RESULT_WORD_LOSE */
+	{      42914,          0,  400,  240,  200,  8,      18656, NULL },		/* AG_CG_RESULT_WORD_WIN */
+	{      45246,          0,  300,  300,  152,  8,      34816, NULL },		/* AG_CG_LEMI_LOSE */
+	{      49598,          0,  300,  300,  152,  8,      34080, NULL },		/* AG_CG_LEMI_WIN */
+	{      53858,          0,  300,  273,  152,  8,      31552, NULL },		/* AG_CG_MAKO_LOSE */
+	{      57802,          0,  300,  273,  152,  8,      31872, NULL },		/* AG_CG_MAKO_WIN */
+	{      61786,          0,   45,   50,   24,  8,       1184, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_0 */
+	{      61934,          0,   45,   50,   24,  8,        736, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_1 */
+	{      62026,          0,   45,   50,   24,  8,       1152, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_2 */
+	{      62170,          0,   45,   50,   24,  8,       1184, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_3 */
+	{      62318,          0,   45,   50,   24,  8,       1024, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_4 */
+	{      62446,          0,   45,   50,   24,  8,       1120, NULL },		/* AG_CG_WEAPON_GRADE_NUMBER_5 */
+	{      62586,          0,   50,   60,   32,  8,       1920, NULL },		/* AG_CG_SCORE_NUMBER_0 */
+	{      62826,          0,   50,   60,   32,  8,       1280, NULL },		/* AG_CG_SCORE_NUMBER_1 */
+	{      62986,          0,   50,   60,   32,  8,       1920, NULL },		/* AG_CG_SCORE_NUMBER_2 */
+	{      63226,          0,   50,   60,   32,  8,       1920, NULL },		/* AG_CG_SCORE_NUMBER_3 */
+	{      63466,          0,   50,   60,   32,  8,       1824, NULL },		/* AG_CG_SCORE_NUMBER_4 */
+	{      63694,          0,   50,   60,   32,  8,       1888, NULL },		/* AG_CG_SCORE_NUMBER_5 */
+	{      63930,          0,   50,   60,   32,  8,       1920, NULL },		/* AG_CG_SCORE_NUMBER_6 */
+	{      64170,          0,   50,   60,   32,  8,       1728, NULL },		/* AG_CG_SCORE_NUMBER_7 */
+	{      64386,          0,   50,   60,   32,  8,       2016, NULL },		/* AG_CG_SCORE_NUMBER_8 */
+	{      64638,          0,   50,   60,   32,  8,       1952, NULL },		/* AG_CG_SCORE_NUMBER_9 */
+	{      64882,          0,  300,  300,  152,  8,       8160, NULL },		/* AG_CG_COUNT_DOWN_NUMBER_1 */
+	{      65902,          0,  300,  300,  152,  8,      19328, NULL },		/* AG_CG_COUNT_DOWN_NUMBER_2 */
+	{      68318,          0,  300,  300,  152,  8,      20352, NULL },		/* AG_CG_COUNT_DOWN_NUMBER_3 */
 };
 
 /***************************************************************/
@@ -86,28 +86,28 @@ const u32 ageRM3Offsets0005[] = {		/* AG_RP_LEMI_JUMP */
 };
 
 const u32 ageRM3Offsets0006[] = {		/* AG_RP_EFFECT_BOMB */
-	     83822,     83982,     84158,     84350,     84590,     84846,     85122,     85406,
-	     85698,     85974,     86230,     86462,     86654,     86814,     86958,     87054,
+	     70882,     71042,     71218,     71410,     71650,     71906,     72182,     72466,
+	     72758,     73034,     73290,     73522,     73714,     73874,     74018,     74114,
 };
 
 const u32 ageRM3Offsets0007[] = {		/* AG_RP_EFFECT_SUNRISE */
-	     87119,     87379,     87679,     88023,     88399,     88883,     89367,     89847,
-	     90311,     90767,     91211,     91623,     92027,     92383,     92567,     92723,
+	     74179,     74439,     74739,     75083,     75459,     75943,     76427,     76907,
+	     77371,     77827,     78271,     78683,     79087,     79443,     79627,     79783,
 };
 
 const u32 ageRM3Offsets0008[] = {		/* AG_RP_EFFECT_GRADE_MAX */
-	     92860,     93060,     93304,     93564,     93844,     94160,     94492,     94832,
-	     95172,     95468,     95672,     95860,     96024,     96204,     96360,     96508,
+	     79920,     80120,     80364,     80624,     80904,     81220,     81552,     81892,
+	     82232,     82528,     82732,     82920,     83084,     83264,     83420,     83568,
 };
 
 const u32 ageRM3Offsets0009[] = {		/* AG_RP_EFFECT_LEVEL_UP */
-	     96633,     96777,     96905,     97013,     97113,     97209,     97297,     97377,
-	     97453,     97529,     97601,     97665,     97729,     97793,     97857,     97921,
+	     83693,     83837,     83965,     84073,     84173,     84269,     84357,     84437,
+	     84513,     84589,     84661,     84725,     84789,     84853,     84917,     84981,
 };
 
 const u32 ageRM3Offsets0010[] = {		/* AG_RP_EFFECT_DEATH */
-	     98010,     98162,     98342,     98550,     98798,     99074,     99338,     99606,
-	     99874,    100150,    100430,    100694,    100946,    101174,    101374,    101522,
+	     85070,     85222,     85402,     85610,     85858,     86134,     86398,     86666,
+	     86934,     87210,     87490,     87754,     88006,     88234,     88434,     88582,
 };
 
 const AGERM3Member ageRM3[] = {
@@ -118,11 +118,11 @@ const AGERM3Member ageRM3[] = {
 	{      16835,   40,   40,   7680,      6, 2, 0, ageRM3Offsets0003, NULL        },		/* AG_RP_LEMI_IDLE */
 	{      17648,   40,   40,   7680,     10, 2, 0, ageRM3Offsets0004, NULL        },		/* AG_RP_LEMI_RUN */
 	{      19065,   40,   40,   7680,      1, 2, 1, ageRM3Offsets0005, NULL        },		/* AG_RP_LEMI_JUMP */
-	{      83802,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0006, NULL        },		/* AG_RP_EFFECT_BOMB */
-	{      87099,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0007, NULL        },		/* AG_RP_EFFECT_SUNRISE */
-	{      92840,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0008, NULL        },		/* AG_RP_EFFECT_GRADE_MAX */
-	{      96613,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0009, NULL        },		/* AG_RP_EFFECT_LEVEL_UP */
-	{      97990,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0010, NULL        },		/* AG_RP_EFFECT_DEATH */
+	{      70862,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0006, NULL        },		/* AG_RP_EFFECT_BOMB */
+	{      74159,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0007, NULL        },		/* AG_RP_EFFECT_SUNRISE */
+	{      79900,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0008, NULL        },		/* AG_RP_EFFECT_GRADE_MAX */
+	{      83673,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0009, NULL        },		/* AG_RP_EFFECT_LEVEL_UP */
+	{      85050,  128,  128,   7680,     16, 2, 0, ageRM3Offsets0010, NULL        },		/* AG_RP_EFFECT_DEATH */
 };
 
 /***************************************************************/
