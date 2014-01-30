@@ -46,8 +46,8 @@ extern "C" {
 #define AG_CG_GAME_BG_SKY	(16)
 #define AG_CG_GAUGE_BG	(17)
 #define AG_CG_GAME_BG_STAGE_FRONT	(18)
-#define AG_CG_LEMI_BULLET	(19)
-#define AG_CG_MAKO_BULLET	(20)
+#define AG_CG_MAKO_BULLET	(19)
+#define AG_CG_LEMI_BULLET	(20)
 #define AG_CG_CUTIN_LEMI	(21)
 #define AG_CG_CUTIN_MAKO	(22)
 #define AG_CG_SCORE_BG	(23)
@@ -72,8 +72,8 @@ extern "C" {
 /*                     RM3 Member Symbol                       */
 /***************************************************************/
 #define AG_RP_MAKO_IDLE	(0)
-#define AG_RP_MAKO_RUN	(1)
-#define AG_RP_MAKO_JUMP	(2)
+#define AG_RP_MAKO_JUMP	(1)
+#define AG_RP_MAKO_RUN	(2)
 #define AG_RP_LEMI_IDLE	(3)
 #define AG_RP_LEMI_RUN	(4)
 #define AG_RP_LEMI_JUMP	(5)
