@@ -5,7 +5,7 @@
 #include "export.h"
 
 
-#define FADE_DURATION	60
+#define FADE_DURATION	45
 
 #define FADE_TYPE_IN	0
 #define FADE_TYPE_OUT	1
@@ -55,7 +55,7 @@ void fadeDraw(void* DBuf)
 		return;
 	}
 
-	
+
 	agDrawSETFCOLOR( _DBuf, ARGB( fadeData.alpha, 0, 0, 0 ) );
 
 		

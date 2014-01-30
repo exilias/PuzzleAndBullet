@@ -67,7 +67,9 @@ void gameInit(void)
 	scoreInit();
 	gaugeInit();
 	effectInit();
+
 	fadeInit();
+	fadeIn();
 
 	playBgm(AS_SND_GAME_BGM);
 }
@@ -78,11 +80,14 @@ void gameFunc(void)
 	switch (gameState) {
 		case GAME_STATE_FADE_IN:
 			gameBgFunc();
-
+			fadeFunc();
+			if (!isFadeDraw()) {
+				gameState = GAME_STATE_COUNT_DOWN;
+			}
 			break;
 
 		case GAME_STATE_COUNT_DOWN:
-
+			gameBgFunc();
 			break;
 
 		case GAME_STATE_GAMING:
