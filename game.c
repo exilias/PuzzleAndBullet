@@ -16,9 +16,8 @@
 #include "game_bg.h"
 
 
-extern PlayerData playerData[2];
 
-int deadCount;
+extern PlayerData playerData[2];
 
 
 
@@ -60,8 +59,6 @@ void gameInit(void)
 	effectInit();
 
 	playBgm(AS_SND_GAME_BGM);
-
-	deadCount = 0;
 }
 
 
@@ -82,16 +79,6 @@ void gameFunc(void)
 
 void gameDraw(AGDrawBuffer *DBuf)
 {
-	int i, j, k;
-
-	if (playerData[0].isDead) {
-		if (deadCount > 60) {
-			//return;
-		} else {
-			deadCount++;
-		}
-	}
-
 	// 背景
 	gameBgDraw(DBuf);
 	
