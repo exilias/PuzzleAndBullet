@@ -19,16 +19,17 @@
 #include "result.h"
 
 
-
 #define GAME_STATE_FADE_IN		0
 #define GAME_STATE_COUNT_DOWN	1
 #define GAME_STATE_GAMING		2
 #define GAME_STATE_PLAYER_DEATH	3
+#define GAME_STATE_FADE_OUT		4
 
 
 typedef struct gameData {
 	int state;
 	int counter;
+	int isEnd;
 }GameData;
 
 GameData gameData;
@@ -66,6 +67,7 @@ void gameInit(void)
 	setSrand();
 
 	gameData.state = GAME_STATE_FADE_IN;
+	gameData.isEnd = FALSE;
 
 	gameBgInit();
 	fieldInit();
@@ -133,14 +135,23 @@ void gameFunc(void)
 
 		case GAME_STATE_PLAYER_DEATH:
 			gameBgFunc();
-			// if (!isCutinShowing()) fieldFunc();
-			// if (!isCutinShowing()) playerFunc();
-			// if (!isCutinShowing()) weaponFunc();
-			// cutinFunc();
 			scoreFunc();
 			gaugeFunc();
 			effectFunc();
 			resultFunc();
+			if (isResultCompleted()) {
+				gameData.state = GAME_STATE_FADE_OUT;
+				fadeOut();
+			}
+			break;
+
+		case GAME_STATE_FADE_OUT:
+			gameBgFunc();
+			resultFunc();
+			fadeFunc();
+			if (!isFadeDraw()) {
+				gameData.isEnd = TRUE;
+			}
 			break;
 
 	}
@@ -186,6 +197,15 @@ void gameDraw(AGDrawBuffer *DBuf)
 			gaugeDraw(DBuf);
 			scoreDraw(DBuf);
 			cutinDraw(DBuf);
+			resultDraw(DBuf);	
+			fadeDraw(DBuf);
+			break;
+
+		case GAME_STATE_FADE_OUT:
+			gameBgDraw(DBuf);
+			fieldDraw(DBuf);
+			gaugeDraw(DBuf);
+			scoreDraw(DBuf);
 			resultDraw(DBuf);	
 			fadeDraw(DBuf);
 			break;

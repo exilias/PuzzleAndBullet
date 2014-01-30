@@ -13,6 +13,10 @@
 
 
 
+#define MAIN_STATE_TITLE	0
+#define MAIN_STATE_GAME		1
+
+
 void _rtl_exit(void)
 {
     _dprintf("_rtl_exit()\n");

@@ -76,3 +76,11 @@ void fadeIn()
 	fadeData.counter = 0;
 	fadeData.alpha = 255;
 }
+
+void fadeOut()
+{
+	fadeData.isDraw = TRUE;
+	fadeData.type = FADE_TYPE_OUT;
+	fadeData.counter = 0;
+	fadeData.alpha = 0;
+}

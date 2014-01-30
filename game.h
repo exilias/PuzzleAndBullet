@@ -11,4 +11,6 @@ void gameInit(void);
 void gameFunc(void);
 void gameDraw(AGDrawBuffer *DBuf);
 
+int isGameEnd();
+
 #endif /* __GAME__ */

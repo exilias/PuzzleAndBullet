@@ -3,6 +3,8 @@
 
 #include <amlib.h>
 #include <agesndmgr.h>
+#include <agGamePad.h>
+
 #include "export.h"
 #include "math.h"
 
@@ -150,6 +152,17 @@ void showResult(int winPlayerId)
 
 int isResultCompleted()
 {
+	int i;
+	int isPushedDoneButton = FALSE;
+	u32 pad;
 
+	for (i = 0; i < 2; i++) {
+		pad = agGamePadGetData(i);
 
+		if ((pad & GAMEPAD_START) || (pad & GAMEPAD_A)) {
+			isPushedDoneButton = TRUE;
+		}
+	}
+
+	return isPushedDoneButton;
 }
