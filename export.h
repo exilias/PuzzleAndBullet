@@ -121,6 +121,8 @@ extern "C" {
 #define AS_SND_SE_MAKO_SKILL	(26)
 #define AS_SND_SYSTEM_COUNT_DOWN	(27)
 #define AS_SND_SYSTEM_GAME_START	(28)
+#define AS_SND_LEMI_INTRODUCE	(29)
+#define AS_SND_MAKO_INTRODUCE	(30)
 
 /***************************************************************/
 /*                          Data Member                        */
@@ -130,7 +132,7 @@ extern const AGERM3Member ageRM3[10];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;
-extern const AGESoundRomMember ageSRM[29];
+extern const AGESoundRomMember ageSRM[31];
 
 #ifdef __cplusplus
 }

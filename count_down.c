@@ -9,12 +9,15 @@
 
 #define COUNT_DOWN_INTERVAL			60
 #define COUNT_DOWN_CUTIN_DURATION	48
+#define COUNT_DOWN_CHARACTER_CUTIN_DURATION	120
 
-#define COUNT_DOWN_STATE_3			0
-#define COUNT_DOWN_STATE_2			1
-#define COUNT_DOWN_STATE_1			2
-#define COUNT_DOWN_STATE_START		3
-#define COUNT_DOWN_STATE_COMPLETED	4
+#define COUNT_DOWN_STATE_MAKO		0
+#define COUNT_DOWN_STATE_LEMI		1
+#define COUNT_DOWN_STATE_3			2
+#define COUNT_DOWN_STATE_2			3
+#define COUNT_DOWN_STATE_1			4
+#define COUNT_DOWN_STATE_START		5
+#define COUNT_DOWN_STATE_COMPLETED	6
 
 
 #define COUNT_DOWN_NUMBER_WIDTH		300
@@ -48,6 +51,24 @@ void countDownFunc()
 	cutinFunc();
 
 	switch (countDown.state) {
+		case COUNT_DOWN_STATE_MAKO:
+			if (countDown.counter >= COUNT_DOWN_CHARACTER_CUTIN_DURATION) {
+				countDown.state = COUNT_DOWN_STATE_LEMI;
+				countDown.counter = 0;
+				createCutin(AG_CG_CUTIN_LEMI);
+				ageSndMgrPlayOneshot( AS_SND_LEMI_INTRODUCE, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+			}
+			break;
+
+		case COUNT_DOWN_STATE_LEMI:
+			if (countDown.counter >= COUNT_DOWN_CHARACTER_CUTIN_DURATION) {
+				countDown.state = COUNT_DOWN_STATE_3;
+				countDown.counter = 0;
+				createCutinWithDurationAndSize(COUNT_DOWN_CUTIN_DURATION, COUNT_DOWN_NUMBER_WIDTH, COUNT_DOWN_NUMBER_HEIGHT, AG_CG_COUNT_DOWN_NUMBER_3);
+				ageSndMgrPlayOneshot( AS_SND_SYSTEM_COUNT_DOWN, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+			}
+			break;
+
 		case COUNT_DOWN_STATE_3:
 			if (countDown.counter >= COUNT_DOWN_INTERVAL) {
 				countDown.state = COUNT_DOWN_STATE_2;
@@ -100,11 +121,12 @@ void countDownDraw(void *DBuf)
 
 void fireCountDown()
 {
-	countDown.state  = COUNT_DOWN_STATE_3;
+	countDown.state  = COUNT_DOWN_STATE_MAKO;
 	countDown.counter = 0;
 	countDown.isFire = TRUE;
-	createCutinWithDurationAndSize(COUNT_DOWN_CUTIN_DURATION, COUNT_DOWN_NUMBER_WIDTH, COUNT_DOWN_NUMBER_HEIGHT, AG_CG_COUNT_DOWN_NUMBER_3);
-	ageSndMgrPlayOneshot( AS_SND_SYSTEM_COUNT_DOWN, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
+	
+	createCutin(AG_CG_CUTIN_MAKO);
+	ageSndMgrPlayOneshot( AS_SND_MAKO_INTRODUCE, 0 , 0x80 , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 }
 
 int isCountDownCompleted()

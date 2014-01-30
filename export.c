@@ -167,6 +167,8 @@ const AGESoundRomMember ageSRM[] = {
 	{ 2,     1619 },		/* AS_SND_SE_MAKO_SKILL */
 	{ 1,     2413 },		/* AS_SND_SYSTEM_COUNT_DOWN */
 	{ 1,      934 },		/* AS_SND_SYSTEM_GAME_START */
+	{ 1,     1718 },		/* AS_SND_LEMI_INTRODUCE */
+	{ 1,     1221 },		/* AS_SND_MAKO_INTRODUCE */
 };
 
 /***************************************************************/
