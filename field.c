@@ -12,10 +12,10 @@
 #define FIELD_BG_MARGIN_Y			23
 
 #define FIELD_UPDATE_INTERVAL		2
-#define FIELD_ADD_BLOCK_INTERVAL_INIT	60
+#define FIELD_ADD_BLOCK_INTERVAL_INIT	90
 #define FIELD_ADD_BLOCK_INTERVAL_SUB_INTERVAL	3 * 60	// 何フレームごとにブロック追加間隔を短くするか（10秒ごとに1フレーム短くする）
 #define FIELD_ADD_BLOCK_INTERVAL_MIN	30
-#define FIELD_EXPOSE_TIME			60
+#define FIELD_EXPOSE_TIME			90
 #define FIELD_SKILL_EXPOSE_TIME		95
 
 #define FIELD_STATE_EXPOSE			0
@@ -361,7 +361,7 @@ void useLemiSkill(int applyPlayerId)
 	int deleteTable[FIELD_SIZE_WIDTH];
 
 	for (i = 0; i < FIELD_SIZE_WIDTH; i++) {
-		if (i < 5) {
+		if (i < 3) {
 			deleteTable[i] = TRUE;
 		} else {
 			deleteTable[i] = FALSE;
