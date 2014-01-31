@@ -129,7 +129,7 @@ void playerDraw(void* DBuf)
 		if (playerData[i].isDead) {
 			break;
 		}
-		
+
 		if ((playerData[i].count >> 1) >= ageRM3[MotionMap[playerData[i].characterId][playerData[i].mode]].Frames) {
 			playerData[i].count = 0;
 		}
@@ -305,6 +305,7 @@ int isGameOver(int playerId)
 					    ( fieldY < playerData[playerId].y + PLAYER_HEIGHT ) ) {
 						isGameOver = TRUE;
 						addEffect(playerData[playerId].x + PLAYER_WIDTH/2, playerData[playerId].y + PLAYER_HEIGHT/2, AG_RP_EFFECT_DEATH);
+						ageSndMgrPlayOneshot( AS_SND_SE_DEAD , 0 , 0xff , AGE_SNDMGR_PANMODE_LR12 , 0x80 , 0 );
 						dropField(playerId);
 						_dprintf("player:%d dead\n", playerId);
 					}

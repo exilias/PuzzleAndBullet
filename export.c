@@ -184,6 +184,7 @@ const AGESoundRomMember ageSRM[] = {
 	{ 1,     1718 },		/* AS_SND_LEMI_INTRODUCE */
 	{ 1,     1221 },		/* AS_SND_MAKO_INTRODUCE */
 	{ 1,     1669 },		/* AS_SND_SYSTEM_PUSH_START */
+	{ 2,     1282 },		/* AS_SND_SE_DEAD */
 	{ 2,     2612 },		/* AS_SND_SE_PUSHED_START_BUTTON */
 };
 

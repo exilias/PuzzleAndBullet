@@ -133,7 +133,8 @@ extern "C" {
 #define AS_SND_LEMI_INTRODUCE	(29)
 #define AS_SND_MAKO_INTRODUCE	(30)
 #define AS_SND_SYSTEM_PUSH_START	(31)
-#define AS_SND_SE_PUSHED_START_BUTTON	(32)
+#define AS_SND_SE_DEAD	(32)
+#define AS_SND_SE_PUSHED_START_BUTTON	(33)
 
 /***************************************************************/
 /*                          Data Member                        */
@@ -143,7 +144,7 @@ extern const AGERM3Member ageRM3[11];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;
-extern const AGESoundRomMember ageSRM[33];
+extern const AGESoundRomMember ageSRM[34];
 
 #ifdef __cplusplus
 }
