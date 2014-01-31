@@ -6,7 +6,7 @@
 #include "math.h"
 
 
-#define GAME_BG_CLOUD_OBJECT_MAX	3
+#define GAME_BG_CLOUD_OBJECT_MAX	4
 
 
 #define GAME_BG_BEACH_WIDTH				1024
@@ -86,6 +86,16 @@ void gameBgInit()
 	gameBgCloudObject[2].counter = 0;
 	gameBgCloudObject[2].scale = 1.0f;
 	gameBgCloudObject[2].fileId = AG_CG_GAME_BG_CLOUD_BIG;
+
+	// 飛空船
+	gameBgCloudObject[3].x = 100;
+	gameBgCloudObject[3].y = 300;
+	gameBgCloudObject[3].dx = -1;
+	gameBgCloudObject[3].dy = 0;
+	gameBgCloudObject[3].interval = 3;
+	gameBgCloudObject[3].counter = 0;
+	gameBgCloudObject[3].scale = 1.0f;
+	gameBgCloudObject[3].fileId = AG_CG_GAME_BG_AIRSHIP;
 
 	// 砂浜
 	gameBgBeachObject.x = 0;
