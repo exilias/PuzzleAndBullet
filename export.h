@@ -44,8 +44,8 @@ extern "C" {
 #define AG_CG_GAME_BG_SUN_SHINE	(14)
 #define AG_CG_GAME_BG_SAND	(15)
 #define AG_CG_GAME_BG_SKY	(16)
-#define AG_CG_PUSH_START_BUTTON	(17)
-#define AG_CG_TITLE_LOGO	(18)
+#define AG_CG_TITLE_LOGO	(17)
+#define AG_CG_PUSH_START_BUTTON	(18)
 #define AG_CG_GAUGE_BG	(19)
 #define AG_CG_GAME_BG_STAGE_FRONT	(20)
 #define AG_CG_MAKO_BULLET	(21)
@@ -132,6 +132,8 @@ extern "C" {
 #define AS_SND_SYSTEM_GAME_START	(28)
 #define AS_SND_LEMI_INTRODUCE	(29)
 #define AS_SND_MAKO_INTRODUCE	(30)
+#define AS_SND_SYSTEM_PUSH_START	(31)
+#define AS_SND_SE_PUSHED_START_BUTTON	(32)
 
 /***************************************************************/
 /*                          Data Member                        */
@@ -141,7 +143,7 @@ extern const AGERM3Member ageRM3[11];
 extern const u32 ageReserve[1];
 extern const u32 ageUser[1];
 extern const s16 ageVGCnt;
-extern const AGESoundRomMember ageSRM[31];
+extern const AGESoundRomMember ageSRM[33];
 
 #ifdef __cplusplus
 }

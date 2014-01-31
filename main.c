@@ -7,6 +7,7 @@
 #include <aggl.h>
 #include <agGamePad.h>
 
+#include "title.h"
 #include "game.h"
 #include "export.h"
 #include "draw_number.h"
@@ -15,6 +16,12 @@
 
 #define MAIN_STATE_TITLE	0
 #define MAIN_STATE_GAME		1
+
+
+typedef struct mainData
+{
+	int state;
+}MainData;
 
 
 void _rtl_exit(void)
@@ -28,6 +35,8 @@ void _rtl_exit(void)
 static u32 DrawBuffer[ 4096*10 ];
 AGESoundManagerData SndMgr;
 static volatile u32 _SystemVSyncCount = 0;
+MainData mainData;
+
 
 void  main( void )  
 {
@@ -41,6 +50,8 @@ void  main( void )
 	agpDisableCpuInterrupts();
 	aglInitialize();
 	agpEnableCpuInterrupts();
+
+	mainData.state = MAIN_STATE_TITLE;
 
 	// 初期化.
 	ageSndMgrInit(&SndMgr, AGE_SOUND_ROM_OFFSET);
@@ -58,7 +69,7 @@ void  main( void )
 
 	_dprintf( ">> [Puzzle & Bullet] start.\n" );
 
-	gameInit();
+	titleInit();
 
 	skip = 0;
 	agGamePadSyncInit( &_SystemVSyncCount, 60);
@@ -71,7 +82,26 @@ void  main( void )
 		agGamePadSync();
 		ageSndMgrRun();
 
-		gameFunc();
+		switch (mainData.state) {
+			case MAIN_STATE_TITLE:
+			{
+				if (isTitleEnd()) {
+					mainData.state = MAIN_STATE_GAME;
+					gameInit();
+				}
+				titleFunc();
+			}
+				break;
+
+			case MAIN_STATE_GAME:
+				if (isGameEnd()) {
+					mainData.state = MAIN_STATE_TITLE;
+					titleInit();
+				}
+				gameFunc();
+				break;
+		}
+		
 
 		// ディスプレイリストの作成
 		agDrawBufferInit( &DBuf , DrawBuffer );
@@ -86,9 +116,15 @@ void  main( void )
 		agDrawSPRITE( &DBuf, 0, 0, 0, FB_WIDTH<<2, FB_HEIGHT<<2 );
 
 		// ゲーム画面の描画
-		gameDraw(&DBuf);
+		switch (mainData.state) {
+			case MAIN_STATE_TITLE:
+				titleDraw(&DBuf);
+				break;
 
-		// GUIの描画
+			case MAIN_STATE_GAME:
+				gameDraw(&DBuf);
+				break;
+		}
 
 		// ディスプレイリスト生成終了
 		agDrawEODL( &DBuf );

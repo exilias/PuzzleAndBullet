@@ -12,7 +12,6 @@
 #include "score.h"
 #include "gauge.h"
 #include "effect.h"
-#include "bgm_manager.h"
 #include "game_bg.h"
 #include "fade.h"
 #include "count_down.h"
@@ -83,8 +82,6 @@ void gameInit(void)
 	fadeIn();
 
 	countDownInit();
-
-	playBgm(AS_SND_GAME_BGM);
 }
 
 
@@ -210,4 +207,9 @@ void gameDraw(AGDrawBuffer *DBuf)
 			fadeDraw(DBuf);
 			break;
 	}
+}
+
+int isGameEnd()
+{
+	return gameData.isEnd;
 }
