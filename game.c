@@ -44,7 +44,7 @@ void setSrand()
 	srand(aglGetReg(AG_REG_SYSMNTR));
 }
 
-void pushedStartButton(void)
+void pushedSelectButton(void)
 {
 	int i;
 	u32 pad;
@@ -53,7 +53,7 @@ void pushedStartButton(void)
 	for (i = 0; i < 2; i++) {
 		pad = agGamePadGetData(i);
 
-		if (pad & GAMEPAD_START) {
+		if (pad & GAMEPAD_SELECT) {
 			gameInit();
 		}
 	}
@@ -153,7 +153,7 @@ void gameFunc(void)
 
 	}
 
-	pushedStartButton();
+	pushedSelectButton();
 }
 
 
